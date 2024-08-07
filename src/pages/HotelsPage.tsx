@@ -18,6 +18,7 @@ const HotelsPage = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [selectedHotel, setSelectedHotel] = useState<string | null>(null);
 
+  //Get rid of this
   useEffect(() => {
     if (isSuccess) {
       window.location.reload();
@@ -33,6 +34,7 @@ const HotelsPage = () => {
     );
   }
 
+  //use useMemo here
   const sortedHotels = [...hotels].sort((a, b) =>
     a.hotelName.localeCompare(b.hotelName)
   );
@@ -79,7 +81,7 @@ const HotelsPage = () => {
                         slidesToShow={room.images.length > 2 ? 3 : 1}
                         responsive={[
                           {
-                            breakpoint: 768, 
+                            breakpoint: 768,
                             settings: {
                               slidesToShow: 1,
                             },
