@@ -1,13 +1,9 @@
 import { useGetHotels } from "@/api/HotelsFormApi";
-import { Hotel, RoomFormData } from "@/types";
+import { Hotel } from "@/types";
 import React, { useEffect, useState } from "react";
 
 interface Props {
   data: (hotelData: Hotel) => void;
-}
-
-interface Room extends RoomFormData {
-  _id: string;
 }
 
 const HotelDropdown: React.FC<Props> = ({ data }) => {

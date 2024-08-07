@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import ImageCarousel from "@/components/ImageCarousel";
 import { HotelFormData, RoomFormData } from "@/types";
-import { useCreateHotel, useDeleteHotel } from "@/api/HotelsFormApi";
+import { useCreateHotel } from "@/api/HotelsFormApi";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import LoadingButton from "@/components/LoadingButton";

@@ -5,7 +5,6 @@ import { BrowserRouter as Router } from "react-router-dom";
 import AppRoutes from "./AppRoutes";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Toaster } from "sonner";
-import ImageStorageProvider from "./customHooks/ImageStorageProvider";
 
 const queryClient = new QueryClient({
   defaultOptions: {

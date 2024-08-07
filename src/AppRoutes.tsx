@@ -3,7 +3,6 @@ import HomePage from "./pages/HomePage";
 import Layout from "./layout/Layout";
 import BidFormPage from "./pages/BidFormPage";
 import HotelsPage from "./pages/HotelsPage";
-import ImageUploadPage from "./pages/ImageUploadPage";
 import ReadyBidPage from "./pages/ReadyBidPage";
 
 const AppRoutes = () => {
