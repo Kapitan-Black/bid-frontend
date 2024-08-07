@@ -1,12 +1,10 @@
 import { Hotel } from "@/types";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const useCreateMainBidForm = () => {
-  const createMainBidForm = async (
-    formData: any
-  ): Promise<Hotel> => {
+  const createMainBidForm = async (formData: any): Promise<Hotel> => {
     const response = await fetch(`${API_BASE_URL}/api/main-form`, {
       method: "POST",
       headers: {
@@ -28,9 +26,6 @@ export const useCreateMainBidForm = () => {
     error,
   } = useMutation(createMainBidForm);
 
-
-  
-
   return {
     createForm,
     isLoading,
@@ -39,5 +34,28 @@ export const useCreateMainBidForm = () => {
   };
 };
 
+export const useGetMainBidForms = () => {
+  const getMainBidFormsRequest = async () => {
+    const response = await fetch(`${API_BASE_URL}/api/main-form`, {
+      method: "GET",
+    });
 
+    if (!response.ok) {
+      throw new Error("Failed to get forms");
+    }
 
+    return response.json();
+  };
+
+  const { data, isLoading, isSuccess, error } = useQuery(
+    "getMainBidForms",
+    getMainBidFormsRequest
+  );
+
+  return {
+    data,
+    isLoading,
+    isSuccess,
+    error,
+  };
+};

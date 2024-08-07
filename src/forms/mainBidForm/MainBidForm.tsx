@@ -163,11 +163,14 @@ const MainBidForm: React.FC = () => {
       return item;
     });
 
+    const idArray = formData.items.map((item => item.id))
+
     const payload = {
       hotel: hotelDataArray.filter((item) => item.type === "hotel") || [],
       transfer: formData.items.filter((item) => item.type === "transfer") || [],
       flight: formData.items.filter((item) => item.type === "flight") || [],
       image: formData.items.filter((item) => item.type === "image") || [],
+      idArray
     };
     createForm(payload);
   };
@@ -181,7 +184,7 @@ const MainBidForm: React.FC = () => {
     }
   }, [isSuccess, error]);
 
-  // console.log(form.getValues().items)
+  console.log(form.getValues().items)
   // console.log(form.getValues().items.map(item => item.id))
 
   return (

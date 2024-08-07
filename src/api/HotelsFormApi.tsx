@@ -81,6 +81,8 @@ export const useGetHotels = () => {
 //     isLoading,
 //   };
 // };
+
+
 const folderName = "Hotels";
 
 export const useDeleteHotel = () => {

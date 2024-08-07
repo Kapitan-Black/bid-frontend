@@ -58,7 +58,7 @@ const TransferCard: React.FC<AttractionCardProps> = ({
     <div dir="rtl">
       <Accordion type="single" collapsible>
         <AccordionItem value={`item-${id}`}>
-          <AccordionTrigger className="relative bg-yellow-400 rounded-md p-2 sm:p-4 hover:no-underline border-2 hover:border-sky-500">
+          <AccordionTrigger className="relative bg-yellow-400 rounded-md p-2 sm:p-4 hover:no-underline border-2 hover:border-yellow-400">
             Transfer Information
             <div
               className="bg-red-400 hover:bg-red-500 p-1 rounded-md absolute sm:top-4 sm:left-12 top-2 left-8 sm:text-md text-xs"

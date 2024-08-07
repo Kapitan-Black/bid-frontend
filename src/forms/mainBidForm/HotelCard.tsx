@@ -38,15 +38,30 @@ const HotelCard: React.FC<HotelCardProps> = ({
   const [selectedHotel, setSelectedHotel] = useState<Hotel | null>(null);
   const [selectedRooms, setSelectedRooms] = useState<Room[]>([]);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const { register, control, watch, setValue } = useFormContext<{
+    items: HotelCardFields[];
+  }>();
 
   useEffect(() => {
     onDataChange(index, { selectedHotel, selectedRooms });
   }, [selectedHotel, selectedRooms]);
 
-  // useEffect(() => {
-  //   console.log("selectedRooms", selectedRooms);
-  //   console.log("selectedHotel", selectedHotel);
-  // }, [selectedHotel, selectedRooms]);
+  useEffect(() => {
+    const checkInDate = watch(`items.${index}.checkInDate`);
+    const checkOutDate = watch(`items.${index}.checkOutDate`);
+    const nights = calculateNights(checkInDate, checkOutDate);
+
+    let totalSum = 0;
+    selectedRooms.forEach((room) => {
+      totalSum += (room.nightPrice || 0) * (room.numberOfRooms || 1) * nights;
+    });
+
+    setValue(getFieldPath(index, "sum" as keyof HotelCardFields), totalSum);
+  }, [
+    selectedRooms,
+    watch(`items.${index}.checkInDate`),
+    watch(`items.${index}.checkOutDate`),
+  ]);
 
   const receiveDataFromInput = (hotelData: Hotel) => {
     setSelectedHotel(hotelData);
@@ -59,16 +74,9 @@ const HotelCard: React.FC<HotelCardProps> = ({
     return `items.${index}.${field}`;
   }
 
-  const { register, control, watch } = useFormContext<{
-    items: HotelCardFields[];
-  }>();
-
   const formatDate = (date: Date | null) => {
     return date ? date.toLocaleDateString() : "N/A";
   };
-
-  const checkInDate = watch(`items.${index}.checkInDate`) || null;
-  const checkOutDate = watch(`items.${index}.checkOutDate`) || null;
 
   const calculateNights = (checkIn: Date | null, checkOut: Date | null) => {
     if (checkIn && checkOut) {
@@ -111,7 +119,7 @@ const HotelCard: React.FC<HotelCardProps> = ({
   };
 
   return (
-    <div dir="rtl" >
+    <div dir="rtl">
       <Accordion type="single" collapsible>
         <AccordionItem value={`item-${id}`}>
           <AccordionTrigger className="relative flex flex-col md:flex-row justify-between bg-blue-500 rounded-md p-1 sm:p-4 hover:no-underline border-2 hover:border-sky-500">
@@ -119,14 +127,17 @@ const HotelCard: React.FC<HotelCardProps> = ({
             <div className="flex flex-col lg:flex-row md:gap-2">
               <div className="flex items-center">
                 <p className="ml-2">תאריך צ׳ק אין:</p>
-                {formatDate(checkInDate)}
+                {formatDate(watch(`items.${index}.checkInDate`) || null)}
               </div>
               <div className="flex items-center">
                 <p className="ml-2">תאריך צ׳ק אאוט:</p>
-                {formatDate(checkOutDate)}
+                {formatDate(watch(`items.${index}.checkOutDate`) || null)}
               </div>
               <div className="mr-2">
-                {`(${calculateNights(checkInDate, checkOutDate)} לילות)`}
+                {`(${calculateNights(
+                  watch(`items.${index}.checkInDate`),
+                  watch(`items.${index}.checkOutDate`)
+                )} לילות)`}
               </div>
             </div>
             <div
@@ -182,13 +193,13 @@ const HotelCard: React.FC<HotelCardProps> = ({
 
               <div>
                 <p>מחיר:</p>
-
                 <input
                   id={`input-${id}-sum`}
                   {...register(
                     getFieldPath(index, "sum" as keyof HotelCardFields)
                   )}
                   className="border"
+                  readOnly
                 />
               </div>
             </div>
@@ -197,7 +208,6 @@ const HotelCard: React.FC<HotelCardProps> = ({
               {rooms.map((_, roomIndex) => (
                 <HotelslRoomCard
                   key={roomIndex}
-                  // index={roomIndex}
                   onRemove={() => handleRemoveRoom(roomIndex)}
                   rooms={selectedHotel?.rooms}
                   onRoomDataChange={(roomData) =>
@@ -226,4 +236,3 @@ const HotelCard: React.FC<HotelCardProps> = ({
 };
 
 export default HotelCard;
-
