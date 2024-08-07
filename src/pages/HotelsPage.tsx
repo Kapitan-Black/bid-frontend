@@ -13,19 +13,21 @@ import ConfirmationModal from "@/components/ConfirmationModal";
 import SmallCarousel from "@/components/SmallCarousel";
 
 const HotelsPage = () => {
-  const { hotels } = useGetHotels();
+  const { hotels, error } = useGetHotels();
   const { deleteHotel, isSuccess } = useDeleteHotel();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [selectedHotel, setSelectedHotel] = useState<string | null>(null);
 
-  //Get rid of this
+  //Get rid of this, you need to modify you delete hotel hook, use invalidateQueries (I updated useDeleteHotel hook )
+
   useEffect(() => {
     if (isSuccess) {
       window.location.reload();
     }
   }, [isSuccess, deleteHotel]);
 
-  if (!hotels) {
+  //I would use error (from useHotels) here
+  if (!error) {
     return (
       <div className="container mx-auto">
         <HotelsForm />
@@ -34,7 +36,7 @@ const HotelsPage = () => {
     );
   }
 
-  //use useMemo here
+  //use useMemo here to improve performance
   const sortedHotels = [...hotels].sort((a, b) =>
     a.hotelName.localeCompare(b.hotelName)
   );
@@ -53,7 +55,6 @@ const HotelsPage = () => {
   return (
     <div className="container mx-auto" dir="rtl">
       <HotelsForm />
-
       <Accordion type="single" collapsible className="space-y-2 mt-12">
         {sortedHotels.map((hotel) => (
           <AccordionItem key={hotel._id} value={hotel._id}>
