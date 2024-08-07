@@ -47,7 +47,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ id, index, onRemove }) => {
   };
 
   return (
-    <div dir="rtl" className="mb-4">
+    <div dir="rtl">
       <Accordion type="single" collapsible>
         <AccordionItem value={`item-${id}`}>
           <AccordionTrigger className="flex relative justify-between bg-green-500 rounded-md p-2 sm:p-4 hover:no-underline border-2 hover:border-sky-500">

@@ -15,7 +15,8 @@ import FlightCard from "./FlightCard";
 import { useEffect, useState } from "react";
 import { useCreateMainBidForm } from "@/api/MainFormApi";
 import { formSchema } from "./ZodSchema";
-import { imageUrls } from "@/config/separatorUrls";
+import { SeparatorUrls } from "@/config/separatorUrls";
+import ImageSeparator from "./ImageSeparatorCard";
 
 interface FormFields {
   items: (
@@ -42,7 +43,9 @@ const MainBidForm: React.FC = () => {
   >([]);
 
   // const images = imageUrls
-  const [selectedImageUrl, setSelectedImageUrl] = useState(imageUrls[0].url);
+  const [selectedImageUrl, setSelectedImageUrl] = useState(
+    SeparatorUrls[0].url
+  );
 
   const handleHotelDataChange = (
     index: number,
@@ -178,48 +181,47 @@ const MainBidForm: React.FC = () => {
     }
   }, [isSuccess, error]);
 
-  console.log(form.getValues().items)
+  // console.log(form.getValues().items)
   // console.log(form.getValues().items.map(item => item.id))
 
   return (
     <FormProvider {...form}>
       <form onSubmit={handeleSumbmit}>
-        {fields.map((field, index) =>
-          field.type === "hotel" ? (
-            <HotelCard
-              key={field.id}
-              id={field.id}
-              index={index}
-              onRemove={() => handleHotelRemove(index)}
-              onDataChange={handleHotelDataChange}
-            />
-          ) : field.type === "transfer" ? (
-            <TransferCard
-              key={field.id}
-              id={field.id}
-              index={index}
-              onRemove={() => remove(index)}
-            />
-          ) : field.type === "flight" ? (
-            <FlightCard
-              key={field.id}
-              id={field.id}
-              index={index}
-              onRemove={() => remove(index)}
-            />
-          ) : (
-            <div key={field.id} className="image-component">
-              <img src={field.imageUrl} alt="Selected" />
-              <button
-                className="bg-red-400 rounded"
-                type="button"
-                onClick={() => remove(index)}
-              >
-                Remove
-              </button>
-            </div>
-          )
-        )}
+        <div className="space-y-2">
+          {fields.map((field, index) =>
+            field.type === "hotel" ? (
+              <HotelCard
+                key={field.id}
+                id={field.id}
+                index={index}
+                onRemove={() => handleHotelRemove(index)}
+                onDataChange={handleHotelDataChange}
+              />
+            ) : field.type === "transfer" ? (
+              <TransferCard
+                key={field.id}
+                id={field.id}
+                index={index}
+                onRemove={() => remove(index)}
+              />
+            ) : field.type === "flight" ? (
+              <FlightCard
+                key={field.id}
+                id={field.id}
+                index={index}
+                onRemove={() => remove(index)}
+              />
+            ) : (
+              <ImageSeparator
+                key={field.id}
+                id={field.id}
+                index={index}
+                imageUrl={field.imageUrl}
+                onRemove={remove}
+              />
+            )
+          )}
+        </div>
         <div className="flex flex-col gap-2 mt-12">
           <button
             type="button"
@@ -257,7 +259,7 @@ const MainBidForm: React.FC = () => {
                 value={selectedImageUrl}
                 onChange={(e) => setSelectedImageUrl(e.target.value)}
               >
-                {imageUrls.map((image, index) => (
+                {SeparatorUrls.map((image, index) => (
                   <option key={index} value={image.url}>
                     {image.description}
                   </option>

@@ -8,7 +8,6 @@ import {
 import { Controller, useFormContext } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
 import { Hotel, HotelCardFields, Room } from "@/types";
 import SelectHotelElement from "@/components/SelectHotelElement";
 import ImageCarousel from "@/components/ImageCarousel";
@@ -112,12 +111,12 @@ const HotelCard: React.FC<HotelCardProps> = ({
   };
 
   return (
-    <div dir="rtl" className="mb-4">
+    <div dir="rtl" >
       <Accordion type="single" collapsible>
         <AccordionItem value={`item-${id}`}>
-          <AccordionTrigger className="relative flex flex-col sm:flex-row justify-between bg-blue-500 rounded-md p-2 sm:p-4 hover:no-underline border-2 hover:border-sky-500">
+          <AccordionTrigger className="relative flex flex-col md:flex-row justify-between bg-blue-500 rounded-md p-1 sm:p-4 hover:no-underline border-2 hover:border-sky-500">
             <h2 className="mr-4">{selectedHotel?.hotelName}</h2>
-            <div className="flex flex-col md:flex-row md:gap-2">
+            <div className="flex flex-col lg:flex-row md:gap-2">
               <div className="flex items-center">
                 <p className="ml-2">תאריך צ׳ק אין:</p>
                 {formatDate(checkInDate)}

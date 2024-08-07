@@ -1,6 +1,6 @@
 
 
-export const imageUrls = [
+export const SeparatorUrls = [
   {
     url: "https://res.cloudinary.com/dd6eaahc6/image/upload/v1722921026/Separators/45_nnwr39.jpg",
     description: "Bangkok",
