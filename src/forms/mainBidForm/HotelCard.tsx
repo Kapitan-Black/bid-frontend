@@ -141,7 +141,8 @@ const HotelCard: React.FC<HotelCardProps> = ({
             e.target.tagName === "INPUT" ||
             e.target.tagName === "SELECT" ||
             e.target.tagName === "TEXTAREA" ||
-            e.target.tagName === "DIV")
+            e.target.tagName === "DIV" ||
+            e.target.tagName === "H2")
         ) {
           e.stopPropagation();
         }
