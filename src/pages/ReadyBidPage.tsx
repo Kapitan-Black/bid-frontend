@@ -3,7 +3,7 @@ import Drag from "@/dragExample/Drag";
 
 const ReadyBidPage = () => {
   const { data } = useGetMainBidForms()
-  // console.log(data)
+  console.log(data)
 
 
   return (
