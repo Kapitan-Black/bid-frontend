@@ -140,10 +140,10 @@ const HotelCard: React.FC<HotelCardProps> = ({
           (e.target.tagName === "BUTTON" ||
             e.target.tagName === "INPUT" ||
             e.target.tagName === "SELECT" ||
-            e.target.tagName === "TEXTAREA" )
-          
+            e.target.tagName === "TEXTAREA" ||
+            e.target.tagName === "DIV")
         ) {
-          e.stopPropagation()
+          e.stopPropagation();
         }
       }}
     >
@@ -194,6 +194,7 @@ const HotelCard: React.FC<HotelCardProps> = ({
                         field.value ? new Date(field.value as Date) : null
                       }
                       onChange={(date) => field.onChange(date)}
+                      dateFormat="dd/MM/yyyy"
                       placeholderText="הזן תאריך"
                       className="border text-center"
                     />
@@ -209,6 +210,7 @@ const HotelCard: React.FC<HotelCardProps> = ({
                         field.value ? new Date(field.value as Date) : null
                       }
                       onChange={(date) => field.onChange(date)}
+                      dateFormat="dd/MM/yyyy"
                       placeholderText="הזן תאריך"
                       className="border text-center"
                     />
