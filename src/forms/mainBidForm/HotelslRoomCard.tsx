@@ -30,7 +30,7 @@ const HotelslRoomCard: React.FC<HotelRoomCardProps> = ({
       onRoomDataChange({
         ...selectedRoom,
         nightPrice: nightPrice ?? 0,
-        numberOfRooms: numberOfRooms ?? 0 
+        numberOfRooms: numberOfRooms ?? 1 
       });
     }
   }, [selectedRoom, nightPrice, numberOfRooms]);
@@ -59,11 +59,7 @@ const HotelslRoomCard: React.FC<HotelRoomCardProps> = ({
 
   return (
     <div className="bg-amber-100 rounded-lg mt-4 p-2">
-      {/* <div className="flex">
-        {selectedRoom?.images.map((url) => (
-          <img src={url} alt="Uploaded" key={url} className="w-36 mb-4" />
-        ))}
-      </div> */}
+    
       <SmallCarousel images={selectedRoom?.images} slidesToShow={3}/>
 
       <div className="mb-2">
@@ -95,7 +91,7 @@ const HotelslRoomCard: React.FC<HotelRoomCardProps> = ({
         <input
           //   type="number"
           id={`number-of-rooms-${selectedRoom?._id}`}
-          value={numberOfRooms ?? ""}
+          value={numberOfRooms ?? 1}
           onChange={handleNumberOfRoomsChange}
           className="border"
         />

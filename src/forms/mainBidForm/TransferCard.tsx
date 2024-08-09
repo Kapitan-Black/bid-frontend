@@ -10,6 +10,8 @@ import { TransferCardFields } from "@/types";
 import DatePicker from "react-datepicker";
 import { Input } from "@/components/ui/input";
 import ConfirmationModal from "@/components/ConfirmationModal";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 interface AttractionCardProps {
   id: string;
@@ -37,6 +39,15 @@ const TransferCard: React.FC<AttractionCardProps> = ({
     return `items.${index}.${field}`;
   }
 
+   const { attributes, listeners, setNodeRef, transform, transition } =
+     useSortable({ id });
+
+   const style = {
+     transform: CSS.Transform.toString(transform),
+     transition,
+   };
+
+
   const renderInput = (label: string, field: keyof TransferCardFields) => (
     <div className="flex flex-col">
       <label>{label}:</label>
@@ -55,17 +66,35 @@ const TransferCard: React.FC<AttractionCardProps> = ({
   };
 
   return (
-    <div dir="rtl">
+    <div
+      dir="rtl"
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      onPointerDown={(e) => {
+        if (
+          e.target instanceof HTMLElement &&
+          (e.target.tagName === "BUTTON" ||
+            e.target.tagName === "INPUT" ||
+            e.target.tagName === "SELECT" ||
+            e.target.tagName === "TEXTAREA")
+        ) {
+          e.stopPropagation();
+        }
+      }}
+    >
       <Accordion type="single" collapsible>
         <AccordionItem value={`item-${id}`}>
           <AccordionTrigger className="relative bg-yellow-400 rounded-md p-2 sm:p-4 hover:no-underline border-2 hover:border-yellow-400">
-            Transfer Information
-            <div
+            <h2 className="">Transfer Information</h2>
+            <button
+              type="button"
               className="bg-red-400 hover:bg-red-500 p-1 rounded-md absolute sm:top-4 sm:left-12 top-2 left-8 sm:text-md text-xs"
               onClick={handleDelete}
             >
               remove
-            </div>
+            </button>
           </AccordionTrigger>
           <AccordionContent className="border">
             <div className="bg-gray-100 p-4">

@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,13 +13,26 @@ import {
 import HotelCard from "./HotelCard";
 import TransferCard from "./TransferCard";
 import FlightCard from "./FlightCard";
-import { useEffect, useState } from "react";
 import { useCreateMainBidForm } from "@/api/MainFormApi";
 import { formSchema } from "./ZodSchema";
 import { SeparatorUrls } from "@/config/separatorUrls";
 import ImageSeparator from "./ImageSeparatorCard";
 
+import {
+  DndContext,
+  useSensor,
+  useSensors,
+  PointerSensor,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+  useSortable,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+
 interface FormFields {
+  formName: string;
   items: (
     | HotelCardFields
     | TransferCardFields
@@ -27,13 +41,41 @@ interface FormFields {
   )[];
 }
 
+const SortableItem: React.FC<{ id: string; children: React.ReactNode }> = ({
+  id,
+  children,
+}) => {
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      className="mb-4"
+    >
+      {children}
+    </div>
+  );
+};
+
 const MainBidForm: React.FC = () => {
   const form = useForm<FormFields>({
     resolver: zodResolver(formSchema),
     defaultValues: { items: [] },
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const {
+  } = form;
+
+  const { fields, append, remove, move } = useFieldArray({
     control: form.control,
     name: "items",
   });
@@ -42,7 +84,6 @@ const MainBidForm: React.FC = () => {
     { selectedHotel: Hotel | null; selectedRooms: Room[] }[]
   >([]);
 
-  // const images = imageUrls
   const [selectedImageUrl, setSelectedImageUrl] = useState(
     SeparatorUrls[0].url
   );
@@ -140,6 +181,7 @@ const MainBidForm: React.FC = () => {
   };
 
   const { createForm, isLoading, isSuccess, error } = useCreateMainBidForm();
+
   const handeleSumbmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = form.getValues();
@@ -163,14 +205,15 @@ const MainBidForm: React.FC = () => {
       return item;
     });
 
-    const idArray = formData.items.map((item => item.id))
+    const idArray = formData.items.map((item) => item.id);
 
     const payload = {
+      formName: formData.formName,
       hotel: hotelDataArray.filter((item) => item.type === "hotel") || [],
       transfer: formData.items.filter((item) => item.type === "transfer") || [],
       flight: formData.items.filter((item) => item.type === "flight") || [],
       image: formData.items.filter((item) => item.type === "image") || [],
-      idArray
+      idArray,
     };
     createForm(payload);
   };
@@ -184,47 +227,74 @@ const MainBidForm: React.FC = () => {
     }
   }, [isSuccess, error]);
 
+  
+
+  const sensors = useSensors(useSensor(PointerSensor));
+
+  const handleDragEnd = (event: any) => {
+    const { active, over } = event;
+    if (active.id !== over.id) {
+      const oldIndex = fields.findIndex((field) => field.id === active.id);
+      const newIndex = fields.findIndex((field) => field.id === over.id);
+      move(oldIndex, newIndex);
+    }
+  };
+
   console.log(form.getValues().items)
-  // console.log(form.getValues().items.map(item => item.id))
 
   return (
     <FormProvider {...form}>
       <form onSubmit={handeleSumbmit}>
-        <div className="space-y-2">
-          {fields.map((field, index) =>
-            field.type === "hotel" ? (
-              <HotelCard
-                key={field.id}
-                id={field.id}
-                index={index}
-                onRemove={() => handleHotelRemove(index)}
-                onDataChange={handleHotelDataChange}
-              />
-            ) : field.type === "transfer" ? (
-              <TransferCard
-                key={field.id}
-                id={field.id}
-                index={index}
-                onRemove={() => remove(index)}
-              />
-            ) : field.type === "flight" ? (
-              <FlightCard
-                key={field.id}
-                id={field.id}
-                index={index}
-                onRemove={() => remove(index)}
-              />
-            ) : (
-              <ImageSeparator
-                key={field.id}
-                id={field.id}
-                index={index}
-                imageUrl={field.imageUrl}
-                onRemove={remove}
-              />
-            )
-          )}
+        <div className="flex flex-row-reverse justify-center mb-12">
+          <label htmlFor="formName">:שם ההצעה</label>
+          <input
+            id={"formName"}
+            className="border border-black"
+            {...form.register("formName")}
+          />
         </div>
+
+        <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+          <SortableContext
+            items={fields.map((field) => field.id)}
+            strategy={verticalListSortingStrategy}
+          >
+            <div className="space-y-2">
+              {fields.map((field, index) => (
+                <SortableItem key={field.id} id={field.id}>
+                  {field.type === "hotel" ? (
+                    <HotelCard
+                      id={field.id}
+                      index={index}
+                      onRemove={() => handleHotelRemove(index)}
+                      onDataChange={handleHotelDataChange}
+                    />
+                  ) : field.type === "transfer" ? (
+                    <TransferCard
+                      id={field.id}
+                      index={index}
+                      onRemove={() => remove(index)}
+                    />
+                  ) : field.type === "flight" ? (
+                    <FlightCard
+                      id={field.id}
+                      index={index}
+                      onRemove={() => remove(index)}
+                    />
+                  ) : (
+                    <ImageSeparator
+                      id={field.id}
+                      index={index}
+                      imageUrl={field.imageUrl}
+                      onRemove={remove}
+                    />
+                  )}
+                </SortableItem>
+              ))}
+            </div>
+          </SortableContext>
+        </DndContext>
+
         <div className="flex flex-col gap-2 mt-12">
           <button
             type="button"
@@ -253,7 +323,7 @@ const MainBidForm: React.FC = () => {
               <button
                 type="button"
                 onClick={addImageComponent}
-                className="bg-purple-400 rounded hover:bg-purple-500 p-2  sm:px-36"
+                className="bg-purple-400 rounded hover:bg-purple-500 p-2 sm:px-36"
               >
                 Add Image Component
               </button>

@@ -1,5 +1,8 @@
 import { z } from "zod";
 
+const headerFormSchema = z.object({
+  formName: z.string().min(1, "formName is required")
+})
 
 const hotelSchema = z.object({
   id: z.string(),
@@ -7,7 +10,7 @@ const hotelSchema = z.object({
   hotelName: z.string().min(1, "Hotel name is required"),
   checkInDate: z.date(),
   checkOutDate: z.date(),
-  hotelDescription: z.string().min(1, "Hotel description is required"),
+  hotelDescription: z.string(),
   rooms: z.array(
     z.object({
       roomType: z.string(),
@@ -68,6 +71,12 @@ const imageSchema = z.object({
 
 export const formSchema = z.object({
   items: z.array(
-    z.union([hotelSchema, transferSchema, flightSchema, imageSchema])
+    z.union([
+      hotelSchema,
+      transferSchema,
+      flightSchema,
+      imageSchema,
+      headerFormSchema,
+    ])
   ),
 });

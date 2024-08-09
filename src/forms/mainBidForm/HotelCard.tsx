@@ -16,6 +16,9 @@ import HotelslRoomCard from "./HotelslRoomCard";
 import ConfirmationModal from "@/components/ConfirmationModal";
 import RemoveButton from "@/components/RemoveButton";
 
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+
 interface HotelCardProps {
   id: string;
   index: number;
@@ -25,8 +28,14 @@ interface HotelCardProps {
     data: { selectedHotel: Hotel | null; selectedRooms: Room[] }
   ) => void;
 }
-
 type HotelCardFieldPath = `items.${number}.${keyof HotelCardFields}`;
+
+function getFieldPath(
+  index: number,
+  field: keyof HotelCardFields
+): HotelCardFieldPath {
+  return `items.${index}.${field}`;
+}
 
 const HotelCard: React.FC<HotelCardProps> = ({
   id,
@@ -42,6 +51,14 @@ const HotelCard: React.FC<HotelCardProps> = ({
     items: HotelCardFields[];
   }>();
 
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
   useEffect(() => {
     onDataChange(index, { selectedHotel, selectedRooms });
   }, [selectedHotel, selectedRooms]);
@@ -51,10 +68,9 @@ const HotelCard: React.FC<HotelCardProps> = ({
     const checkOutDate = watch(`items.${index}.checkOutDate`);
     const nights = calculateNights(checkInDate, checkOutDate);
 
-    let totalSum = 0;
-    selectedRooms.forEach((room) => {
-      totalSum += (room.nightPrice || 0) * (room.numberOfRooms || 1) * nights;
-    });
+    let totalSum = selectedRooms.reduce((acc, room) => {
+      return acc + (room.nightPrice || 0) * (room.numberOfRooms || 1) * nights;
+    }, 0);
 
     setValue(getFieldPath(index, "sum" as keyof HotelCardFields), totalSum);
   }, [
@@ -66,13 +82,6 @@ const HotelCard: React.FC<HotelCardProps> = ({
   const receiveDataFromInput = (hotelData: Hotel) => {
     setSelectedHotel(hotelData);
   };
-
-  function getFieldPath(
-    index: number,
-    field: keyof HotelCardFields
-  ): HotelCardFieldPath {
-    return `items.${index}.${field}`;
-  }
 
   const formatDate = (date: Date | null) => {
     return date ? date.toLocaleDateString() : "N/A";
@@ -119,7 +128,25 @@ const HotelCard: React.FC<HotelCardProps> = ({
   };
 
   return (
-    <div dir="rtl">
+    <div
+      dir="rtl"
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      onPointerDown={(e) => {
+        if (
+          e.target instanceof HTMLElement &&
+          (e.target.tagName === "BUTTON" ||
+            e.target.tagName === "INPUT" ||
+            e.target.tagName === "SELECT" ||
+            e.target.tagName === "TEXTAREA" )
+          
+        ) {
+          e.stopPropagation()
+        }
+      }}
+    >
       <Accordion type="single" collapsible>
         <AccordionItem value={`item-${id}`}>
           <AccordionTrigger className="relative flex flex-col md:flex-row justify-between bg-blue-500 rounded-md p-1 sm:p-4 hover:no-underline border-2 hover:border-sky-500">
@@ -140,12 +167,13 @@ const HotelCard: React.FC<HotelCardProps> = ({
                 )} לילות)`}
               </div>
             </div>
-            <div
+            <button
+              type="button"
               className="bg-red-400 hover:bg-red-500 p-1 rounded-md absolute sm:top-4 sm:left-12 top-10 left-8 sm:text-md text-xs"
               onClick={handleDelete}
             >
               remove
-            </div>
+            </button>
           </AccordionTrigger>
           <AccordionContent className="border p-2 sm:p-4">
             <div className="flex justify-center">
