@@ -1,108 +1,118 @@
 import RemoveButton from "@/components/RemoveButton";
 import SmallCarousel from "@/components/SmallCarousel";
 import { Room } from "@/types";
-import { useEffect, useState } from "react";
+import { Controller, useFormContext } from "react-hook-form";
 
 interface HotelRoomCardProps {
-  //   index: number;
   onRemove: () => void;
   rooms: Room[] | undefined;
   onRoomDataChange: (roomData: Room) => void;
+  index: number;
+  roomIndex: number;
 }
 
 const HotelslRoomCard: React.FC<HotelRoomCardProps> = ({
-  //   index,
   onRemove,
   rooms,
   onRoomDataChange,
+  index,
+  roomIndex,
 }) => {
-  const [roomData, setRoomData] = useState<Room[]>([]);
-  const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
-  const [nightPrice, setNightPrice] = useState<number | null>(null);
-  const [numberOfRooms, setNumberOfRooms] = useState<number | null>(null);
-
-  useEffect(() => {
-    setRoomData(rooms || []);
-  }, [rooms]);
-
-  useEffect(() => {
-    if (selectedRoom) {
-      onRoomDataChange({
-        ...selectedRoom,
-        nightPrice: nightPrice ?? 0,
-        numberOfRooms: numberOfRooms ?? 1 
-      });
-    }
-  }, [selectedRoom, nightPrice, numberOfRooms]);
+  const { control, watch, setValue } = useFormContext();
 
   const handleRoomChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedId = event.target.value;
-    if (roomData) {
-      const room = roomData.find((room) => room._id === selectedId);
-      setSelectedRoom(room || null);
-      // setNightPrice(room?.nightPrice || 0)
-      // setNumberOfRooms(room?.numberOfRooms || 0)
-    }
+    const room = rooms?.find((room) => room._id === selectedId) || null;
+    setValue(`items.${index}.rooms.${roomIndex}.selectedRoom`, room);
+    onRoomDataChange(room!);
   };
 
   const handleNightPriceChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setNightPrice(Number(event.target.value));
+    const nightPrice = Number(event.target.value);
+    setValue(`items.${index}.rooms.${roomIndex}.nightPrice`, nightPrice);
+    onRoomDataChange({
+      ...watch(`items.${index}.rooms.${roomIndex}.selectedRoom`),
+      nightPrice,
+    });
   };
 
   const handleNumberOfRoomsChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setNumberOfRooms(Number(event.target.value));
+    const numberOfRooms = Number(event.target.value);
+    setValue(`items.${index}.rooms.${roomIndex}.numberOfRooms`, numberOfRooms);
+    onRoomDataChange({
+      ...watch(`items.${index}.rooms.${roomIndex}.selectedRoom`),
+      numberOfRooms,
+    });
   };
 
   return (
     <div className="bg-amber-100 rounded-lg mt-4 p-2">
-    
-      <SmallCarousel images={selectedRoom?.images} slidesToShow={3}/>
+      <SmallCarousel
+        images={watch(`items.${index}.rooms.${roomIndex}.selectedRoom`)?.images}
+        slidesToShow={3}
+      />
 
       <div className="mb-2">
-        <label htmlFor="room-select">בחירת סוג חדר:</label>
-        <select className="border" id="room-select" onChange={handleRoomChange}>
-          <option value="">--Please choose an option--</option>
-
-          {roomData &&
-            roomData.map((room) => (
-              <option key={room._id} value={room._id}>
-                {room.roomType}
-              </option>
-            ))}
-        </select>
+        <label htmlFor={`room-select-${roomIndex}`}>בחירת סוג חדר:</label>
+        <Controller
+          name={`items.${index}.rooms.${roomIndex}.selectedRoom`}
+          control={control}
+          render={({ field }) => (
+            <select
+              className="border"
+              id={`room-select-${roomIndex}`}
+              onChange={handleRoomChange}
+              value={field.value?._id || ""}
+            >
+              <option value="">--Please choose an option--</option>
+              {rooms &&
+                rooms.map((room) => (
+                  <option key={room._id} value={room._id}>
+                    {room.roomType}
+                  </option>
+                ))}
+            </select>
+          )}
+        />
       </div>
       <div className="flex flex-col sm:flex-row">
-        <label htmlFor={`night-price-${selectedRoom?._id}`}>מחיר ללילה :</label>
-        <input
-          //   type="number"
-          id={`night-price-${selectedRoom?._id}`}
-          value={nightPrice ?? ""}
-          onChange={handleNightPriceChange}
-          className="border"
+        <label htmlFor={`night-price-${roomIndex}`}>מחיר ללילה :</label>
+        <Controller
+          name={`items.${index}.rooms.${roomIndex}.nightPrice`}
+          control={control}
+          render={({ field }) => (
+            <input
+              id={`night-price-${roomIndex}`}
+              value={field.value || ""}
+              onChange={handleNightPriceChange}
+              className="border"
+            />
+          )}
         />
 
-        <label htmlFor={`number-of-rooms-${selectedRoom?._id}`}>
-          כמות חדרים:
-        </label>
-        <input
-          //   type="number"
-          id={`number-of-rooms-${selectedRoom?._id}`}
-          value={numberOfRooms ?? 1}
-          onChange={handleNumberOfRoomsChange}
-          className="border"
+        <label htmlFor={`number-of-rooms-${roomIndex}`}>כמות חדרים:</label>
+        <Controller
+          name={`items.${index}.rooms.${roomIndex}.numberOfRooms`}
+          control={control}
+          render={({ field }) => (
+            <input
+              id={`number-of-rooms-${roomIndex}`}
+              value={field.value || 1}
+              onChange={handleNumberOfRoomsChange}
+              className="border"
+            />
+          )}
         />
       </div>
       <div className="flex justify-end mt-4">
-        <RemoveButton onRemove={onRemove} text="מחק חדר"/>
+        <RemoveButton onRemove={onRemove} text="מחק חדר" />
       </div>
     </div>
   );
 };
 
 export default HotelslRoomCard;
-
-

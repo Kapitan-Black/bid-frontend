@@ -10,8 +10,8 @@ import { TransferCardFields } from "@/types";
 import DatePicker from "react-datepicker";
 import { Input } from "@/components/ui/input";
 import ConfirmationModal from "@/components/ConfirmationModal";
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
+// import { useSortable } from "@dnd-kit/sortable";
+// import { CSS } from "@dnd-kit/utilities";
 
 interface AttractionCardProps {
   id: string;
@@ -39,14 +39,13 @@ const TransferCard: React.FC<AttractionCardProps> = ({
     return `items.${index}.${field}`;
   }
 
-   const { attributes, listeners, setNodeRef, transform, transition } =
-     useSortable({ id });
+  // const { attributes, listeners, setNodeRef, transform, transition } =
+  //   useSortable({ id });
 
-   const style = {
-     transform: CSS.Transform.toString(transform),
-     transition,
-   };
-
+  // const style = {
+  //   transform: CSS.Transform.toString(transform),
+  //   transition,
+  // };
 
   const renderInput = (label: string, field: keyof TransferCardFields) => (
     <div className="flex flex-col">
@@ -68,17 +67,20 @@ const TransferCard: React.FC<AttractionCardProps> = ({
   return (
     <div
       dir="rtl"
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...listeners}
+      // ref={setNodeRef}
+      // style={style}
+      // {...attributes}
+      // {...listeners}
       onPointerDown={(e) => {
         if (
           e.target instanceof HTMLElement &&
           (e.target.tagName === "BUTTON" ||
             e.target.tagName === "INPUT" ||
             e.target.tagName === "SELECT" ||
-            e.target.tagName === "TEXTAREA")
+            e.target.tagName === "TEXTAREA" ||
+            e.target.tagName === "DIV" ||
+            e.target.tagName === "H2" ||
+            e.target.tagName === "SPAN")
         ) {
           e.stopPropagation();
         }
@@ -87,7 +89,7 @@ const TransferCard: React.FC<AttractionCardProps> = ({
       <Accordion type="single" collapsible>
         <AccordionItem value={`item-${id}`}>
           <AccordionTrigger className="relative bg-yellow-400 rounded-md p-2 sm:p-4 hover:no-underline border-2 hover:border-yellow-400">
-            <h2 className="">Transfer Information</h2>
+            <h3 className="">Transfer Information</h3>
             <button
               type="button"
               className="bg-red-400 hover:bg-red-500 p-1 rounded-md absolute sm:top-4 sm:left-12 top-2 left-8 sm:text-md text-xs"
@@ -109,6 +111,7 @@ const TransferCard: React.FC<AttractionCardProps> = ({
                         <DatePicker
                           selected={field.value ? new Date(field.value) : null}
                           onChange={(date) => field.onChange(date)}
+                          dateFormat="dd/MM/yyyy"
                           placeholderText="Select date"
                           className="border p-1"
                         />
@@ -121,10 +124,15 @@ const TransferCard: React.FC<AttractionCardProps> = ({
                 </div>
                 <div className="flex flex-col sm:w-1/2">
                   {" "}
-                  {renderInput("כמןת מבוגרים", "numberOfAdults")}
-                  {renderInput("כמות ילדים", "numberOfChildren")}
-                  {renderInput("הערות סוכן ", "agentComments")}
                   {renderInput("מחיר", "sum")}
+                  <div className="flex flex-col">
+                    <label>הערות סוכן:</label>
+                    <textarea
+                      {...register(getFieldPath(index, "agentComments"))}
+                      className="border p-1"
+                      rows={4}
+                    />
+                  </div>
                 </div>
               </div>
 

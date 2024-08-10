@@ -57,8 +57,6 @@ export interface TransferCardFields {
   time: string;
   from: string;
   to: string;
-  numberOfAdults: number;
-  numberOfChildren: number;
   agentComments: string;
   sum: number;
 }
@@ -66,29 +64,18 @@ export interface TransferCardFields {
 export type FlightCardFields = {
   id: string;
   type: "flight";
-  forthDepartureDate: Date;
-  forthArrivalDate: Date;
-  forthFlightNumber: string;
-  forthAirline: string;
-  forthDepartureAirport: string;
-  forthArrivalAirport: string;
-  forthStopsNumber: number;
-  forthStopoverAirport1: string;
-  forthStopoverAirport2: string;
-  forthFlightTime: string;
-  forthLandingTime: string;
+  DepartureDate: Date;
+  ArrivalDate: Date;
+  FlightNumber: string;
+  Airline: string;
+  DepartureAirport: string;
+  ArrivalAirport: string;
+  StopsNumber: number;
+  StopoverAirport1: string;
+  StopoverAirport2: string;
+  FlightTime: string;
+  LandingTime: string;
 
-  backDepartureDate: Date;
-  backArrivalDate: Date;
-  backFlightNumber: string;
-  backAirline: string;
-  backDepartureAirport: string;
-  backArrivalAirport: string;
-  backStopsNumber: number;
-  backStopoverAirport1: string;
-  backStopoverAirport2: string;
-  backFlightTime: string;
-  backLandingTime: string;
   numberOfAdults: number;
   numberOfChildren: number;
   priceForAdult: number;

@@ -76,7 +76,7 @@ const HotelsPage = () => {
                     <AccordionContent className="border bg-amber-100">
                       <SmallCarousel
                         images={room.images}
-                        slidesToShow={room.images.length > 2 ? 3 : 1}
+                        slidesToShow={room.images.length > 3 ? 3 : 1}
                         responsive={[
                           {
                             breakpoint: 768, 

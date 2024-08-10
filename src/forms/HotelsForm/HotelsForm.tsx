@@ -157,19 +157,19 @@ const HotelsForm = () => {
               </div>
 
               <div className="flex flex-col gap-4 bg-gray-50">
-                <div className="flex gap-4">
-                  <h2 className="text-2xl">שם הבית מלון:</h2>
+                <div className="flex flex-col sm:flex-row sm:gap-4">
+                  <h2 className="sm:text-2xl">שם הבית מלון:</h2>
                   <input
                     {...methods.register("hotelName")}
-                    className="border text-xl"
+                    className="border text-sm sm:text-xl"
                   />
                 </div>
 
-                <div>
-                  <h3 className="text-xl">תיאור הבית מלון:</h3>
+                <div className=""> 
+                  <h3 className="sm:text-xl">תיאור הבית מלון:</h3>
                   <textarea
                     {...methods.register("hotelDescription")}
-                    className="border h-[100px] w-[400px] md:w-[700px]  text-xl"
+                    className="border h-[100px] w-full text-sm  sm:text-xl"
                   />
                 </div>
               </div>
@@ -188,7 +188,7 @@ const HotelsForm = () => {
                     showRemoveButton={index === rooms.length - 1}
                   />
                 ))}
-                <Button type="button" onClick={handleAddRoom} className="mt-4">
+                <Button type="button" onClick={handleAddRoom} className="mt-4 text-xs p-1 h-5">
                   Add Room
                 </Button>
               </div>

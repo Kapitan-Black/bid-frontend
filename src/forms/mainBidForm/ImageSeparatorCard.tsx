@@ -52,7 +52,10 @@ const ImageSeparator: React.FC<ImageSeparator> = ({
           (e.target.tagName === "BUTTON" ||
             e.target.tagName === "INPUT" ||
             e.target.tagName === "SELECT" ||
-            e.target.tagName === "TEXTAREA")
+            e.target.tagName === "TEXTAREA" ||
+            e.target.tagName === "DIV" ||
+            e.target.tagName === "H2" ||
+            e.target.tagName === "SPAN")
         ) {
           e.stopPropagation();
         }

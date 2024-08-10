@@ -62,7 +62,7 @@ const UploadImagesInput: React.FC<Props> = ({ showImages, data }) => {
           key={inputKey}
           multiple
           onChange={handleFileChange}
-          className="flex justify-center w-[200px] sm:w-[400px] lg:w-[600px]"
+          className="flex justify-center w-full"
         />
       </div>
       <div className="flex justify-center mt-4">

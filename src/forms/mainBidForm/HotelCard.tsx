@@ -45,7 +45,9 @@ const HotelCard: React.FC<HotelCardProps> = ({
 }) => {
   const [rooms, setRooms] = useState<Room[]>([]);
   const [selectedHotel, setSelectedHotel] = useState<Hotel | null>(null);
+  console.log("selectedHotel------", selectedHotel);
   const [selectedRooms, setSelectedRooms] = useState<Room[]>([]);
+  console.log("selectedRooms------", selectedRooms);
   const [showModal, setShowModal] = useState<boolean>(false);
   const { register, control, watch, setValue } = useFormContext<{
     items: HotelCardFields[];
@@ -142,7 +144,8 @@ const HotelCard: React.FC<HotelCardProps> = ({
             e.target.tagName === "SELECT" ||
             e.target.tagName === "TEXTAREA" ||
             e.target.tagName === "DIV" ||
-            e.target.tagName === "H2")
+            e.target.tagName === "H2" ||
+            e.target.tagName === "SPAN")
         ) {
           e.stopPropagation();
         }
@@ -182,7 +185,7 @@ const HotelCard: React.FC<HotelCardProps> = ({
             </div>
 
             <div className="space-y-2 p-4">
-              <SelectHotelElement data={receiveDataFromInput} />
+              <SelectHotelElement data={receiveDataFromInput} hotelName={selectedHotel?.hotelName} />
 
               <div className="flex flex-col sm:flex-row">
                 <p>תאריכים:</p>
@@ -238,6 +241,8 @@ const HotelCard: React.FC<HotelCardProps> = ({
             <div>
               {rooms.map((_, roomIndex) => (
                 <HotelslRoomCard
+                  index={index}
+                  roomIndex={roomIndex}
                   key={roomIndex}
                   onRemove={() => handleRemoveRoom(roomIndex)}
                   rooms={selectedHotel?.rooms}

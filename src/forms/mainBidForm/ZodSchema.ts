@@ -22,11 +22,12 @@ const hotelSchema = z.object({
 const transferSchema = z.object({
   id: z.string(),
   type: z.literal("transfer"),
-  attractionName: z.string().min(1, "Attraction name is required"),
-  visitors: z.string().min(1, "Visitors count is required"),
-  adults: z.string().min(1, "Adults count is required"),
-  children: z.string().min(1, "Children count is required"),
+  transferDate: z.date(),
+  time: z.string(),
+  from: z.string(),
+  to: z.string(),
   sum: z.string(),
+  agentComments: z.string()
 });
 
 export const flightSchema = z.object({
@@ -43,19 +44,7 @@ export const flightSchema = z.object({
   forthStopoverAirport2: z.string(),
   forthFlightTime: z.string(),
   forthLandingTime: z.string(),
-
-  backDepartureDate: z.date(),
-  backArrivalDate: z.date(),
-  backFlightNumber: z.string(),
-  backAirline: z.string(),
-  backDepartureAirport: z.string(),
-  backArrivalAirport: z.string(),
-  backStopsNumber: z.number(),
-  backStopoverAirport1: z.string(),
-  backStopoverAirport2: z.string(),
-  backFlightTime: z.string(),
-  backLandingTime: z.string(),
-
+  
   numberOfAdults: z.number(),
   numberOfChildren: z.number(),
   priceForAdult: z.number(),

@@ -4,15 +4,12 @@ import React, { useEffect, useState } from "react";
 
 interface Props {
   data: (hotelData: Hotel) => void;
+  hotelName: string | undefined;
 }
 
-const HotelDropdown: React.FC<Props> = ({ data }) => {
-
+const HotelDropdown: React.FC<Props> = ({ data, hotelName }) => {
   const [hotelsData, setHotelsData] = useState<Hotel[]>([]);
   const [selectedHotel, setSelectedHotel] = useState<Hotel | null>(null);
-
-
-  // console.log("selectedHotel====", selectedHotel);
 
   const { hotels } = useGetHotels();
   //  console.log(hotels)
@@ -39,8 +36,17 @@ const HotelDropdown: React.FC<Props> = ({ data }) => {
   return (
     <div>
       <label htmlFor="hotel-select">בחירת בית מלון:</label>
-      <select className="border" id="hotel-select" onChange={handleHotelChange}>
-        <option value="">--Please choose an option--</option>
+      <select
+        className="border"
+        id="hotel-select"
+        onChange={handleHotelChange}
+        value={selectedHotel?.hotelName || ""}
+      >
+        <option value="">
+          {hotelName
+            ? hotelName
+            : "--Please choose an option--"}
+        </option>
         {hotelsData.map((hotel) => (
           <option key={hotel._id} value={hotel._id}>
             {hotel.hotelName}
@@ -52,7 +58,3 @@ const HotelDropdown: React.FC<Props> = ({ data }) => {
 };
 
 export default HotelDropdown;
-
-
-
-
