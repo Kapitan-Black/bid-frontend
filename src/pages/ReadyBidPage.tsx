@@ -2,7 +2,7 @@ import { useGetMainBidForms } from "@/api/MainFormApi";
 import { MainBidServerResponse } from "@/types/mainBidFormResponse";
 
 const ReadyBidPage = () => {
-  const { data, isLoading, error } = useGetMainBidForms();
+  const { data, } = useGetMainBidForms();
   // console.log("data====", data);
 
   if (!data) {
