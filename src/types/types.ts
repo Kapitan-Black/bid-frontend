@@ -1,10 +1,5 @@
 
 
-export type Images = {
-  id: string;
-  images: string[];
-}; 
-
 export interface Room {
   roomType: string;
   images: string[];
@@ -23,7 +18,6 @@ export interface Hotel {
 
 }
 
-
 export interface RoomFormData {
   roomType: string;
   images: string[];
@@ -36,6 +30,12 @@ export interface HotelFormData  {
   rooms: RoomFormData[];
 }
 
+
+export interface ImageComponent {
+  id: string;
+  type: "image";
+  imageUrl: string;
+}
 
 
 export interface HotelCardFields {
@@ -82,6 +82,8 @@ export type FlightCardFields = {
   priceForChild: number;
   agentComments: string;
 };
+
+
 
 
 

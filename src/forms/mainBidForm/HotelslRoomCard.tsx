@@ -1,6 +1,6 @@
 import RemoveButton from "@/components/RemoveButton";
 import SmallCarousel from "@/components/SmallCarousel";
-import { Room } from "@/types";
+import { Room } from "../../types/types";
 import { Controller, useFormContext } from "react-hook-form";
 
 interface HotelRoomCardProps {

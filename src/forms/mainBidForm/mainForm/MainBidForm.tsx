@@ -9,18 +9,15 @@ import {
   Room,
   HotelCardFields,
   FlightCardFields,
-} from "@/types";
+  ImageComponent,
+} from "../../../types/types";
 import SortableList from "./SortableList";
 import FormActions from "./FormActions";
 import { useCreateMainBidForm } from "@/api/MainFormApi";
 import { formSchema } from "../../mainBidForm/ZodSchema"
 import { SeparatorUrls } from "@/config/separatorUrls";
 
-interface ImageComponent {
-  id: string;
-  type: "image";
-  imageUrl: string;
-}
+
 
 export interface FormFields {
   formName: string;

@@ -8,7 +8,7 @@ import {
 import { Controller, useFormContext } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Hotel, HotelCardFields, Room } from "@/types";
+import { Hotel, HotelCardFields, Room } from "../../types/types";
 import SelectHotelElement from "@/components/SelectHotelElement";
 import ImageCarousel from "@/components/ImageCarousel";
 import { Button } from "@/components/ui/button";

@@ -1,4 +1,5 @@
-import { Hotel } from "@/types";
+import { MainBidServerResponse } from "@/types/mainBidFormResponse";
+import { Hotel } from "../types/types";
 import { useMutation, useQuery } from "react-query";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -35,7 +36,7 @@ export const useCreateMainBidForm = () => {
 };
 
 export const useGetMainBidForms = () => {
-  const getMainBidFormsRequest = async () => {
+  const getMainBidFormsRequest = async (): Promise<MainBidServerResponse[]> => {
     const response = await fetch(`${API_BASE_URL}/api/main-form`, {
       method: "GET",
     });

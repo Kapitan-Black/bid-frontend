@@ -6,7 +6,7 @@ import {
   AccordionContent,
 } from "../../components/ui/accordion";
 import { Controller, useFormContext } from "react-hook-form";
-import { TransferCardFields } from "@/types";
+import { TransferCardFields } from "../../types/types";
 import DatePicker from "react-datepicker";
 import { Input } from "@/components/ui/input";
 import ConfirmationModal from "@/components/ConfirmationModal";

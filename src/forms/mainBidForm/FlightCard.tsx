@@ -8,7 +8,7 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "../../components/ui/accordion";
-import { FlightCardFields } from "@/types";
+import { FlightCardFields } from "../../types/types";
 import ConfirmationModal from "@/components/ConfirmationModal";
 
 import { useSortable } from "@dnd-kit/sortable";
