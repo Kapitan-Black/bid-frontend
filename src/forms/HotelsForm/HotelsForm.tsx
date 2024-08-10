@@ -136,7 +136,7 @@ const HotelsForm = () => {
         >
           Add Hotel
         </button>
-        <div className="container bg-gray-100 rounded-lg">
+        <div className="sm:container bg-gray-100 rounded-lg">
           <div className="flex justify-center">
             {showForm && hotelUrls.length > 0 && (
               <ImageCarousel

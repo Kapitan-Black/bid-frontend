@@ -36,7 +36,7 @@ const UploadImagesInput: React.FC<Props> = ({ showImages, data }) => {
     <div className="mt-4">
       {showImages && (
         <div className="flex justify-center">
-          <div className="w-[300px] sm:w-[400px] md:w-[550px] lg:w-[800px] xl:w-[1100px] mb-8">
+          <div className="w-[280px] sm:w-[400px] md:w-[550px] lg:w-[800px] xl:w-[1100px] mb-8">
             <SmallCarousel
               images={imageUrls}
               slidesToShow={imageUrls.length > 2 ? 3 : 1}
@@ -62,7 +62,7 @@ const UploadImagesInput: React.FC<Props> = ({ showImages, data }) => {
           key={inputKey}
           multiple
           onChange={handleFileChange}
-          className="flex justify-center w-full"
+          className="flex justify-center w-[150px] sm:w-full"
         />
       </div>
       <div className="flex justify-center mt-4">

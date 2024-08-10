@@ -49,7 +49,7 @@ const HotelsPage = () => {
   };
 
   return (
-    <div className="container mx-auto" dir="rtl">
+    <div className="sm:container mx-auto" dir="rtl">
       <HotelsForm />
 
       <Accordion type="single" collapsible className="space-y-2 mt-12">

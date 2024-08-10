@@ -53,11 +53,11 @@ const HotelRoomForm: React.FC<HotelRoomProps> = ({ index, onRemove, onUpdate, sh
   }, [roomData]);
 
   return (
-    <div className="bg-amber-100 rounded-lg mt-8 p-2">
-      <div className="flex justify-center mt-4">
+    <div className="bg-amber-100 rounded-lg mt-2 p-2">
+      <div className="flex justify-center sm:mt-4 mt-[-24px]">
         <UploadImagesInput data={receiveDataFromInput} showImages />
       </div>
-      <h3>Room {roomData.index + 1}</h3>
+      <h3>חדר {roomData.index + 1}</h3>
       <div className="w-[250px]">
         <Controller
           control={control}
@@ -67,14 +67,14 @@ const HotelRoomForm: React.FC<HotelRoomProps> = ({ index, onRemove, onUpdate, sh
             <Input
               {...field}
               placeholder="Room Type"
-              value={roomData.roomType} // Controlled value
+              value={roomData.roomType}
               onChange={(e) => handleRoomTypeChange(e.target.value)}
             />
           )}
         />
       </div>
       {showRemoveButton && (
-        <div className="flex justify-end">
+        <div className="flex justify-end mt-4">
         
           <RemoveButton onRemove={onRemove} text="מחק חדר"/>
         </div>
