@@ -1,6 +1,5 @@
-
 import { Hotel, HotelFormData } from "@/types";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -35,6 +34,7 @@ export const useCreateHotel = () => {
     error,
   };
 };
+//Another small point in naming convention,so react query hook should be with query suffix  useGetHotelsQuery
 
 export const useGetHotels = () => {
   const getHotelsRequest = async (): Promise<Hotel[]> => {
@@ -86,6 +86,7 @@ export const useGetHotels = () => {
 const folderName = "Hotels";
 
 export const useDeleteHotel = () => {
+  const queryClient = useQueryClient();
   const deleteHotelRequest = async (hotelName: string) => {
     const response = await fetch(`${API_BASE_URL}/api/hotels`, {
       method: "DELETE",
@@ -108,7 +109,11 @@ export const useDeleteHotel = () => {
     isLoading,
     isSuccess,
     error,
-  } = useMutation(deleteHotelRequest);
+  } = useMutation(deleteHotelRequest, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("getHotels");
+    },
+  });
 
   return {
     deleteHotel,
