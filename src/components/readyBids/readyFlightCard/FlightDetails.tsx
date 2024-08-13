@@ -50,7 +50,7 @@ const FlightDetails = ({ data }: Props) => {
         </div>
       </div>
 
-      <div className="space-y-2 sm:mr-8 flex flex-col items-center sm:items-start">
+      <div className="space-y-2 sm:mr-8 flex flex-col items-center sm:items-start mb-4">
         {data.stopoverAirport1 && (
           <div className="flex flex-col items-center text-center sm:flex-row sm:gap-4">
             <span className="flex gap-2">

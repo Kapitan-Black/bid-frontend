@@ -43,7 +43,7 @@ const ReadyFlightCard: React.FC<ReadyFlightCardProps> = ({ data }) => {
           <AccordionContent>
             <div className="bg-green-100 rounded-b-lg py-4">
               <FlightDetails data={data} />
-              <Separator />
+              <Separator className="bg-green-400"/>
               <PasangersDetails data={data} />
             </div>
           </AccordionContent>
