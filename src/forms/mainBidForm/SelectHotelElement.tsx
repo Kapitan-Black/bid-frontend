@@ -1,5 +1,5 @@
 import { useGetHotels } from "@/api/HotelsFormApi";
-import { Hotel } from "@/types";
+import { Hotel } from "@/types/types";
 import React, { useEffect, useState } from "react";
 
 interface Props {

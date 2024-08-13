@@ -1,8 +1,7 @@
 import { MainBidServerResponse } from "@/types/mainBidFormResponse";
 import { Hotel } from "../types/types";
 import { useMutation, useQuery } from "react-query";
-import { useEffect, useState } from "react";
-import { error } from "console";
+
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
