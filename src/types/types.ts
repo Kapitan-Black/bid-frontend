@@ -31,6 +31,8 @@ export interface HotelFormData  {
 }
 
 
+
+
 export interface ImageComponent {
   id: string;
   type: "image";
@@ -46,40 +48,49 @@ export interface HotelCardFields {
   checkOutDate: Date;
   hotelDescription: string;
   rooms: RoomFormData[];
-  // images: string[];
   sum: number;
 };
 
 export interface TransferCardFields {
   id: string;
   type: "transfer";
+  transferDescription: string;
   transferDate: Date;
-  time: string;
+  departureTime: string;
+  arrivalTime: string;
   from: string;
   to: string;
   agentComments: string;
+  passengerComposition: string;
   sum: number;
 }
 
 export type FlightCardFields = {
   id: string;
   type: "flight";
-  DepartureDate: Date;
-  ArrivalDate: Date;
-  FlightNumber: string;
-  Airline: string;
-  DepartureAirport: string;
-  ArrivalAirport: string;
-  StopsNumber: number;
-  StopoverAirport1: string;
-  StopoverAirport2: string;
-  FlightTime: string;
-  LandingTime: string;
+  flightDescription: string;
+  departureDate: Date;
+  arrivalDate: Date;
+  flightNumber: string;
+  airline: string;
+  departureAirport: string;
+  arrivalAirport: string;
+  stopsNumber: number;
+  stopoverAirport1: string;
+  stopoverAirport2: string;
+  stopoverAirport3: string;
+  stopover1Time: string;
+  stopover2Time: string;
+  stopover3Time: string;
+  flightTime: string;
+  landingTime: string;
 
   numberOfAdults: number;
   numberOfChildren: number;
+  numberOfBabies: number;
   priceForAdult: number;
   priceForChild: number;
+  priceForBaby: number;
   agentComments: string;
 };
 

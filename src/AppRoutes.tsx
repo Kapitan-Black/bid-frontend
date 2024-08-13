@@ -4,6 +4,7 @@ import Layout from "./layout/Layout";
 import BidFormPage from "./pages/BidFormPage";
 import HotelsPage from "./pages/HotelsPage";
 import ReadyBidPage from "./pages/ReadyBidPage";
+import ReadyBid from "./components/readyBids/ReadyBid";
 
 const AppRoutes = () => {
   return (
@@ -37,7 +38,15 @@ const AppRoutes = () => {
         }
       />
 
-      <Route path="/ready-form" element={<span>Huivam</span>} />
+      <Route
+        path="/form/:formName"
+        element={
+          <Layout>
+            <ReadyBid />
+          </Layout>
+        }
+      />
+
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );

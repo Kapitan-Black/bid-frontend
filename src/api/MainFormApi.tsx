@@ -1,6 +1,8 @@
 import { MainBidServerResponse } from "@/types/mainBidFormResponse";
 import { Hotel } from "../types/types";
 import { useMutation, useQuery } from "react-query";
+import { useEffect, useState } from "react";
+import { error } from "console";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -60,3 +62,16 @@ export const useGetMainBidForms = () => {
     error,
   };
 };
+
+// export const useGetSpecificForm = async (formName: string) => {
+//   const [form, setForm] = useState<MainBidServerResponse>();
+//   useEffect(() => {
+//     fetch(`${API_BASE_URL}/api/main-form/${formName}`)
+//       .then((response) => response.json())
+//       .then((data) => setForm(data))
+//       .catch((error) => console.log(error, "Error"));
+//   }, []);
+
+//   return form
+// };
+

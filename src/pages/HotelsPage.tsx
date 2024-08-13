@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import ConfirmationModal from "@/components/ConfirmationModal";
 import SmallCarousel from "@/components/SmallCarousel";
+import { Room } from "@/types/types";
 
 const HotelsPage = () => {
   const { hotels } = useGetHotels();
@@ -65,7 +66,7 @@ const HotelsPage = () => {
               <p className="mt-8">{hotel.hotelDescription}</p>
 
               <Accordion type="single" collapsible className="space-y-2">
-                {hotel.rooms.map((room) => (
+                {hotel.rooms.map((room: Room) => (
                   <AccordionItem key={room._id} value={room._id}>
                     <AccordionTrigger className="bg-amber-200 rounded p-4 ">
                       <div className="flex space-x-2">

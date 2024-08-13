@@ -1,20 +1,27 @@
 type FlightResponse = {
-  Airline: string;
-  ArrivalAirport: string;
-  ArrivalDate: string; // ISO date string
-  DepartureAirport: string;
-  DepartureDate: string; // ISO date string
-  FlightNumber: string;
-  FlightTime: string;
-  LandingTime: string;
-  StopoverAirport1: string;
-  StopoverAirport2: string;
-  StopsNumber: number;
+  flightDescription: string;
+  airline: string;
+  arrivalAirport: string;
+  arrivalDate: string; // ISO date string
+  departureAirport: string;
+  departureDate: string; // ISO date string
+  flightNumber: string;
+  flightTime: string;
+  landingTime: string;
+  stopoverAirport1: string;
+  stopoverAirport2: string;
+  stopoverAirport3: string;
+  stopover1Time: string;
+  stopover2Time: string;
+  stopover3Time: string;
+  stopsNumber: number;
   agentComments: string;
   numberOfAdults: number;
   numberOfChildren: number;
+  numberOfBabies: number;
   priceForAdult: number;
   priceForChild: number;
+  priceForBaby: number;
   type: string;
   id: string;
   _id: string;
@@ -44,13 +51,16 @@ type HotelResponse = {
 type TransferResponse = {
   id: string;
   type: "transfer";
+  transferDescription: string;
   transferDate: string; // ISO date string
-  time: string;
+  departureTime: string;
+  arrivalTime: string;
   from: string;
   to: string;
   sum: number;
-    agentComments: string;
-    _id: string;
+  passengerComposition: string;
+  agentComments: string;
+  _id: string;
 };
 
 type ImageResponse = {
@@ -60,7 +70,8 @@ type ImageResponse = {
   _id: string;
 };
 
-export type MainBidServerResponse = {
+type MainBidServerResponse = {
+  createDate: string;
   formName: string;
   flight: FlightResponse[];
   hotel: HotelResponse[];
@@ -69,4 +80,12 @@ export type MainBidServerResponse = {
   idArray: string[];
   __v: number;
   _id: string;
+};
+
+export type {
+  FlightResponse,
+  HotelResponse,
+  TransferResponse,
+  ImageResponse,
+  MainBidServerResponse,
 };

@@ -42,9 +42,9 @@ const FlightCard: React.FC<FlightCardProps> = ({ id, index, onRemove }) => {
   ): FlightCardFieldPath => `items.${index}.${field}`;
 
   const renderInput = (label: string, field: keyof FlightCardFields) => (
-    <div className="flex flex-col">
+    <div className="flex flex-1 flex-col">
       <label>{label}:</label>
-      <input {...register(getFieldPath(index, field))} className="border p-1" />
+      <input {...register(getFieldPath(index, field))} className="border sm:p-1" />
     </div>
   );
 
@@ -58,7 +58,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ id, index, onRemove }) => {
     setShowModal(false);
   };
 
-  const ArrivalAirport = watch(getFieldPath(index, "ArrivalAirport"))
+  const FlightDescription = watch(getFieldPath(index, "flightDescription"));
 
   return (
     <div
@@ -85,7 +85,13 @@ const FlightCard: React.FC<FlightCardProps> = ({ id, index, onRemove }) => {
       <Accordion type="single" collapsible>
         <AccordionItem value={`item-${id}`}>
           <AccordionTrigger className="flex relative justify-between bg-green-500 rounded-md p-2 sm:p-4 hover:no-underline border-2 hover:border-green-500">
-            <h3 className="mr-4">Flight Information</h3>
+            <h3 className="p-8 sm:p-1 mr-4">
+              {FlightDescription === "" ? (
+                <p> Flight Information</p>
+              ) : (
+                (FlightDescription as string)
+              )}
+            </h3>
             <button
               type="button"
               className="bg-red-400 hover:bg-red-500 p-1 rounded-md absolute sm:top-4 sm:left-12 top-2 left-8 sm:text-md text-xs"
@@ -96,15 +102,14 @@ const FlightCard: React.FC<FlightCardProps> = ({ id, index, onRemove }) => {
           </AccordionTrigger>
           <AccordionContent className="bg-gray-100 rounded-md border p-2 sm:p-4 text-md">
             <div className="space-y-4">
-              <div className="flex flex-col">
-                <div className="sm:w-1/2 p-2">
-                  <h2 className="text-xl mb-4">
-                    טיסה ל: {ArrivalAirport as string}
-                  </h2>
+              <div className="flex flex-col sm:flex-row">
+                <div className="sm:w-1/2 sm:p-2">
                   <div className="flex flex-col">
+                    {renderInput("תיאור הטיסה", "flightDescription")}
+
                     <label className="mb-2">תאריך טיסה המראה:</label>
                     <Controller
-                      name={getFieldPath(index, "DepartureDate")}
+                      name={getFieldPath(index, "departureDate")}
                       control={control}
                       render={({ field }) => (
                         <DatePicker
@@ -120,7 +125,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ id, index, onRemove }) => {
                   <div className="flex flex-col">
                     <label className="mb-2">תאריך טיסה נחיתה:</label>
                     <Controller
-                      name={getFieldPath(index, "ArrivalDate")}
+                      name={getFieldPath(index, "arrivalDate")}
                       control={control}
                       render={({ field }) => (
                         <DatePicker
@@ -133,21 +138,146 @@ const FlightCard: React.FC<FlightCardProps> = ({ id, index, onRemove }) => {
                       )}
                     />
                   </div>
-                  {renderInput("שעת המראה", "FlightTime")}
-                  {renderInput("שעת נחיתה", "LandingTime")}
+                  <div className="flex flex-col">
+                    <label className="">שעת המראה</label>
+                    <input
+                      type="time"
+                      {...register(getFieldPath(index, "flightTime"))}
+                      className="border sm:p-1"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <label className="">שעת נחיתה</label>
+                    <input
+                      type="time"
+                      {...register(getFieldPath(index, "landingTime"))}
+                      className="border sm:p-1"
+                    />
+                  </div>
+              
 
+                  {renderInput("מספר טיסה ", "flightNumber")}
+                  {renderInput("חברת תעופה ", "airline")}
+                  {renderInput("שדה תעופה יציאה", "departureAirport")}
+                  {renderInput("שדה תעופה הגעה", "arrivalAirport")}
+                </div>
 
-                  {renderInput("מספר טיסה ", "FlightNumber")}
-                  {renderInput("חברת תעופה ", "Airline")}
-                  {renderInput("שדה תעופה יציאה", "DepartureAirport")}
-                  {renderInput("שדה תעופה הגעה", "ArrivalAirport")}
-                  {renderInput("מספר עצירות", "StopsNumber")}
-                  {renderInput("שדה תעופה עצירה1", "StopoverAirport1")}
-                  {renderInput("שדה תעופה עצירה2", "StopoverAirport2")}
-                  {renderInput("מספר מבוגרים", "numberOfAdults")}
-                  {renderInput("מספר ילדים", "numberOfChildren")}
-                  {renderInput("מחיר למבוגר", "priceForAdult")}
-                  {renderInput("מחיר לילד", "priceForChild")}
+                <div className="sm:w-1/2 sm:p-2">
+                  <div className="flex flex-col">
+                    <label className="">מספר עצירות</label>
+                    <input
+                      type="number"
+                      {...register(getFieldPath(index, "stopsNumber"))}
+                      className="border sm:p-1"
+                    />
+                  </div>
+
+                  <div className="flex gap-2">
+                    <div className="flex flex-col w-3/5">
+                      <label className="">שדה תעופה עצירה1:</label>
+                      <input
+                        {...register(getFieldPath(index, "stopoverAirport1"))}
+                        className="border sm:p-1"
+                      />
+                    </div>
+                    <div className="flex flex-col w-2/5">
+                      <label className="">זמן העצירה</label>
+                      <input
+                        type="time"
+                        {...register(getFieldPath(index, "stopover1Time"))}
+                        className="border sm:p-1"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex justify-between gap-2">
+                    <div className="flex flex-col w-3/5">
+                      <label className="">שדה תעופה עצירה2:</label>
+                      <input
+                        {...register(getFieldPath(index, "stopoverAirport2"))}
+                        className="border sm:p-1"
+                      />
+                    </div>
+                    <div className="flex flex-col w-2/5">
+                      <label className="">זמן העצירה</label>
+                      <input
+                        type="time"
+                        {...register(getFieldPath(index, "stopover2Time"))}
+                        className="border sm:p-1"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex justify-between gap-2">
+                    <div className="flex flex-col w-3/5">
+                      <label className="">שדה תעופה עצירה3:</label>
+                      <input
+                        {...register(getFieldPath(index, "stopoverAirport3"))}
+                        className="border sm:p-1"
+                      />
+                    </div>
+                    <div className="flex flex-col w-2/5">
+                      <label className="">זמן העצירה</label>
+                      <input
+                        type="time"
+                        {...register(getFieldPath(index, "stopover3Time"))}
+                        className="border sm:p-1"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col lg:flex-row">
+                    <div className="flex flex-col flex-1">
+                      <label className="">מספר מבוגרים</label>
+                      <input
+                        type="number"
+                        {...register(getFieldPath(index, "numberOfAdults"))}
+                        className="border sm:p-1"
+                      />
+                    </div>
+                    <div className="flex flex-col flex-1">
+                      <label className="">מספר ילדים</label>
+                      <input
+                        type="number"
+                        {...register(getFieldPath(index, "numberOfChildren"))}
+                        className="border sm:p-1"
+                      />
+                    </div>
+                    <div className="flex flex-col flex-1">
+                      <label className="">מספר תינוקות</label>
+                      <input
+                        type="number"
+                        {...register(getFieldPath(index, "numberOfBabies"))}
+                        className="border sm:p-1"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col lg:flex-row">
+                    <div className="flex flex-col flex-1">
+                      <label className="">מחיר למבוגר</label>
+                      <input
+                        type="number"
+                        {...register(getFieldPath(index, "priceForAdult"))}
+                        className="border sm:p-1"
+                      />
+                    </div>
+                    <div className="flex flex-col flex-1">
+                      <label className="">מחיר לילד</label>
+                      <input
+                        type="number"
+                        {...register(getFieldPath(index, "priceForChild"))}
+                        className="border sm:p-1"
+                      />
+                    </div>
+                    <div className="flex flex-col flex-1">
+                      <label className="">מחיר לתינוק</label>
+                      <input
+                        type="number"
+                        {...register(getFieldPath(index, "priceForBaby"))}
+                        className="border sm:p-1"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
 

@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 const headerFormSchema = z.object({
-  formName: z.string().min(1, "formName is required")
-})
+  formName: z.string().min(1, "formName is required"),
+});
 
 const hotelSchema = z.object({
   id: z.string(),
@@ -22,33 +22,44 @@ const hotelSchema = z.object({
 const transferSchema = z.object({
   id: z.string(),
   type: z.literal("transfer"),
+  transferDescription: z.string(),
   transferDate: z.date(),
-  time: z.string(),
+  departureTime: z.string(),
+  arrivalTime: z.string(),
   from: z.string(),
   to: z.string(),
   sum: z.string(),
-  agentComments: z.string()
+  passengerComposition: z.string(),
+  agentComments: z.string(),
 });
 
 export const flightSchema = z.object({
   id: z.string(),
   type: z.literal("flight"),
-  forthDepartureDate: z.date(),
-  forthArrivalDate: z.date(),
-  forthFlightNumber: z.string(),
-  forthAirline: z.string(),
-  forthDepartureAirport: z.string(),
-  forthArrivalAirport: z.string(),
-  forthStopsNumber: z.number(),
-  forthStopoverAirport1: z.string(),
-  forthStopoverAirport2: z.string(),
-  forthFlightTime: z.string(),
-  forthLandingTime: z.string(),
-  
+  description: z.string(),
+  departureDate: z.date(),
+  arrivalDate: z.date(),
+  flightNumber: z.string(),
+  airline: z.string(),
+  departureAirport: z.string(),
+  arrivalAirport: z.string(),
+  stopsNumber: z.number(),
+  stopoverAirport1: z.string(),
+  stopoverAirport2: z.string(),
+  stopoverAirport3: z.string(),
+  stopover1Time: z.string(),
+  stopover2Time: z.string(),
+  stopover3Time: z.string(),
+  flightTime: z.string(),
+  landingTime: z.string(),
+
   numberOfAdults: z.number(),
   numberOfChildren: z.number(),
+  numberOfBabies: z.number(),
+
   priceForAdult: z.number(),
   priceForChild: z.number(),
+  priceForBaby: z.number(),
   agentComments: z.string().optional(),
 });
 

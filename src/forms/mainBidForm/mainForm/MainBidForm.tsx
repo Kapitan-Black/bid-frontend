@@ -49,8 +49,9 @@ const MainBidForm: React.FC = () => {
 
   const [hotelData, setHotelData] = useState<
     { selectedHotel: Hotel | null; selectedRooms: Room[] }[]
-      >([]);
-    
+    >([]);
+  
+    console.log("hotelData", hotelData);
 
   const handleHotelDataChange = (
     index: number,
@@ -68,7 +69,7 @@ const MainBidForm: React.FC = () => {
     remove(index);
   };
 
-  const addComponent = () => {
+  const addHotel = () => {
     const today = new Date();
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -83,16 +84,20 @@ const MainBidForm: React.FC = () => {
       rooms: [],
       sum: 0,
     } as HotelCardFields);
+
   };
 
   const addTransfer = () => {
     append({
       id: uuidv4(),
       type: "transfer",
+      transferDescription: "",
       transferDate: new Date(),
-      time: "00:00",
+      departureTime: "00:00",
+      arrivalTime: "00:00",
       from: "",
       to: "",
+      passengerComposition: "",
       agentComments: "",
       sum: 0,
     } as TransferCardFields);
@@ -102,22 +107,29 @@ const MainBidForm: React.FC = () => {
     append({
       id: uuidv4(),
       type: "flight",
-      DepartureDate: new Date(),
-      ArrivalDate: new Date(),
-      FlightNumber: "",
-      Airline: "",
-      DepartureAirport: "",
-      ArrivalAirport: "",
-      StopsNumber: 0,
-      StopoverAirport1: "",
-      StopoverAirport2: "",
-      FlightTime: "00:00",
-      LandingTime: "00:00",
+      flightDescription: "",
+      departureDate: new Date(),
+      arrivalDate: new Date(),
+      flightNumber: "",
+      airline: "",
+      departureAirport: "",
+      arrivalAirport: "",
+      stopsNumber: 0,
+      stopoverAirport1: "",
+      stopoverAirport2: "",
+      stopoverAirport3: "",
+      stopover1Time: "00:00",
+      stopover2Time: "00:00",
+      stopover3Time: "00:00",
+      flightTime: "00:00",
+      landingTime: "00:00",
 
       numberOfAdults: 0,
       numberOfChildren: 0,
+      numberOfBabies: 0,
       priceForAdult: 0,
       priceForChild: 0,
+      priceForBaby: 0,
       agentComments: "",
     } as FlightCardFields);
   };
@@ -139,18 +151,21 @@ const MainBidForm: React.FC = () => {
     const hotelDataArray = formData.items.map((item, index) => {
       if (item.type === "hotel") {
         const hotelDataEntry = hotelData[index];
-        return {
-          ...item,
-          hotelName: hotelDataEntry.selectedHotel?.hotelName,
-          hotelDescription: hotelDataEntry.selectedHotel?.hotelDescription,
-          images: hotelDataEntry.selectedHotel?.images,
-          rooms: hotelDataEntry.selectedRooms.map((room) => ({
-            roomType: room.roomType,
-            images: room.images,
-            nightPrice: room.nightPrice,
-            numberOfRooms: room.numberOfRooms,
-          })),
-        };
+        if (hotelDataEntry) {
+            return {
+              ...item,
+              hotelName: hotelDataEntry.selectedHotel?.hotelName,
+              hotelDescription: hotelDataEntry.selectedHotel?.hotelDescription,
+              images: hotelDataEntry.selectedHotel?.images,
+              rooms: hotelDataEntry.selectedRooms.map((room) => ({
+                roomType: room.roomType,
+                images: room.images,
+                nightPrice: room.nightPrice,
+                numberOfRooms: room.numberOfRooms,
+              })),
+            };
+        }
+      
       }
       return item;
     });
@@ -177,12 +192,15 @@ const MainBidForm: React.FC = () => {
     }
   }, [isSuccess, error]);
 
+  console.log(form.getValues().items)
+
   return (
     <FormProvider {...form}>
       <form onSubmit={handleSumbmit}>
         <div className="flex flex-row-reverse justify-center mb-12">
           <label htmlFor="formName">:שם ההצעה</label>
           <input
+            dir="rtl"
             id={"formName"}
             className="border border-black"
             {...form.register("formName")}
@@ -198,7 +216,7 @@ const MainBidForm: React.FC = () => {
         />
 
         <FormActions
-          addComponent={addComponent}
+          addHotel={addHotel}
           addTransfer={addTransfer}
           addFlight={addFlight}
                   addImageComponent={addImageComponent}

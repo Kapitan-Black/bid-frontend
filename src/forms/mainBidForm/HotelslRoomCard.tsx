@@ -11,7 +11,7 @@ interface HotelRoomCardProps {
   roomIndex: number;
 }
 
-const HotelslRoomCard: React.FC<HotelRoomCardProps> = ({
+const HotelsRoomCard: React.FC<HotelRoomCardProps> = ({
   onRemove,
   rooms,
   onRoomDataChange,
@@ -23,8 +23,15 @@ const HotelslRoomCard: React.FC<HotelRoomCardProps> = ({
   const handleRoomChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedId = event.target.value;
     const room = rooms?.find((room) => room._id === selectedId) || null;
-    setValue(`items.${index}.rooms.${roomIndex}.selectedRoom`, room);
-    onRoomDataChange(room!);
+    if (room) {
+      setValue(`items.${index}.rooms.${roomIndex}.selectedRoom`, room);
+      onRoomDataChange({
+        ...room,
+        nightPrice: watch(`items.${index}.rooms.${roomIndex}.nightPrice`) || 0,
+        numberOfRooms:
+          watch(`items.${index}.rooms.${roomIndex}.numberOfRooms`) || 1,
+      });
+    }
   };
 
   const handleNightPriceChange = (
@@ -35,6 +42,8 @@ const HotelslRoomCard: React.FC<HotelRoomCardProps> = ({
     onRoomDataChange({
       ...watch(`items.${index}.rooms.${roomIndex}.selectedRoom`),
       nightPrice,
+      numberOfRooms:
+        watch(`items.${index}.rooms.${roomIndex}.numberOfRooms`) || 1,
     });
   };
 
@@ -45,6 +54,7 @@ const HotelslRoomCard: React.FC<HotelRoomCardProps> = ({
     setValue(`items.${index}.rooms.${roomIndex}.numberOfRooms`, numberOfRooms);
     onRoomDataChange({
       ...watch(`items.${index}.rooms.${roomIndex}.selectedRoom`),
+      nightPrice: watch(`items.${index}.rooms.${roomIndex}.nightPrice`) || 0,
       numberOfRooms,
     });
   };
@@ -87,6 +97,7 @@ const HotelslRoomCard: React.FC<HotelRoomCardProps> = ({
           render={({ field }) => (
             <input
               id={`night-price-${roomIndex}`}
+              type="number"
               value={field.value || ""}
               onChange={handleNightPriceChange}
               className="border"
@@ -101,6 +112,7 @@ const HotelslRoomCard: React.FC<HotelRoomCardProps> = ({
           render={({ field }) => (
             <input
               id={`number-of-rooms-${roomIndex}`}
+              type="number"
               value={field.value || 1}
               onChange={handleNumberOfRoomsChange}
               className="border"
@@ -115,4 +127,4 @@ const HotelslRoomCard: React.FC<HotelRoomCardProps> = ({
   );
 };
 
-export default HotelslRoomCard;
+export default HotelsRoomCard;

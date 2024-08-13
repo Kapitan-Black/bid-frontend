@@ -2,13 +2,13 @@
 import { SeparatorUrls } from "@/config/separatorUrls";
 
 const FormActions: React.FC<{
-  addComponent: () => void;
+  addHotel: () => void;
   addTransfer: () => void;
   addFlight: () => void;
     addImageComponent: () => void;
     selectedImageUrl: string;
     setSelectedImageUrl: React.Dispatch<React.SetStateAction<string>>
-}> = ({ addComponent, addTransfer, addFlight, addImageComponent, setSelectedImageUrl, selectedImageUrl }) => {
+}> = ({ addHotel, addTransfer, addFlight, addImageComponent, setSelectedImageUrl, selectedImageUrl }) => {
 //   const [selectedImageUrl, setSelectedImageUrl] = useState(
 //     SeparatorUrls[0].url
 //   );
@@ -17,7 +17,7 @@ const FormActions: React.FC<{
     <div className="flex flex-col gap-2 mt-12">
       <button
         type="button"
-        onClick={addComponent}
+        onClick={addHotel}
         className="bg-blue-300 rounded hover:bg-blue-500 p-2"
       >
         Add Hotel Component

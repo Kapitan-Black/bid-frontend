@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useFormContext, Controller } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import UploadImagesInput from "@/components/UploadImagesInput";
-import { RoomFormData } from "@/types";
 import RemoveButton from "@/components/RemoveButton";
+import { RoomFormData } from "@/types/types";
 
 
 

@@ -45,9 +45,9 @@ const HotelCard: React.FC<HotelCardProps> = ({
 }) => {
   const [rooms, setRooms] = useState<Room[]>([]);
   const [selectedHotel, setSelectedHotel] = useState<Hotel | null>(null);
-  console.log("selectedHotel------", selectedHotel);
+  // console.log("selectedHotel------", selectedHotel);
   const [selectedRooms, setSelectedRooms] = useState<Room[]>([]);
-  console.log("selectedRooms------", selectedRooms);
+  // console.log("selectedRooms------", selectedRooms);
   const [showModal, setShowModal] = useState<boolean>(false);
   const { register, control, watch, setValue } = useFormContext<{
     items: HotelCardFields[];
@@ -60,26 +60,30 @@ const HotelCard: React.FC<HotelCardProps> = ({
     transform: CSS.Transform.toString(transform),
     transition,
   };
+useEffect(() => {
+  const checkInDate = watch(`items.${index}.checkInDate`);
+  const checkOutDate = watch(`items.${index}.checkOutDate`);
+  const nights = calculateNights(checkInDate, checkOutDate);
 
-  useEffect(() => {
-    onDataChange(index, { selectedHotel, selectedRooms });
-  }, [selectedHotel, selectedRooms]);
-
-  useEffect(() => {
-    const checkInDate = watch(`items.${index}.checkInDate`);
-    const checkOutDate = watch(`items.${index}.checkOutDate`);
-    const nights = calculateNights(checkInDate, checkOutDate);
-
-    let totalSum = selectedRooms.reduce((acc, room) => {
+  if (selectedRooms.length > 0) {
+    const totalSum = selectedRooms.reduce((acc, room) => {
       return acc + (room.nightPrice || 0) * (room.numberOfRooms || 1) * nights;
     }, 0);
 
     setValue(getFieldPath(index, "sum" as keyof HotelCardFields), totalSum);
-  }, [
-    selectedRooms,
-    watch(`items.${index}.checkInDate`),
-    watch(`items.${index}.checkOutDate`),
-  ]);
+  } else {
+    setValue(getFieldPath(index, "sum" as keyof HotelCardFields), 0);
+  }
+
+  onDataChange(index, {selectedHotel, selectedRooms})
+
+}, [
+  selectedHotel,
+  selectedRooms,
+  watch(`items.${index}.checkInDate`),
+  watch(`items.${index}.checkOutDate`),
+  index,
+]);
 
   const receiveDataFromInput = (hotelData: Hotel) => {
     setSelectedHotel(hotelData);
@@ -114,7 +118,10 @@ const HotelCard: React.FC<HotelCardProps> = ({
   const handleRoomDataChange = (index: number, roomData: Room) => {
     setSelectedRooms((currentRooms) => {
       const newRooms = [...currentRooms];
-      newRooms[index] = roomData;
+      newRooms[index] = {
+        ...newRooms[index],
+        ...roomData,
+      }
       return newRooms;
     });
   };
@@ -154,7 +161,7 @@ const HotelCard: React.FC<HotelCardProps> = ({
       <Accordion type="single" collapsible>
         <AccordionItem value={`item-${id}`}>
           <AccordionTrigger className="relative flex flex-col md:flex-row justify-between bg-blue-500 rounded-md p-1 sm:p-4 hover:no-underline border-2 hover:border-sky-500">
-            <h2 className="mr-4">{selectedHotel?.hotelName}</h2>
+            <h3 className="mr-4">{selectedHotel?.hotelName}</h3>
             <div className="flex flex-col lg:flex-row md:gap-2">
               <div className="flex items-center">
                 <p className="ml-2">תאריך צ׳ק אין:</p>

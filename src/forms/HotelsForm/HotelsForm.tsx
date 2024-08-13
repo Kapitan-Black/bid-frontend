@@ -3,7 +3,6 @@ import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import ImageCarousel from "@/components/ImageCarousel";
-import { HotelFormData, RoomFormData } from "@/types";
 import { useCreateHotel } from "@/api/HotelsFormApi";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -13,6 +12,7 @@ import UploadImagesInput from "@/components/UploadImagesInput";
 import { Separator } from "@/components/ui/separator";
 import { useDeleteImage } from "@/api/imageUploadApi";
 import RemoveButton from "@/components/RemoveButton";
+import { HotelFormData, RoomFormData } from "@/types/types";
 
 const hotelSchema = z.object({
   hotelName: z.string().min(1, "Hotel name is required"),
