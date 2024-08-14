@@ -9,7 +9,7 @@ import ImageCarousel from "../ImageCarousel";
 import SmallCarousel from "../SmallCarousel";
 import { calculateNights, dateFormat } from "@/config/utils";
 import { useState } from "react";
-import { ArrowBigDownDash } from "lucide-react";
+import { ArrowBigDownDash, ArrowBigUpDash } from "lucide-react";
 
 interface ReadyHotelCardProps {
   data: HotelResponse;
@@ -18,10 +18,15 @@ interface ReadyHotelCardProps {
 const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
   const nights = calculateNights(data.checkInDate, data.checkOutDate);
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen1, setIsOpen1] = useState(false);
+  const [isOpen2, setIsOpen2] = useState(false);
+  console.log(isOpen2)
 
-  const handleToggle = () => {
-    setIsOpen(!isOpen);
+  const handleToggle1 = () => {
+    setIsOpen1(!isOpen1);
+  };
+  const handleToggle2 = () => {
+    setIsOpen2(!isOpen2);
   };
   return (
     <div dir="rtl" className="">
@@ -29,9 +34,9 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
         <AccordionItem key={data._id} value={data._id}>
           <AccordionTrigger
             className={`flex flex-col md:flex-row bg-gradient-to-r from-sky-400 to-blue-600  text-white p-2 sm:p-4 hover:no-underline text-sm sm:text-lg ${
-              isOpen ? "rounded-t-full" : "rounded-full"
+              isOpen1 ? "rounded-t-full" : "rounded-full"
             }`}
-            onClick={handleToggle}
+            onClick={handleToggle1}
           >
             <div>
               <p className="sm:mr-4"> {data.hotelName}</p>
@@ -75,14 +80,20 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
             <Accordion type="single" collapsible className="space-y-2 mt-4">
               {data.rooms.map((room) => (
                 <AccordionItem key={room._id} value={room._id}>
-                  <AccordionTrigger className="bg-sky-200 rounded-2xl p-4 sm:text-lg hover:no-underline hover:bg-sky-300">
+                  <AccordionTrigger
+                    onClick={handleToggle2}
+                    className="bg-sky-200 rounded-2xl p-4 sm:text-lg hover:no-underline hover:bg-sky-300"
+                  >
                     <div className="flex gap-2">
                       <p>סוג החדר:</p>
                       <p className="ml-2 font-semibold"> {room.roomType}</p>
                       <div className="flex hover:underline">
                         <p className="mr-8">לחצו כאן לראות את פרטי החדר</p>
-                        <ArrowBigDownDash className="mt-1" />
-                        {/* <p>({room.images.length}תמונות)</p> */}
+                        {isOpen2 ? (
+                          <ArrowBigUpDash className="mt-1" />
+                        ) : (
+                          <ArrowBigDownDash className="mt-1" />
+                        )}
                       </div>
                     </div>
                   </AccordionTrigger>
