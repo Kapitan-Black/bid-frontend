@@ -9,6 +9,7 @@ import ImageCarousel from "../ImageCarousel";
 import SmallCarousel from "../SmallCarousel";
 import { calculateNights, dateFormat } from "@/config/utils";
 import { useState } from "react";
+import { ArrowBigDownDash } from "lucide-react";
 
 interface ReadyHotelCardProps {
   data: HotelResponse;
@@ -74,11 +75,15 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
             <Accordion type="single" collapsible className="space-y-2 mt-4">
               {data.rooms.map((room) => (
                 <AccordionItem key={room._id} value={room._id}>
-                  <AccordionTrigger className="bg-sky-200 rounded-2xl p-4 sm:text-lg">
+                  <AccordionTrigger className="bg-sky-200 rounded-2xl p-4 sm:text-lg hover:no-underline hover:bg-sky-300">
                     <div className="flex gap-2">
                       <p>סוג החדר:</p>
                       <p className="ml-2 font-semibold"> {room.roomType}</p>
-                      <p>({room.images.length}תמונות)</p>
+                      <div className="flex hover:underline">
+                        <p className="mr-8">לחצו כאן לראות את פרטי החדר</p>
+                        <ArrowBigDownDash className="mt-1" />
+                        {/* <p>({room.images.length}תמונות)</p> */}
+                      </div>
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="rounded pb-0">
