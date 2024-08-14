@@ -12,9 +12,9 @@ const PasangersDetails = ({ data }: Props) => {
     data.numberOfChildren * data.priceForChild +
     data.numberOfBabies * data.priceForBaby;
   return (
-    <div className="flex flex-col sm:flex-row sm:gap-36 mx-2 sm:mx-8">
+    <div className="flex flex-col sm:flex-row sm:gap-36 mx-2 sm:mx-8 mt-4">
       <div>
-        <h2 className="font-bold mt-8 mb-2">הרכב הנוסעים</h2>
+        <h2 className="font-bold mb-2">הרכב הנוסעים</h2>
         <div className="flex gap-8">
           <div className="flex flex-col">
             {data.numberOfAdults > 0 && (
@@ -55,7 +55,7 @@ const PasangersDetails = ({ data }: Props) => {
         </div>
       </div>
 
-      <div className="w-1/2 sm:w-1/3 mt-8">
+      <div className="w-1/2 sm:w-1/3 ">
         <p className="font-bold mb-2">הערות סוכן</p>
         <p>{data.agentComments}</p>
       </div>

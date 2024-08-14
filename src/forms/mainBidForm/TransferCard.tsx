@@ -129,15 +129,36 @@ const TransferCard: React.FC<AttractionCardProps> = ({
                   </div>
                   {renderInput("תיאור ההסעה", "transferDescription")}
 
-                  {renderInput("שעת הנסיע", "departureTime")}
-                  {renderInput("שעת הגעה משוארת", "arrivalTime")}
+                  <div className="flex flex-col">
+                    <label>שעת הנסיע:</label>
+                    <Input
+                      type="time"
+                      {...register(getFieldPath(index, "departureTime"))}
+                      className="border"
+                    />
+                  </div>
+
+                  <div className="flex flex-col">
+                    <label>שעת הגעה משוארת: </label>
+                    <Input
+                      type="time"
+                      {...register(getFieldPath(index, "arrivalTime"))}
+                      className="border"
+                    />
+                  </div>
 
                   {renderInput("מאיפה", "from")}
                   {renderInput(" לאן", "to")}
                 </div>
                 <div className="flex flex-col sm:w-1/2">
-                  {" "}
-                  {renderInput("מחיר", "sum")}
+                  <div className="flex flex-col">
+                    <label> מחיר: </label>
+                    <Input
+                      type="number"
+                      {...register(getFieldPath(index, "sum"))}
+                      className="border"
+                    />
+                  </div>
                   {renderInput("הרכב הנוסעים", "passengerComposition")}
                   <div className="flex flex-col">
                     <label>הערות סוכן:</label>

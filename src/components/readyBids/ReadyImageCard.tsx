@@ -6,7 +6,7 @@ interface ReadyImageCardProps {
 
 const ReadyImageCard:React.FC<ReadyImageCardProps> = ({data}) => {
     return (
-      <div className="h-[60px] sm:h-[80px]">
+      <div className="h-[60px] sm:h-[100px]">
         <img className="h-full rounded" src={data.imageUrl} alt="Bid Image" />
       </div>
     );

@@ -8,6 +8,7 @@ import {
 import ImageCarousel from "../ImageCarousel";
 import SmallCarousel from "../SmallCarousel";
 import { calculateNights, dateFormat } from "@/config/utils";
+import { useState } from "react";
 
 interface ReadyHotelCardProps {
   data: HotelResponse;
@@ -15,13 +16,24 @@ interface ReadyHotelCardProps {
 
 const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
   const nights = calculateNights(data.checkInDate, data.checkOutDate);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <div dir="rtl" className="">
       <Accordion type="single" collapsible className="">
         <AccordionItem key={data._id} value={data._id}>
-          <AccordionTrigger className="flex flex-col md:flex-row bg-sky-400 rounded-xl p-2 sm:p-4 hover:no-underline text-sm sm:text-lg">
-            <div className="bg-sky-300 rounded-md sm:w-[400px]">
-              <p className=""> {data.hotelName}</p>
+          <AccordionTrigger
+            className={`flex flex-col md:flex-row bg-sky-400 p-2 sm:p-4 hover:no-underline text-sm sm:text-lg ${
+              isOpen ? "rounded-t-xl" : "rounded-xl"
+            }`}
+            onClick={handleToggle}
+          >
+            <div>
+              <p className="sm:mr-4"> {data.hotelName}</p>
             </div>
 
             <div className="flex gap-2">
@@ -33,29 +45,30 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
               <p>({nights}-לילות)</p>
             </div>
           </AccordionTrigger>
-          <AccordionContent className="border p-2 sm:p-4">
+          <AccordionContent className="bg-sky-50 border p-2 sm:p-4">
             <div className="flex justify-center">
               <ImageCarousel images={data.images} />
             </div>
-            <h2 className="text-2xl mt-8 text-center font-bold">
+            <h2 className="text-2xl mb-4 mt-8 text-center font-bold">
               {data.hotelName}
             </h2>
+            <div className="bg-sky-100 p-2 rounded-md">
+              <div className="flex sm:text-lg gap-2 font-semibold">
+                <span className="flex gap-1">
+                  <p>{dateFormat(data.checkInDate)}</p>
+                  <p>-</p>
+                  <p>{dateFormat(data.checkOutDate)}</p>
+                </span>
 
-            <div className="flex text-lg gap-2">
-              <span className="flex gap-1">
-                <p>{dateFormat(data.checkInDate)}</p>
-                <p>-</p>
-                <p>{dateFormat(data.checkOutDate)}</p>
-              </span>
+                <p>({nights}-לילות)</p>
+              </div>
 
-              <p>({nights}-לילות)</p>
-            </div>
+              <p className="mt-4 sm:text-lg">{data.hotelDescription}</p>
 
-            <p className="mt-4 text-lg">{data.hotelDescription}</p>
-
-            <div className="flex gap-1 mt-4 text-lg">
-              <p>סה׳׳כ:</p>
-              <p className="font-semibold">฿{data.sum}</p>
+              <div className="flex gap-1 mt-4 text-lg">
+                <p>סה׳׳כ:</p>
+                <p className="font-semibold">฿{data.sum}</p>
+              </div>
             </div>
 
             <Accordion type="single" collapsible className="space-y-2 mt-4">
@@ -98,7 +111,7 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
                       <div>
                         <p>מחיר לילה</p>
                         <p className="font-semibold text-center">
-                          {room.nightPrice}
+                          ฿{room.nightPrice}
                         </p>
                       </div>
                     </div>

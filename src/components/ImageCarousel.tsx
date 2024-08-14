@@ -27,7 +27,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
   };
 
   return (
-    <div className="carousel-container w-full max-w-[1000px]">
+    <div className="carousel-container w-full max-w-[1500px]">
       <Slider {...settings}>
         {images.map((image, index) => (
           <div key={index} className="relative">
