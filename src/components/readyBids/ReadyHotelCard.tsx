@@ -27,8 +27,8 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
       <Accordion type="single" collapsible className="">
         <AccordionItem key={data._id} value={data._id}>
           <AccordionTrigger
-            className={`flex flex-col md:flex-row bg-sky-400 p-2 sm:p-4 hover:no-underline text-sm sm:text-lg ${
-              isOpen ? "rounded-t-xl" : "rounded-xl"
+            className={`flex flex-col md:flex-row bg-gradient-to-r from-sky-400 to-blue-600  text-white p-2 sm:p-4 hover:no-underline text-sm sm:text-lg ${
+              isOpen ? "rounded-t-full" : "rounded-full"
             }`}
             onClick={handleToggle}
           >
@@ -74,14 +74,14 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
             <Accordion type="single" collapsible className="space-y-2 mt-4">
               {data.rooms.map((room) => (
                 <AccordionItem key={room._id} value={room._id}>
-                  <AccordionTrigger className="bg-amber-200 rounded p-4 ">
+                  <AccordionTrigger className="bg-sky-200 rounded-2xl p-4 sm:text-lg">
                     <div className="flex gap-2">
                       <p>סוג החדר:</p>
                       <p className="ml-2 font-semibold"> {room.roomType}</p>
                       <p>({room.images.length}תמונות)</p>
                     </div>
                   </AccordionTrigger>
-                  <AccordionContent className="rounded bg-amber-50 pb-0">
+                  <AccordionContent className="rounded pb-0">
                     <SmallCarousel
                       images={room.images}
                       slidesToShow={room.images.length > 2 ? 3 : 1}
@@ -95,32 +95,34 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
                       ]}
                     />
 
-                    <div className="flex justify-between mt-4 p-4">
-                      <div>
-                        <p>סוג חדר</p>
-                        <p className="font-semibold text-center">
-                          {room.roomType}
-                        </p>
+                    <div className="bg-sky-200 flex flex-col sm:flex-row justify-between rounded-lg mt-8 sm:text-lg">
+                      <div className="flex flex-col sm:flex-row gap-2 sm:gap-20 m-2">
+                        <div className="flex flex-row sm:flex-col gap-8 sm:gap-4">
+                          <p>סוג חדר</p>
+                          <p className="font-semibold text-center">
+                            {room.roomType}
+                          </p>
+                        </div>
+                        <div className="flex flex-row sm:flex-col gap-8 sm:gap-4">
+                          <p>כמות חדרים</p>
+                          <p className="font-semibold text-center">
+                            {room.numberOfRooms}
+                          </p>
+                        </div>
+                        <div className="flex flex-row sm:flex-col gap-8 sm:gap-4">
+                          <p>מחיר לילה</p>
+                          <p className="font-semibold text-center ">
+                            ฿{room.nightPrice}
+                          </p>
+                        </div>
                       </div>
-                      <div>
-                        <p>כמות חדרים</p>
-                        <p className="font-semibold text-center">
-                          {room.numberOfRooms}
-                        </p>
-                      </div>
-                      <div>
-                        <p>מחיר לילה</p>
-                        <p className="font-semibold text-center">
-                          ฿{room.nightPrice}
-                        </p>
-                      </div>
-                    </div>
 
-                    <div className="bg-amber-100 mt-8 p-4 text-center rounded">
-                      <p>סה׳׳כ</p>
-                      <p className="text-xl font-bold">
-                        ฿{room.numberOfRooms * room.nightPrice * nights}
-                      </p>
+                      <div className="bg-sky-300 p-4 md:px-16 lg:px-36 text-center rounded">
+                        <p>סה׳׳כ</p>
+                        <p className="text-xl font-bold">
+                          ฿{room.numberOfRooms * room.nightPrice * nights}
+                        </p>
+                      </div>
                     </div>
                   </AccordionContent>
                 </AccordionItem>

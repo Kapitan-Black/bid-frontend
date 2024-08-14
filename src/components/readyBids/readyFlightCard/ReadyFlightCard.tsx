@@ -26,8 +26,8 @@ const ReadyFlightCard: React.FC<ReadyFlightCardProps> = ({ data }) => {
       <Accordion type="single" collapsible>
         <AccordionItem key={data.id} value={data.id} className="group">
           <AccordionTrigger
-            className={`flex flex-col sm:flex-row bg-green-400 p-4 hover:no-underline ${
-              isOpen ? "rounded-t-xl" : "rounded-xl"
+            className={`flex flex-col sm:flex-row bg-gradient-to-r from-yellow-500 to-green-500  text-white p-4 hover:no-underline ${
+              isOpen ? "rounded-t-full" : "rounded-full"
             }`}
             onClick={handleToggle}
           >

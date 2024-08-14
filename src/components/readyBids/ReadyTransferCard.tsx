@@ -24,8 +24,8 @@ const ReadyTransferCard: React.FC<ReadyTransferCardProps> = ({ data }) => {
       <Accordion type="single" collapsible>
         <AccordionItem key={data.id} value={data.id}>
           <AccordionTrigger
-            className={`bg-yellow-300 p-4 hover:no-underline flex flex-col sm:flex-row ${
-              isOpen ? "rounded-t-xl" : "rounded-xl"
+            className={`bg-gradient-to-r from-rose-400 to-stone-500  text-white hover:no-underline flex flex-col sm:flex-row p-4 ${
+              isOpen ? "rounded-t-full" : "rounded-full"
             }`}
             onClick={handleToggle}
           >
