@@ -2,6 +2,8 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "./carousel.css"
+import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
 
 interface ImageCarouselProps {
   images: string[];
@@ -14,6 +16,36 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
   handleRemoveImage,
   showDeleteButtons,
 }) => {
+
+  const CustomPrevArrow = (props: any) => {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={`${className} custom-slick-prev`}
+        style={{ ...style, display: "block" }}
+        onClick={onClick}
+      >
+        <span>
+        <ArrowBigRight/>
+        </span>
+      </div>
+    );
+  };
+  
+  const CustomNextArrow = (props: any) => {
+    const { className, style, onClick } = props;
+    return (
+      <div
+      className={`${className} custom-slick-next`}
+      style={{ ...style, display: "block" }}
+      onClick={onClick}
+      >
+        <span>
+      <ArrowBigLeft/>
+        </span>
+      </div>
+    );
+  };
   const settings = {
     dots: true,
     infinite: images.length > 1, // Only allow infinite scroll if more than 1 image
@@ -24,10 +56,12 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
     autoplaySpeed: 5000,
     pauseOnHover: true,
     rtl: true,
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
   };
 
   return (
-    <div className="carousel-container w-full max-w-[1500px]">
+    <div className="carousel-container w-full px-4">
       <Slider {...settings}>
         {images.map((image, index) => (
           <div key={index} className="relative">

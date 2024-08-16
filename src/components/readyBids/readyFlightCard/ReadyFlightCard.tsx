@@ -9,6 +9,7 @@ import {
 import FlightDetails from "./FlightDetails";
 import PasangersDetails from "./PasangersDetails";
 import { Separator } from "@/components/ui/separator";
+import { Plane } from "lucide-react";
 
 interface ReadyFlightCardProps {
   data: FlightResponse;
@@ -31,8 +32,11 @@ const ReadyFlightCard: React.FC<ReadyFlightCardProps> = ({ data }) => {
             }`}
             onClick={handleToggle}
           >
-            <div className="sm:w-[300px] text-start">
-              <h3 className="mr-4 text-sm sm:text-lg">
+            <div className="flex gap-4" >
+              <div className="hidden sm:block mr-4">
+                <Plane />
+              </div>
+              <h3 className="text-sm sm:text-lg">
                 {data.flightDescription}
               </h3>
             </div>

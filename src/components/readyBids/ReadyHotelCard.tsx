@@ -10,6 +10,11 @@ import SmallCarousel from "../SmallCarousel";
 import { calculateNights, dateFormat } from "@/config/utils";
 import { useState } from "react";
 import { ArrowBigDownDash, ArrowBigUpDash } from "lucide-react";
+import { FaHotel } from "react-icons/fa6";
+import { LuHotel } from "react-icons/lu";
+import { RiHotelFill } from "react-icons/ri";
+
+
 
 interface ReadyHotelCardProps {
   data: HotelResponse;
@@ -20,7 +25,7 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
 
   const [isOpen1, setIsOpen1] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
-  console.log(isOpen2)
+  console.log(isOpen2);
 
   const handleToggle1 = () => {
     setIsOpen1(!isOpen1);
@@ -38,7 +43,8 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
             }`}
             onClick={handleToggle1}
           >
-            <div>
+            <div className="flex items-center gap-2 sm:mr-4">
+              <RiHotelFill/>
               <p className="sm:mr-4"> {data.hotelName}</p>
             </div>
 
@@ -85,14 +91,17 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
                     className="bg-sky-200 rounded-2xl p-4 sm:text-lg hover:no-underline hover:bg-sky-300"
                   >
                     <div className="flex gap-2">
-                      <p>סוג החדר:</p>
-                      <p className="ml-2 font-semibold"> {room.roomType}</p>
+                      <div className="flex flex-col sm:flex-row sm:gap-2">
+                        <p>סוג החדר:</p>
+                        <p className="ml-2 font-semibold"> {room.roomType}</p>
+                      </div>
+
                       <div className="flex hover:underline">
-                        <p className="mr-8">לחצו כאן לראות את פרטי החדר</p>
+                        <p className="mr-8">לחצו כאן לפרטי החדר</p>
                         {isOpen2 ? (
-                          <ArrowBigUpDash className="mt-1" />
+                          <ArrowBigUpDash className="mt-1 hidden sm:block" />
                         ) : (
-                          <ArrowBigDownDash className="mt-1" />
+                          <ArrowBigDownDash className="mt-1 hidden sm:block" />
                         )}
                       </div>
                     </div>
@@ -112,7 +121,7 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
                     />
 
                     <div className="bg-sky-200 flex flex-col sm:flex-row justify-between rounded-lg mt-8 sm:text-lg">
-                      <div className="flex flex-col sm:flex-row gap-2 sm:gap-20 m-2">
+                      <div className="flex flex-col sm:flex-row gap-2 sm:gap-20 m-2 mr-4">
                         <div className="flex flex-row sm:flex-col gap-8 sm:gap-4">
                           <p>סוג חדר</p>
                           <p className="font-semibold text-center">

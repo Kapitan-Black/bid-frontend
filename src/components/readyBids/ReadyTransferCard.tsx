@@ -7,6 +7,8 @@ import {
 } from "../ui/accordion";
 import { dateFormat } from "@/config/utils";
 import { useState } from "react";
+import { FaCar } from "react-icons/fa6";
+
 
 interface ReadyTransferCardProps {
   data: TransferResponse;
@@ -29,9 +31,12 @@ const ReadyTransferCard: React.FC<ReadyTransferCardProps> = ({ data }) => {
             }`}
             onClick={handleToggle}
           >
-            <h3 className="mr-4 text-sm sm:text-lg ">
-              {data.transferDescription}
-            </h3>
+            <div className="flex items-center ml-8 sm:mr-4 ">
+              <FaCar />
+              <h3 className="mr-4 text-sm sm:text-lg ">
+                {data.transferDescription}
+              </h3>
+            </div>
           </AccordionTrigger>
           <AccordionContent>
             <div className="bg-yellow-100 p-4 space-y-4">

@@ -5,13 +5,14 @@ import ReadyFlightCard from "./readyFlightCard/ReadyFlightCard";
 import ReadyTransferCard from "./ReadyTransferCard";
 import ReadyHotelCard from "./ReadyHotelCard";
 import ReadyImageCard from "./ReadyImageCard";
+import ReadyBidHeader from "./ReadyBidHeader";
+
 
 const ReadyBid = () => {
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const { formName } = useParams<{ formName: string }>();
   const [form, setBid] = useState<MainBidServerResponse[] | undefined>();
-
   
 
   useEffect(() => {
@@ -19,7 +20,7 @@ const ReadyBid = () => {
       .then((response) => response.json())
       // .then((data) => setBid(data))
       .then((data) => {
-        console.log("Fetched Data:", data); // Log the data to ensure the structure
+        // console.log("Fetched Data:", data); 
         setBid(data);
       })
       .catch((error) => console.log(error, "Error"));
@@ -60,29 +61,47 @@ const flattenAndSortBidForm = (bidForm: MainBidServerResponse[]) => {
     sortedElements,
     idArray: form.idArray,
     id: form._id,
+    flightDate: form.flightDate
   };
 };
 
 
   const processedBidForms = flattenAndSortBidForm(form);
-  console.log(processedBidForms)
+  // console.log(processedBidForms)
 
-  
+
 
   return (
     <div>
-      <h2 className="text-center mb-8 text-lg">{processedBidForms?.formName}</h2>
+      <h2 className="text-center mb-8 text-lg">
+        {processedBidForms?.formName}
+      </h2>
+      <ReadyBidHeader
+        createDate={form[0].createDate}
+        flightDate={form[0].flightDate}
+      />
       <div className="space-y-2">
         {processedBidForms?.sortedElements.map((element, index) => {
           switch (element.type) {
             case "flight":
-              return <ReadyFlightCard key={index} data={element as FlightResponse} />;
+              return (
+                <ReadyFlightCard key={index} data={element as FlightResponse} />
+              );
             case "image":
-              return <ReadyImageCard key={index} data={element as ImageResponse } />;
+              return (
+                <ReadyImageCard key={index} data={element as ImageResponse} />
+              );
             case "hotel":
-              return <ReadyHotelCard key={index} data={element as HotelResponse} />;
+              return (
+                <ReadyHotelCard key={index} data={element as HotelResponse} />
+              );
             case "transfer":
-              return <ReadyTransferCard key={index} data={element as TransferResponse} />;
+              return (
+                <ReadyTransferCard
+                  key={index}
+                  data={element as TransferResponse}
+                />
+              );
             default:
               return null;
           }

@@ -157,6 +157,7 @@ const MainBidForm: React.FC = () => {
               hotelName: hotelDataEntry.selectedHotel?.hotelName,
               hotelDescription: hotelDataEntry.selectedHotel?.hotelDescription,
               images: hotelDataEntry.selectedHotel?.images,
+              
               rooms: hotelDataEntry.selectedRooms.map((room) => ({
                 roomType: room.roomType,
                 images: room.images,

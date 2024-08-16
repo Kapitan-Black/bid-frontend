@@ -1,5 +1,7 @@
 import React from "react";
 import Slider from "react-slick";
+import "./carousel.css"
+import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
 
 interface CarouselProps {
   images: string[] | undefined;
@@ -19,6 +21,36 @@ const SmallCarousel: React.FC<CarouselProps> = ({
   slidesToShow = 1,
   responsive = [],
 }) => {
+
+   const CustomPrevArrow = (props: any) => {
+     const { className, style, onClick } = props;
+     return (
+       <div
+         className={`${className} custom-slick-prev`}
+         style={{ ...style, display: "block" }}
+         onClick={onClick}
+       >
+         <span>
+           <ArrowBigRight />
+         </span>
+       </div>
+     );
+   };
+
+   const CustomNextArrow = (props: any) => {
+     const { className, style, onClick } = props;
+     return (
+       <div
+         className={`${className} custom-slick-next`}
+         style={{ ...style, display: "block" }}
+         onClick={onClick}
+       >
+         <span>
+           <ArrowBigLeft />
+         </span>
+       </div>
+     );
+   };
   const settings = {
     dots: true,
     infinite: true,
@@ -26,6 +58,8 @@ const SmallCarousel: React.FC<CarouselProps> = ({
     slidesToShow: slidesToShow,
     slidesToScroll: slidesToShow,
     arrows: true,
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
     responsive: [
       {
         breakpoint: 768, // Adjust this value based on your definition of small screens
@@ -39,7 +73,7 @@ const SmallCarousel: React.FC<CarouselProps> = ({
   };
 
   return (
-    <div className="carousel-container mx-auto my-4 w-full max-w-7xl">
+    <div className="carousel-container mx-auto my-4 w-full max-w-7xl px-6">
       <Slider {...settings}>
         {images.map((image, index) => (
           <div

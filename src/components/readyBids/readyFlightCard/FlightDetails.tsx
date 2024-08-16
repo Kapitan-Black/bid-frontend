@@ -1,6 +1,6 @@
 import { calculateNights, dateFormat } from "@/config/utils";
 import { FlightResponse } from "@/types/mainBidFormResponse";
-import { MoveLeft } from "lucide-react";
+import { MoveLeft, PlaneLanding, PlaneTakeoff } from "lucide-react";
 
 type Props = {
   data: FlightResponse;
@@ -19,6 +19,7 @@ const FlightDetails = ({ data }: Props) => {
 
         <div className="flex flex-row justify-between gap-8 sm:w-4/5">
           <div className="flex flex-col items-center sm:items-center">
+            <PlaneTakeoff className="-scale-x-100" />
             <p>{data.departureAirport}</p>
             <p className="text-center">{data.flightTime}</p>
           </div>
@@ -43,6 +44,9 @@ const FlightDetails = ({ data }: Props) => {
           </div>
 
           <div className="flex flex-col items-center sm:items-center">
+            <div className="flex">
+              <PlaneLanding className="-scale-x-100" />
+            </div>
             <p>{data.arrivalAirport}</p>
             {nights > 0 && <p>{dateFormat(data.arrivalDate)}</p>}
             <p className="text-center">{data.landingTime}</p>

@@ -1,5 +1,8 @@
 
 import { FlightResponse } from "@/types/mainBidFormResponse";
+import airplain from "../../../assets/airplain.png"
+import airplain1 from "../../../assets/airplain1.jpeg";
+import airplain2 from "../../../assets/aiplain2.jpg"
 
 
 type Props = {
@@ -55,10 +58,11 @@ const PasangersDetails = ({ data }: Props) => {
         </div>
       </div>
 
-      <div className="w-1/2 sm:w-1/3 ">
-        <p className="font-bold mb-2">הערות סוכן</p>
+      <div className="w-1/2 sm:w-1/3 mt-2">
+        <p className="font-bold mb-1">הערות סוכן</p>
         <p>{data.agentComments}</p>
       </div>
+      
     </div>
   );
 };

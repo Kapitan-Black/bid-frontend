@@ -7,13 +7,18 @@ const ReadyBidPage = () => {
 
   return (
     <>
-     
       {data && (
         <ul>
           {data.map((form) => (
             <li key={form._id}>
-              <Link className="hover:text-blue-400" to={`/form/${form.formName}`}> {form.formName}</Link>
-              <Separator className="bg-gray-300"/>
+              <Link
+                className="hover:text-blue-400"
+                to={`/form/${form.formName}`}
+              >
+                {" "}
+                {form.formName}
+              </Link>
+              <Separator className="bg-gray-300" />
             </li>
           ))}
         </ul>
