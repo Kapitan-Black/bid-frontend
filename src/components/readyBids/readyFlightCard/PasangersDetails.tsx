@@ -1,8 +1,5 @@
 
 import { FlightResponse } from "@/types/mainBidFormResponse";
-import airplain from "../../../assets/airplain.png"
-import airplain1 from "../../../assets/airplain1.jpeg";
-import airplain2 from "../../../assets/aiplain2.jpg"
 
 
 type Props = {

@@ -10,8 +10,6 @@ import SmallCarousel from "../SmallCarousel";
 import { calculateNights, dateFormat } from "@/config/utils";
 import { useState } from "react";
 import { ArrowBigDownDash, ArrowBigUpDash } from "lucide-react";
-import { FaHotel } from "react-icons/fa6";
-import { LuHotel } from "react-icons/lu";
 import { RiHotelFill } from "react-icons/ri";
 
 
