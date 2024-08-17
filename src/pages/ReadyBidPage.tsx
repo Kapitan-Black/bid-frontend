@@ -5,6 +5,14 @@ import { Link } from "react-router-dom";
 const ReadyBidPage = () => {
   const { data } = useGetMainBidForms();
 
+    if (!data) {
+      return (
+        <div className="container mx-auto">
+          <p>Loading...</p>
+        </div>
+      );
+    }
+
   return (
     <>
       {data && (
