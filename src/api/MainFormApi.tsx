@@ -1,16 +1,22 @@
 import { MainBidServerResponse } from "@/types/mainBidFormResponse";
 import { Hotel } from "../types/types";
 import { useMutation, useQuery } from "react-query";
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const useCreateMainBidForm = () => {
+  const { getAccessTokenSilently } = useAuth0();
+
   const createMainBidForm = async (formData: any): Promise<Hotel> => {
+    const accessToken = await getAccessTokenSilently();
+
     const response = await fetch(`${API_BASE_URL}/api/main-form`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify(formData),
     });
@@ -37,9 +43,14 @@ export const useCreateMainBidForm = () => {
 };
 
 export const useGetMainBidForms = () => {
+  const {getAccessTokenSilently} = useAuth0()
   const getMainBidFormsRequest = async (): Promise<MainBidServerResponse[]> => {
+    const accessToken = await getAccessTokenSilently()
     const response = await fetch(`${API_BASE_URL}/api/main-form`, {
       method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     });
 
     if (!response.ok) {

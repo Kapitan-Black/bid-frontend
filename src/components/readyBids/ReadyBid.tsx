@@ -1,4 +1,10 @@
-import { FlightResponse, HotelResponse, ImageResponse, MainBidServerResponse, TransferResponse } from "@/types/mainBidFormResponse";
+import {
+  FlightResponse,
+  HotelResponse,
+  ImageResponse,
+  MainBidServerResponse,
+  TransferResponse,
+} from "@/types/mainBidFormResponse";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ReadyFlightCard from "./readyFlightCard/ReadyFlightCard";
@@ -6,70 +12,81 @@ import ReadyTransferCard from "./ReadyTransferCard";
 import ReadyHotelCard from "./ReadyHotelCard";
 import ReadyImageCard from "./ReadyImageCard";
 import ReadyBidHeader from "./ReadyBidHeader";
-
+import { useAuth0 } from "@auth0/auth0-react";
 
 const ReadyBid = () => {
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const { formName } = useParams<{ formName: string }>();
   const [form, setBid] = useState<MainBidServerResponse[] | undefined>();
-  
+
+  const { getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
-    fetch(`${API_BASE_URL}/api/main-form/${formName}`)
-      .then((response) => response.json())
-      // .then((data) => setBid(data))
-      .then((data) => {
-        // console.log("Fetched Data:", data); 
+    const fetchData = async () => {
+      try {
+        const token = await getAccessTokenSilently();
+
+        const response = await fetch(
+          `${API_BASE_URL}/api/main-form/${formName}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const data = await response.json();
         setBid(data);
-      })
-      .catch((error) => console.log(error, "Error"));
+      } catch (error) {
+        console.log(error, "Error");
+      }
+    };
+
+    fetchData();
   }, [formName]);
-    
-    
-    if (!form) {
-        return <div>Loading...</div>
-    }
 
-const flattenAndSortBidForm = (bidForm: MainBidServerResponse[]) => {
-  if (bidForm.length === 0) return null; 
+  if (!form) {
+    return <div>Loading...</div>;
+  }
 
-  const form = bidForm[0]; 
+  const flattenAndSortBidForm = (bidForm: MainBidServerResponse[]) => {
+    if (bidForm.length === 0) return null;
 
-  const flattenedElements = [
-    ...form.flight.map((f) => ({ ...f, type: "flight" })),
-    ...form.hotel.map((h) => ({ ...h, type: "hotel" })),
-    ...form.transfer.map((t) => ({ ...t, type: "transfer" })),
-    ...form.image.map((i) => ({ ...i, type: "image" })),
-  ];
+    const form = bidForm[0];
 
-  const idPositionMap = form.idArray.reduce<Record<string, number>>(
-    (acc, id, index) => {
-      acc[id] = index;
-      return acc;
-    },
-    {}
-  );
+    const flattenedElements = [
+      ...form.flight.map((f) => ({ ...f, type: "flight" })),
+      ...form.hotel.map((h) => ({ ...h, type: "hotel" })),
+      ...form.transfer.map((t) => ({ ...t, type: "transfer" })),
+      ...form.image.map((i) => ({ ...i, type: "image" })),
+    ];
 
-  const sortedElements = flattenedElements.sort(
-    (a, b) => idPositionMap[a.id] - idPositionMap[b.id]
-  );
+    const idPositionMap = form.idArray.reduce<Record<string, number>>(
+      (acc, id, index) => {
+        acc[id] = index;
+        return acc;
+      },
+      {}
+    );
 
-  return {
-    formName: form.formName,
-    createDate: form.createDate,
-    sortedElements,
-    idArray: form.idArray,
-    id: form._id,
-    flightDate: form.flightDate
+    const sortedElements = flattenedElements.sort(
+      (a, b) => idPositionMap[a.id] - idPositionMap[b.id]
+    );
+
+    return {
+      formName: form.formName,
+      createDate: form.createDate,
+      sortedElements,
+      idArray: form.idArray,
+      id: form._id,
+      flightDate: form.flightDate,
+    };
   };
-};
-
 
   const processedBidForms = flattenAndSortBidForm(form);
   // console.log(processedBidForms)
-
-
 
   return (
     <div>

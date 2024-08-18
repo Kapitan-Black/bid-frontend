@@ -74,10 +74,16 @@ const Countdown: React.FC<CountdownProps> = ({ createDate, flightDate }) => {
           ? "Invalid Date"
           : new Date(flightDate).toLocaleString()}
       </h1> */}
+
       <div className=" bg-blue-50 gap-2 p-4 rounded-md w-[500px]">
-        <h2 className="text-center text-lg mb-2">
-          איזה כיף! החופשה החלומית שלכם בתאילנד מתחילה בעוד...
-        </h2>
+        {Object.values(timeLeft).every((value) => value > 0) ? (
+          <h2 className="text-center text-lg mb-2">
+            איזה כיף! החופשה החלומית שלכם בתאילנד מתחילה בעוד...
+          </h2>
+        ):( <h2 className="text-center text-lg mb-2">
+            שתהיה לכם חופשא מהנה
+          </h2>)}
+        
         <div className="flex justify-center text-sky-600">
           <div className="flex justify-center bg-blue-100 gap-2 text-sky-600 sm:text-xl">
             {/* <div className="bg-sky-200 p-4 py-8 rounded-md">
