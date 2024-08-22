@@ -203,7 +203,7 @@ const HotelsForm = () => {
                       handleRoomDataChange(index, newRoomData, uploading)
                     }
                     showRemoveButton={index === rooms.length - 1}
-                    setHotelsIsUplading={setIsUploading}
+                    setHotelsIsUploading={setIsUploading}
                   />
                 ))}
                 <Button

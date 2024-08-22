@@ -10,7 +10,7 @@ interface HotelRoomProps {
   onRemove: () => void;
   onUpdate: (newRoomData: RoomFormData, isUploading: boolean) => void;
   showRemoveButton: boolean;
-  setHotelsIsUplading: React.Dispatch<React.SetStateAction<boolean>>;
+  setHotelsIsUploading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface RoomData extends RoomFormData {
@@ -22,7 +22,7 @@ const HotelRoomForm: React.FC<HotelRoomProps> = ({
   onRemove,
   onUpdate,
   showRemoveButton,
-  setHotelsIsUplading,
+  setHotelsIsUploading,
 }) => {
   const { control } = useFormContext();
   const [roomUrls, setRoomUrls] = useState<string[]>([]);
@@ -34,8 +34,8 @@ const HotelRoomForm: React.FC<HotelRoomProps> = ({
   const [isUploading, setIsUploading] = useState(false); // New state for upload status
 
   useEffect(() => {
-    setHotelsIsUplading(isUploading)
-  }, [isUploading])
+    setHotelsIsUploading(isUploading);
+  }, [isUploading]);
 
   const receiveIsUploading = (uploading: boolean) => {
     setIsUploading(uploading);
@@ -56,8 +56,8 @@ const HotelRoomForm: React.FC<HotelRoomProps> = ({
     setRoomData((prevData) => ({
       ...prevData,
       images: roomUrls,
-    }))
-  }, [roomUrls])
+    }));
+  }, [roomUrls]);
 
   useEffect(() => {
     onUpdate(roomData, isUploading);
