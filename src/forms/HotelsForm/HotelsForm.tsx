@@ -8,12 +8,13 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import LoadingButton from "@/components/LoadingButton";
 import HotelRoomForm from "./HotelRoomForm";
-import UploadImagesInput from "@/components/UploadImagesInput";
 import { Separator } from "@/components/ui/separator";
 import { useDeleteImage } from "@/api/imageUploadApi";
 import RemoveButton from "@/components/RemoveButton";
 import { HotelFormData, RoomFormData } from "@/types/types";
-import useImageStorage from "@/customHooks/ImageSrorage";
+// import useImageStorage from "@/customHooks/ImageSrorage";
+import HotelUploadImagesInput from "@/components/HotelUploadImagesInput";
+
 
 const hotelSchema = z.object({
   hotelName: z.string().min(1, "Hotel name is required"),
@@ -35,7 +36,7 @@ const HotelsForm = () => {
   });
 
   const [hotelUrls, setHotelUrls] = useState<string[]>([]);
-  console.log("hotelUrls===>>>", hotelUrls.length);
+  // console.log("hotelUrls===>>>", hotelUrls.length);
   const [rooms, setRooms] = useState<RoomFormData[]>([]);
   const [showForm, setShowForm] = React.useState(false);
   const [isUploading, setIsUploading] = useState(false); // New state for upload status
@@ -72,27 +73,23 @@ const HotelsForm = () => {
   };
 
   const { deleteImage } = useDeleteImage();
-  const { deleteImages } = useImageStorage();
+
 
   const handleRemoveImage = async (index: number) => {
     const urlToRemove = hotelUrls[index];
 
-    try {
-      deleteImages(urlToRemove);
+    
+      deleteImage(urlToRemove);
 
       setHotelUrls((prevUrls) => {
         const updatedUrls = prevUrls.filter((_, i) => i !== index);
-        // console.log("Updated hotelUrls after deletion: ", updatedUrls.length);
         return updatedUrls;
       });
-    } catch (error) {
-      console.error("Error deleting image:", error);
-    }
+
   };
 
-  const receiveDataFromInput = (data: string[], uploading: boolean) => {
-    setHotelUrls(data);
-    setIsUploading(uploading); // Update upload status
+  const receiveIsUploading = (uploading: boolean) => {
+    setIsUploading(uploading);
   };
 
   const handleRoomDataChange = (
@@ -168,9 +165,11 @@ const HotelsForm = () => {
           {showForm && (
             <form dir="rtl" onSubmit={handleSubmit}>
               <div className="flex justify-center mt-8 mb-4">
-                <UploadImagesInput
+                <HotelUploadImagesInput
+                  imageUrls={hotelUrls}
+                  setImageUrls={setHotelUrls}
+                  imageUploadState={receiveIsUploading}
                   showImages={false}
-                  data={receiveDataFromInput}
                 />
               </div>
 
@@ -200,10 +199,11 @@ const HotelsForm = () => {
                     key={index}
                     index={index}
                     onRemove={() => handleRemoveRoom(index)}
-                    onUpdate={(newRoomData, isUploading) =>
-                      handleRoomDataChange(index, newRoomData, isUploading)
+                    onUpdate={(newRoomData, uploading) =>
+                      handleRoomDataChange(index, newRoomData, uploading)
                     }
                     showRemoveButton={index === rooms.length - 1}
+                    setHotelsIsUplading={setIsUploading}
                   />
                 ))}
                 <Button

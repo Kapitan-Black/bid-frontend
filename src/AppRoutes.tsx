@@ -7,7 +7,7 @@ import ReadyBidPage from "./pages/ReadyBidPage";
 import ReadyBid from "./components/readyBids/ReadyBid";
 import AuthCallbackPage from "./pages/AuthCallbackPage";
 import ProtectedRoute from "./auth/ProtactedRoute";
-import UpdateHotelsForm from "./forms/UpdateHotelsForm/UpdateHotelsForm";
+// import UpdateHotelsForm from "./forms/UpdateHotelsForm/UpdateHotelsForm";
 
 const AppRoutes = () => {
   return (
@@ -51,14 +51,14 @@ const AppRoutes = () => {
           }
         />
 
-        <Route
+        {/* <Route
           path="/update-hotel"
           element={
             <Layout>
               <UpdateHotelsForm />
             </Layout>
           }
-        />
+        /> */}
       </Route>
 
       <Route path="/auth-callback" element={<AuthCallbackPage />} />
