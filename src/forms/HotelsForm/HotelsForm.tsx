@@ -15,7 +15,6 @@ import { HotelFormData, RoomFormData } from "@/types/types";
 // import useImageStorage from "@/customHooks/ImageSrorage";
 import HotelUploadImagesInput from "@/components/HotelUploadImagesInput";
 
-
 const hotelSchema = z.object({
   hotelName: z.string().min(1, "Hotel name is required"),
   hotelDescription: z.string().min(1, "Hotel description is required"),
@@ -74,18 +73,15 @@ const HotelsForm = () => {
 
   const { deleteImage } = useDeleteImage();
 
-
   const handleRemoveImage = async (index: number) => {
     const urlToRemove = hotelUrls[index];
 
-    
-      deleteImage(urlToRemove);
+    deleteImage(urlToRemove);
 
-      setHotelUrls((prevUrls) => {
-        const updatedUrls = prevUrls.filter((_, i) => i !== index);
-        return updatedUrls;
-      });
-
+    setHotelUrls((prevUrls) => {
+      const updatedUrls = prevUrls.filter((_, i) => i !== index);
+      return updatedUrls;
+    });
   };
 
   const receiveIsUploading = (uploading: boolean) => {
@@ -222,14 +218,18 @@ const HotelsForm = () => {
                   <Button
                     type="submit"
                     className="bg-green-400 hover:bg-green-600"
-                    disabled={isUploading} // Disable submit button while images are uploading
+                    disabled={isUploading}
                   >
                     Submit
                   </Button>
                 )}
               </div>
               <div className="flex justify-end items-center p-2">
-                <RemoveButton onRemove={handleToggleForm} text="סגור" />
+                <RemoveButton
+                  onRemove={handleToggleForm}
+                  text="סגור"
+                  disabled={isUploading}
+                />
               </div>
             </form>
           )}

@@ -86,7 +86,7 @@ const UploadImagesInput: React.FC<Props> = ({
         />
       </div>
       <div className="flex justify-center mt-4">
-        <RemoveButton onRemove={handleDeleteImages} text="מחק תמונות" />
+        <RemoveButton onRemove={handleDeleteImages} text="מחק תמונות" disabled={isUploading} />
       </div>
     </div>
   );

@@ -91,7 +91,7 @@ const HotelRoomForm: React.FC<HotelRoomProps> = ({
       </div>
       {showRemoveButton && (
         <div className="flex justify-end mt-4">
-          <RemoveButton onRemove={onRemove} text="מחק חדר" />
+          <RemoveButton onRemove={onRemove} text="מחק חדר" disabled={isUploading} />
         </div>
       )}
     </div>

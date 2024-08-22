@@ -22,7 +22,7 @@ const HotelsPage = () => {
   const [selectedHotel, setSelectedHotel] = useState<string | null>(null);
   const navigate = useNavigate()
 
-console.log(selectedHotel)
+
 
   useEffect(() => {
     if (isSuccess) {
