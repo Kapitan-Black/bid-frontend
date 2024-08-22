@@ -11,13 +11,18 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import ConfirmationModal from "@/components/ConfirmationModal";
 import SmallCarousel from "@/components/SmallCarousel";
-import { Room } from "@/types/types";
+import { Hotel, Room } from "@/types/types";
+import { useNavigate } from "react-router-dom";
 
 const HotelsPage = () => {
   const { hotels } = useGetHotels();
+
   const { deleteHotel, isSuccess } = useDeleteHotel();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [selectedHotel, setSelectedHotel] = useState<string | null>(null);
+  const navigate = useNavigate()
+
+console.log(selectedHotel)
 
   useEffect(() => {
     if (isSuccess) {
@@ -49,9 +54,15 @@ const HotelsPage = () => {
     setShowModal(false);
   };
 
+  const handleUpdateHotel = (hotel: Hotel) => {
+    navigate(`/update-hotel`, {state: {hotel}})
+  }
+
   return (
     <div className="sm:container mx-auto" dir="rtl">
-      <HotelsForm />
+      
+        <HotelsForm />
+
 
       <Accordion type="single" collapsible className="space-y-2 mt-12">
         {sortedHotels.map((hotel) => (
@@ -80,7 +91,7 @@ const HotelsPage = () => {
                         slidesToShow={room.images.length > 3 ? 3 : 1}
                         responsive={[
                           {
-                            breakpoint: 768, 
+                            breakpoint: 768,
                             settings: {
                               slidesToShow: 1,
                             },
@@ -98,6 +109,15 @@ const HotelsPage = () => {
                   className="bg-red-400 rounded p-2 hover:bg-red-500"
                 >
                   למחוק בית מלון
+                </Button>
+              </div>
+              <div>
+                <Button
+                  type="button"
+                  onClick={() => handleUpdateHotel(hotel)}
+                  className="bg-purple-400 rounded p-2 hover:bg-purple-500"
+                >
+                  update
                 </Button>
               </div>
             </AccordionContent>

@@ -23,7 +23,7 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
 
   const [isOpen1, setIsOpen1] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
-  console.log(isOpen2);
+
 
   const handleToggle1 = () => {
     setIsOpen1(!isOpen1);

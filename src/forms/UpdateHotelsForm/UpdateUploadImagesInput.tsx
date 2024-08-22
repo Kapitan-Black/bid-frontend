@@ -1,22 +1,31 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
 import useImageStorage from "@/customHooks/ImageSrorage";
-import SmallCarousel from "./SmallCarousel";
-import RemoveButton from "./RemoveButton";
+import SmallCarousel from "@/components/SmallCarousel";
+import RemoveButton from "@/components/RemoveButton";
 
 interface Props {
-  data: (urls: string[], isUploading: boolean) => void; 
+  data: (urls: string[], isUploading: boolean) => void; // Update data function to include isUploading
   showImages?: boolean;
+  hotelUrlsFromUpdateHotelsForm: string[];
 }
 
-const UploadImagesInput: React.FC<Props> = ({ showImages, data }) => {
-  const { imageUrls, addImages, deleteImages, isUploading } = useImageStorage();
+const UpdateUploadImagesInput: React.FC<Props> = ({
+  showImages,
+  data,
+  hotelUrlsFromUpdateHotelsForm,
+}) => {
+  const { imageUrls, addImages, deleteImages, isUploading } =
+    useImageStorage();
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [inputKey, setInputKey] = useState(Date.now());
+    const [inputKey, setInputKey] = useState(Date.now());
+    
 
-
-
-  // console.log("UploadImagesInput=====>>", imageUrls.length);
+  console.log("imageUrls", imageUrls);
+  console.log("hotelUrlsFromUpdateHotelsForm", hotelUrlsFromUpdateHotelsForm.length);
+//   useEffect(() => {
+//     setImageUrls(hotelUrlsFromUpdateHotelsForm);
+//   }, []);
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -25,8 +34,6 @@ const UploadImagesInput: React.FC<Props> = ({ showImages, data }) => {
       await addImages(event.target.files);
     }
   };
-
-
 
   const handleDeleteImages = () => {
     setInputKey(Date.now());
@@ -58,9 +65,9 @@ const UploadImagesInput: React.FC<Props> = ({ showImages, data }) => {
           </div>
         </div>
       )}
-      <div className="flex justify-center">
+      {/* <div className="flex justify-center">
         <p>({imageUrls.length} תמונות)</p>
-      </div>
+      </div> */}
       <div className="flex justify-center">
         <Input
           type="file"
@@ -71,12 +78,11 @@ const UploadImagesInput: React.FC<Props> = ({ showImages, data }) => {
           className="flex justify-center w-[150px] sm:w-full"
         />
       </div>
-      <div className="flex justify-center mt-4">
-       
-        <RemoveButton onRemove={handleDeleteImages} text="מחק תמונות"/>
-      </div>
+      {/* <div className="flex justify-center mt-4">
+        <RemoveButton onRemove={handleDeleteImages} text="מחק תמונות" />
+      </div> */}
     </div>
   );
 };
 
-export default UploadImagesInput;
+export default UpdateUploadImagesInput;

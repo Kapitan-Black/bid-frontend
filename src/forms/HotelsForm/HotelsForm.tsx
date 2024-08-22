@@ -13,6 +13,7 @@ import { Separator } from "@/components/ui/separator";
 import { useDeleteImage } from "@/api/imageUploadApi";
 import RemoveButton from "@/components/RemoveButton";
 import { HotelFormData, RoomFormData } from "@/types/types";
+import useImageStorage from "@/customHooks/ImageSrorage";
 
 const hotelSchema = z.object({
   hotelName: z.string().min(1, "Hotel name is required"),
@@ -34,6 +35,7 @@ const HotelsForm = () => {
   });
 
   const [hotelUrls, setHotelUrls] = useState<string[]>([]);
+  console.log("hotelUrls===>>>", hotelUrls.length);
   const [rooms, setRooms] = useState<RoomFormData[]>([]);
   const [showForm, setShowForm] = React.useState(false);
   const [isUploading, setIsUploading] = useState(false); // New state for upload status
@@ -70,10 +72,22 @@ const HotelsForm = () => {
   };
 
   const { deleteImage } = useDeleteImage();
+  const { deleteImages } = useImageStorage();
+
   const handleRemoveImage = async (index: number) => {
-    deleteImage(hotelUrls[index]);
-    const newImageUrls = hotelUrls.filter((_, i) => i !== index);
-    setHotelUrls(newImageUrls);
+    const urlToRemove = hotelUrls[index];
+
+    try {
+      deleteImages(urlToRemove);
+
+      setHotelUrls((prevUrls) => {
+        const updatedUrls = prevUrls.filter((_, i) => i !== index);
+        // console.log("Updated hotelUrls after deletion: ", updatedUrls.length);
+        return updatedUrls;
+      });
+    } catch (error) {
+      console.error("Error deleting image:", error);
+    }
   };
 
   const receiveDataFromInput = (data: string[], uploading: boolean) => {
@@ -81,11 +95,15 @@ const HotelsForm = () => {
     setIsUploading(uploading); // Update upload status
   };
 
-  const handleRoomDataChange = (index: number, newRoomData: RoomFormData, uploading: boolean) => {
+  const handleRoomDataChange = (
+    index: number,
+    newRoomData: RoomFormData,
+    uploading: boolean
+  ) => {
     setRooms((currentRooms) =>
       currentRooms.map((room, idx) => (idx === index ? newRoomData : room))
     );
-    setIsUploading(uploading)
+    setIsUploading(uploading);
   };
 
   const { createHotel, isLoading, isSuccess, error } = useCreateHotel();
@@ -165,7 +183,7 @@ const HotelsForm = () => {
                   />
                 </div>
 
-                <div className=""> 
+                <div className="">
                   <h3 className="sm:text-xl">תיאור הבית מלון:</h3>
                   <textarea
                     {...methods.register("hotelDescription")}
@@ -188,7 +206,11 @@ const HotelsForm = () => {
                     showRemoveButton={index === rooms.length - 1}
                   />
                 ))}
-                <Button type="button" onClick={handleAddRoom} className="mt-4 text-xs p-1 h-5">
+                <Button
+                  type="button"
+                  onClick={handleAddRoom}
+                  className="mt-4 text-xs p-1 h-5"
+                >
                   Add Room
                 </Button>
               </div>
@@ -207,8 +229,7 @@ const HotelsForm = () => {
                 )}
               </div>
               <div className="flex justify-end items-center p-2">
-              
-                <RemoveButton onRemove={handleToggleForm} text="סגור"/>
+                <RemoveButton onRemove={handleToggleForm} text="סגור" />
               </div>
             </form>
           )}

@@ -49,7 +49,7 @@ const HomePage = () => {
               to="/ready-bids"
               className="border-2 border-black text-center w-40 h-10 flex justify-center items-center hover:border-blue-500"
             >
-              הצאות מחיר מוכנות
+              הצעות מחיר מוכנות
             </Link>
           </div>
         </div>

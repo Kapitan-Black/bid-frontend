@@ -16,7 +16,6 @@ interface ReadyTransferCardProps {
 
 const ReadyTransferCard: React.FC<ReadyTransferCardProps> = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
-  console.log(isOpen);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);

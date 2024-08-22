@@ -1,3 +1,4 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import { useMutation } from "react-query";
 import { toast } from "sonner";
 
@@ -39,15 +40,18 @@ const folderName = "Hotels"
 
 
 export const useDeleteImage = () => {
+
+  const {getAccessTokenSilently} = useAuth0()
   const deleteImageRequest = async (url: string) => {
     
-
+    const accessToken = await getAccessTokenSilently()
     const response = await fetch(`${API_BASE_URL}/api/delete-image`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
       },
-      body: JSON.stringify({ url , folder: folderName}),
+      body: JSON.stringify({ url, folder: folderName }),
     });
 
     if (!response.ok) {
@@ -60,6 +64,7 @@ export const useDeleteImage = () => {
   const {
     mutate: deleteImage,
     isLoading,
+    isSuccess,
 
   } = useMutation(deleteImageRequest);
 
@@ -68,5 +73,6 @@ export const useDeleteImage = () => {
   return {
     deleteImage,
     isLoading,
+    isSuccess,
   };
 };

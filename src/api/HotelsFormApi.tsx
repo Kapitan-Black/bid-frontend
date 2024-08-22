@@ -41,11 +41,14 @@ export const useCreateHotel = () => {
   };
 };
 
+
+
+
+
 export const useGetHotels = () => {
   const {getAccessTokenSilently} = useAuth0()
   const getHotelsRequest = async (): Promise<Hotel[]> => {
     const accessToken = await getAccessTokenSilently()
-        console.log(accessToken);
 
     const response = await fetch(`${API_BASE_URL}/api/hotels`, {
       headers: {
@@ -134,3 +137,6 @@ export const useDeleteHotel = () => {
     error,
   };
 };
+
+
+
