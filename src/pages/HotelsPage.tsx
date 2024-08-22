@@ -14,6 +14,12 @@ import SmallCarousel from "@/components/SmallCarousel";
 import { Hotel, Room } from "@/types/types";
 import { useNavigate } from "react-router-dom";
 
+
+
+
+
+
+
 const HotelsPage = () => {
   const { hotels } = useGetHotels();
 
@@ -57,6 +63,13 @@ const HotelsPage = () => {
   const handleUpdateHotel = (hotel: Hotel) => {
     navigate(`/update-hotel`, {state: {hotel}})
   }
+
+
+
+
+
+
+
 
   return (
     <div className="sm:container mx-auto" dir="rtl">

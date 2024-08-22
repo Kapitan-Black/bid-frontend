@@ -1,82 +1,95 @@
-// import React, { useEffect, useRef, useState } from "react";
-// import { Input } from "@/components/ui/input";
-// import useImageStorage from "@/customHooks/ImageSrorage";
-// import SmallCarousel from "./SmallCarousel";
-// import RemoveButton from "./RemoveButton";
+import React, { useEffect, useRef, useState } from "react";
+import { Input } from "@/components/ui/input";
+import SmallCarousel from "./SmallCarousel";
+import RemoveButton from "./RemoveButton";
+import { UploadImages, useDeleteImage } from "@/api/imageUploadApi";
 
-// interface Props {
-//   data: (urls: string[], isUploading: boolean) => void; 
-//   showImages?: boolean;
-// }
+interface Props {
+  imageUrls: string[];
+  setImageUrls: React.Dispatch<React.SetStateAction<string[]>>;
+  showImages?: boolean;
+  imageUploadState: (isUploading: boolean) => void;
+}
 
-// const UploadImagesInput: React.FC<Props> = ({ showImages, data }) => {
-//   const { imageUrls, addImages, deleteImages, isUploading } = useImageStorage();
-//   const fileInputRef = useRef<HTMLInputElement>(null);
-//   const [inputKey, setInputKey] = useState(Date.now());
+const UploadImagesInput: React.FC<Props> = ({
+  showImages,
+  imageUrls,
+  setImageUrls,
+  imageUploadState,
+}) => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [inputKey, setInputKey] = useState(Date.now());
+  const { deleteImage } = useDeleteImage();
+  const [isUploading, setIsUploading] = useState<boolean>(false);
 
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (event.target.files && event.target.files.length) {
+      setIsUploading(true);
+      const fileArray = Array.from(event.target.files);
 
+      const urls = await Promise.all(
+        fileArray.map((file) => UploadImages(file))
+      );
+      setImageUrls((prevUrls) => [...prevUrls, ...urls]);
+      setIsUploading(false);
+    }
+  };
 
-//   // console.log("UploadImagesInput=====>>", imageUrls.length);
+  const handleDeleteImages = () => {
+    setInputKey(Date.now());
 
-//   const handleFileChange = async (
-//     event: React.ChangeEvent<HTMLInputElement>
-//   ) => {
-//     if (event.target.files && event.target.files.length) {
-//       await addImages(event.target.files);
-//     }
-//   };
+    Promise.all(imageUrls.map((url) => deleteImage(url)));
 
+    setImageUrls([]);
+    setInputKey(Date.now());
+  };
 
+  useEffect(() => {
+    if (imageUploadState) {
+      imageUploadState(isUploading);
+    }
+  }, [isUploading]);
 
-//   const handleDeleteImages = () => {
-//     setInputKey(Date.now());
-//     deleteImages();
-//     data([], false); // Update data function call
-//   };
+  return (
+    <div className="mt-4">
+      {showImages && (
+        <div className="flex justify-center">
+          <div className="w-[280px] sm:w-[400px] md:w-[550px] lg:w-[800px] xl:w-[1100px] mb-8">
+            <SmallCarousel
+              images={imageUrls}
+              slidesToShow={imageUrls.length > 2 ? 3 : 1}
+              responsive={[
+                {
+                  breakpoint: 768,
+                  settings: {
+                    slidesToShow: 1,
+                  },
+                },
+              ]}
+            />
+          </div>
+        </div>
+      )}
+      <div className="flex justify-center">
+        <p>({imageUrls.length} תמונות)</p>
+      </div>
+      <div className="flex justify-center">
+        <Input
+          type="file"
+          ref={fileInputRef}
+          key={inputKey}
+          multiple
+          onChange={handleFileChange}
+          className="flex justify-center w-[150px] sm:w-full"
+        />
+      </div>
+      <div className="flex justify-center mt-4">
+        <RemoveButton onRemove={handleDeleteImages} text="מחק תמונות" disabled={isUploading} />
+      </div>
+    </div>
+  );
+};
 
-//   useEffect(() => {
-//     data(imageUrls, isUploading); // Update data function call
-//   }, [imageUrls, isUploading]);
-
-//   return (
-//     <div className="mt-4">
-//       {showImages && (
-//         <div className="flex justify-center">
-//           <div className="w-[280px] sm:w-[400px] md:w-[550px] lg:w-[800px] xl:w-[1100px] mb-8">
-//             <SmallCarousel
-//               images={imageUrls}
-//               slidesToShow={imageUrls.length > 2 ? 3 : 1}
-//               responsive={[
-//                 {
-//                   breakpoint: 768,
-//                   settings: {
-//                     slidesToShow: 1,
-//                   },
-//                 },
-//               ]}
-//             />
-//           </div>
-//         </div>
-//       )}
-//       <div className="flex justify-center">
-//         <p>({imageUrls.length} תמונות)</p>
-//       </div>
-//       <div className="flex justify-center">
-//         <Input
-//           type="file"
-//           ref={fileInputRef}
-//           key={inputKey}
-//           multiple
-//           onChange={handleFileChange}
-//           className="flex justify-center w-[150px] sm:w-full"
-//         />
-//       </div>
-//       <div className="flex justify-center mt-4">
-       
-//         <RemoveButton onRemove={handleDeleteImages} text="מחק תמונות"/>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default UploadImagesInput;
+export default UploadImagesInput;

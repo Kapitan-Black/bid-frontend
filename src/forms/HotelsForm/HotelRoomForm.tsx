@@ -3,7 +3,7 @@ import { useFormContext, Controller } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import RemoveButton from "@/components/RemoveButton";
 import { RoomFormData } from "@/types/types";
-import HotelUploadImagesInput from "@/components/HotelUploadImagesInput";
+import UploadImagesInput from "@/components/UploadImagesInput";
 
 interface HotelRoomProps {
   index: number;
@@ -66,7 +66,7 @@ const HotelRoomForm: React.FC<HotelRoomProps> = ({
   return (
     <div className="bg-amber-100 rounded-lg mt-2 p-2">
       <div className="flex justify-center sm:mt-4 mt-[-24px]">
-        <HotelUploadImagesInput
+        <UploadImagesInput
           imageUrls={roomUrls}
           setImageUrls={setRoomUrls}
           imageUploadState={receiveIsUploading}
@@ -91,7 +91,11 @@ const HotelRoomForm: React.FC<HotelRoomProps> = ({
       </div>
       {showRemoveButton && (
         <div className="flex justify-end mt-4">
-          <RemoveButton onRemove={onRemove} text="מחק חדר" disabled={isUploading} />
+          <RemoveButton
+            onRemove={onRemove}
+            text="מחק חדר"
+            disabled={isUploading}
+          />
         </div>
       )}
     </div>

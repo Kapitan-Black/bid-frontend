@@ -12,8 +12,7 @@ import { Separator } from "@/components/ui/separator";
 import { useDeleteImage } from "@/api/imageUploadApi";
 import RemoveButton from "@/components/RemoveButton";
 import { HotelFormData, RoomFormData } from "@/types/types";
-// import useImageStorage from "@/customHooks/ImageSrorage";
-import HotelUploadImagesInput from "@/components/HotelUploadImagesInput";
+import UploadImagesInput from "@/components/UploadImagesInput";
 
 const hotelSchema = z.object({
   hotelName: z.string().min(1, "Hotel name is required"),
@@ -161,7 +160,7 @@ const HotelsForm = () => {
           {showForm && (
             <form dir="rtl" onSubmit={handleSubmit}>
               <div className="flex justify-center mt-8 mb-4">
-                <HotelUploadImagesInput
+                <UploadImagesInput
                   imageUrls={hotelUrls}
                   setImageUrls={setHotelUrls}
                   imageUploadState={receiveIsUploading}
