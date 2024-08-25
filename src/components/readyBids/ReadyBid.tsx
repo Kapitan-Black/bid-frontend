@@ -12,6 +12,8 @@ import ReadyTransferCard from "./ReadyTransferCard";
 import ReadyHotelCard from "./ReadyHotelCard";
 import ReadyImageCard from "./ReadyImageCard";
 import ReadyBidHeader from "./ReadyBidHeader";
+import { useAuth0 } from "@auth0/auth0-react";
+import { access } from "fs";
 // import { useAuth0 } from "@auth0/auth0-react";
 
 const ReadyBid = () => {
@@ -19,15 +21,22 @@ const ReadyBid = () => {
 
   const { formName } = useParams<{ formName: string }>();
   const [form, setBid] = useState<MainBidServerResponse[] | undefined>();
+  const {getAccessTokenSilently} = useAuth0()
 
   useEffect(() => {
+    
     const fetchData = async () => {
+      const accessToken = await getAccessTokenSilently()
       try {
         const response = await fetch(
           `${API_BASE_URL}/api/main-form/${formName}`,
           {
             method: "GET",
+            headers: {
+              Authorization: `Bearer ${accessToken}`
+            }
           }
+
         );
 
         const data = await response.json();

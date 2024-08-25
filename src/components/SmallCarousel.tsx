@@ -58,8 +58,8 @@ const SmallCarousel: React.FC<CarouselProps> = ({
     slidesToShow: slidesToShow,
     slidesToScroll: slidesToShow,
     arrows: true,
-    nextArrow: <CustomNextArrow />,
-    prevArrow: <CustomPrevArrow />,
+    nextArrow: images.length > 0 ? <CustomNextArrow /> : undefined,
+    prevArrow: images.length > 0 ? <CustomPrevArrow /> : undefined,
     responsive: [
       {
         breakpoint: 768, // Adjust this value based on your definition of small screens
@@ -74,20 +74,24 @@ const SmallCarousel: React.FC<CarouselProps> = ({
 
   return (
     <div className="carousel-container mx-auto my-4 w-full max-w-7xl px-6">
-      <Slider {...settings}>
-        {images.map((image, index) => (
-          <div
-            key={index}
-            className="carousel-slide flex items-center px-1 justify-center h-[180px] bg-gray-200 rounded-lg shadow-lg"
-          >
-            <img
-              src={image}
-              alt={`Slide ${index}`}
-              className="w-full h-full object-cover rounded-lg"
-            />
-          </div>
-        ))}
-      </Slider>
+      {images.length > 0 ? (
+        <Slider {...settings}>
+          {images.map((image, index) => (
+            <div
+              key={index}
+              className="carousel-slide flex items-center px-1 justify-center h-[180px] bg-gray-200 rounded-lg shadow-lg"
+            >
+              <img
+                src={image}
+                alt={`Slide ${index}`}
+                className="w-full h-full object-cover rounded-lg"
+              />
+            </div>
+          ))}
+        </Slider>
+      ) : (
+        <p className="text-center">No images to display</p>
+      )}
     </div>
   );
 };

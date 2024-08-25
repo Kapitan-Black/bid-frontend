@@ -9,10 +9,11 @@ import { Button } from "@/components/ui/button";
 import LoadingButton from "@/components/LoadingButton";
 import HotelRoomForm from "./HotelRoomForm";
 import { Separator } from "@/components/ui/separator";
-import { useDeleteImage } from "@/api/imageUploadApi";
+import { UploadImages } from "@/api/imageUploadApi";
 import RemoveButton from "@/components/RemoveButton";
 import { HotelFormData, RoomFormData } from "@/types/types";
 import UploadImagesInput from "@/components/UploadImagesInput";
+import { v4 as uuidv4 } from "uuid";
 
 const hotelSchema = z.object({
   hotelName: z.string().min(1, "Hotel name is required"),
@@ -34,19 +35,13 @@ const HotelsForm = () => {
   });
 
   const [hotelUrls, setHotelUrls] = useState<string[]>([]);
-  // console.log("hotelUrls===>>>", hotelUrls.length);
+  console.log("hotelUrls===>>>", hotelUrls);
   const [rooms, setRooms] = useState<RoomFormData[]>([]);
+  console.log("rooms===>>>", rooms);
   const [showForm, setShowForm] = React.useState(false);
-  const [isUploading, setIsUploading] = useState(false); // New state for upload status
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleToggleForm = () => {
-    hotelUrls.forEach((url) => deleteImage(url));
-
-    rooms.forEach((room) => {
-      room.images.forEach((url) => {
-        deleteImage(url);
-      });
-    });
     setHotelUrls([]);
     setRooms([]);
 
@@ -59,68 +54,91 @@ const HotelsForm = () => {
   };
 
   const handleAddRoom = () => {
-    setRooms((rooms) => [...rooms, { roomType: "", images: [] }]);
+    setRooms((rooms) => [...rooms, { id: uuidv4(), roomType: "", images: [] }]);
   };
 
-  const handleRemoveRoom = async (index: number) => {
-    const roomImages = rooms[index].images;
-    if (roomImages.length > 0) {
-      Promise.all(roomImages.map((url) => deleteImage(url)));
-    }
-    setRooms((rooms) => rooms.filter((_, i) => i !== index));
+  const handleRemoveRoom = async (id: string) => {
+    setRooms((rooms) => rooms.filter((room) => room.id !== id));
   };
-
-  const { deleteImage } = useDeleteImage();
 
   const handleRemoveImage = async (index: number) => {
-    const urlToRemove = hotelUrls[index];
-
-    deleteImage(urlToRemove);
-
     setHotelUrls((prevUrls) => {
       const updatedUrls = prevUrls.filter((_, i) => i !== index);
       return updatedUrls;
     });
   };
 
-  const receiveIsUploading = (uploading: boolean) => {
-    setIsUploading(uploading);
-  };
-
-  const handleRoomDataChange = (
-    index: number,
-    newRoomData: RoomFormData,
-    uploading: boolean
-  ) => {
+  const handleRoomDataChange = (index: number, newRoomData: RoomFormData) => {
     setRooms((currentRooms) =>
       currentRooms.map((room, idx) => (idx === index ? newRoomData : room))
     );
-    setIsUploading(uploading);
   };
 
   const { createHotel, isLoading, isSuccess, error } = useCreateHotel();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const uploadImagesToCloudinary = async (
+    base64Images: string[]
+  ): Promise<string[]> => {
+    const uploadedUrls: string[] = [];
+    setIsUploading(true);
+
+    for (const base64Image of base64Images) {
+      try {
+        const response = await fetch(base64Image);
+        const blob = await response.blob();
+        const file = new File([blob], "image.jpg", { type: blob.type });
+
+        const url = await UploadImages(file);
+        uploadedUrls.push(url);
+      } catch (err) {
+        toast.error("Image upload failed. Please try again.");
+        throw err;
+      }
+    }
+    setIsUploading(false);
+
+    return uploadedUrls;
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = methods.getValues();
 
-    const fullFormData = {
-      hotelName: formData.hotelName,
-      hotelDescription: formData.hotelDescription,
-      images: hotelUrls,
-      rooms: rooms.map((room) => ({
-        roomType: room.roomType,
-        images: room.images,
-      })),
-    };
-    if (fullFormData.hotelName && fullFormData.hotelDescription) {
-      createHotel(fullFormData);
-      setHotelUrls([]);
-      setRooms([]);
-      setShowForm(!showForm);
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000);
+    try {
+      if (formData.hotelName && formData.hotelDescription) {
+        setIsUploading(true);
+
+        const cloudinaryHotelUrls = await uploadImagesToCloudinary(hotelUrls);
+
+        const cloudinaryRoomUrls = await Promise.all(
+          rooms.map(async (room) => {
+            const uploadedRoomImages = await uploadImagesToCloudinary(
+              room.images
+            );
+            return { ...room, images: uploadedRoomImages };
+          })
+        );
+
+        const fullFormData = {
+          hotelName: formData.hotelName,
+          hotelDescription: formData.hotelDescription,
+          images: cloudinaryHotelUrls,
+          rooms: cloudinaryRoomUrls,
+        };
+
+        createHotel(fullFormData);
+        setHotelUrls([]);
+        setRooms([]);
+        setShowForm(!showForm);
+        localStorage.removeItem("images");
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -135,6 +153,11 @@ const HotelsForm = () => {
 
   return (
     <>
+      {isUploading && (
+        <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-70 z-50">
+          <LoadingButton />
+        </div>
+      )}
       <FormProvider {...methods}>
         <button
           type="button"
@@ -144,7 +167,7 @@ const HotelsForm = () => {
             showForm ? "bg-blue-100" : "bg-blue-300 hover:bg-blue-500"
           }`}
         >
-          Add Hotel
+          להוסיף בית מלון
         </button>
         <div className="sm:container bg-gray-100 rounded-lg">
           <div className="flex justify-center">
@@ -163,7 +186,6 @@ const HotelsForm = () => {
                 <UploadImagesInput
                   imageUrls={hotelUrls}
                   setImageUrls={setHotelUrls}
-                  imageUploadState={receiveIsUploading}
                   showImages={false}
                 />
               </div>
@@ -189,24 +211,24 @@ const HotelsForm = () => {
               <Separator className="mt-8" />
 
               <div>
-                {rooms.map((_, index) => (
+                {rooms.map((room, index) => (
                   <HotelRoomForm
-                    key={index}
+                    key={room.id}
                     index={index}
-                    onRemove={() => handleRemoveRoom(index)}
-                    onUpdate={(newRoomData, uploading) =>
-                      handleRoomDataChange(index, newRoomData, uploading)
+                    id={room.id}
+                    onRemove={() => handleRemoveRoom(room.id)}
+                    onUpdate={(newRoomData) =>
+                      handleRoomDataChange(index, newRoomData)
                     }
-                    showRemoveButton={index === rooms.length - 1}
                     setHotelsIsUploading={setIsUploading}
                   />
                 ))}
                 <Button
                   type="button"
                   onClick={handleAddRoom}
-                  className="mt-4 text-xs p-1 h-5"
+                  className="mt-4 text-xs p-1 h-5 hover:bg-gray-500"
                 >
-                  Add Room
+                  להוסיף חדר
                 </Button>
               </div>
 
@@ -216,10 +238,10 @@ const HotelsForm = () => {
                 ) : (
                   <Button
                     type="submit"
-                    className="bg-green-400 hover:bg-green-600"
+                    className="bg-green-400 hover:bg-green-500 hover:text-white text-black"
                     disabled={isUploading}
                   >
-                    Submit
+                    שמור בית מלון
                   </Button>
                 )}
               </div>

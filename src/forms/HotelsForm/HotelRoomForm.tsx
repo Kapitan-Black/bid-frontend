@@ -7,9 +7,9 @@ import UploadImagesInput from "@/components/UploadImagesInput";
 
 interface HotelRoomProps {
   index: number;
+  id: string;
   onRemove: () => void;
-  onUpdate: (newRoomData: RoomFormData, isUploading: boolean) => void;
-  showRemoveButton: boolean;
+  onUpdate: (newRoomData: RoomFormData) => void;
   setHotelsIsUploading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -19,31 +19,18 @@ interface RoomData extends RoomFormData {
 
 const HotelRoomForm: React.FC<HotelRoomProps> = ({
   index,
+  id,
   onRemove,
   onUpdate,
-  showRemoveButton,
-  setHotelsIsUploading,
 }) => {
   const { control } = useFormContext();
   const [roomUrls, setRoomUrls] = useState<string[]>([]);
   const [roomData, setRoomData] = useState<RoomData>({
+    id,
     index,
     roomType: "",
     images: [],
   });
-  const [isUploading, setIsUploading] = useState(false); // New state for upload status
-
-  useEffect(() => {
-    setHotelsIsUploading(isUploading);
-  }, [isUploading]);
-
-  const receiveIsUploading = (uploading: boolean) => {
-    setIsUploading(uploading);
-  };
-
-  // useEffect(() => {
-  //   console.log("roomData====", roomData);
-  // }, [roomData]);
 
   const handleRoomTypeChange = (roomType: string) => {
     setRoomData((prevData) => ({
@@ -60,7 +47,7 @@ const HotelRoomForm: React.FC<HotelRoomProps> = ({
   }, [roomUrls]);
 
   useEffect(() => {
-    onUpdate(roomData, isUploading);
+    onUpdate(roomData );
   }, [roomData]);
 
   return (
@@ -69,11 +56,9 @@ const HotelRoomForm: React.FC<HotelRoomProps> = ({
         <UploadImagesInput
           imageUrls={roomUrls}
           setImageUrls={setRoomUrls}
-          imageUploadState={receiveIsUploading}
           showImages
         />
       </div>
-      <h3>חדר {roomData.index + 1}</h3>
       <div className="w-[250px]">
         <Controller
           control={control}
@@ -89,15 +74,14 @@ const HotelRoomForm: React.FC<HotelRoomProps> = ({
           )}
         />
       </div>
-      {showRemoveButton && (
+
         <div className="flex justify-end mt-4">
           <RemoveButton
             onRemove={onRemove}
             text="מחק חדר"
-            disabled={isUploading}
           />
         </div>
-      )}
+
     </div>
   );
 };

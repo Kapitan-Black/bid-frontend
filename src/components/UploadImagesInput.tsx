@@ -1,56 +1,64 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
 import SmallCarousel from "./SmallCarousel";
 import RemoveButton from "./RemoveButton";
-import { UploadImages, useDeleteImage } from "@/api/imageUploadApi";
+import { useDeleteImage } from "@/api/imageUploadApi";
 
 interface Props {
   imageUrls: string[];
   setImageUrls: React.Dispatch<React.SetStateAction<string[]>>;
   showImages?: boolean;
-  imageUploadState: (isUploading: boolean) => void;
 }
 
 const UploadImagesInput: React.FC<Props> = ({
   showImages,
   imageUrls,
   setImageUrls,
-  imageUploadState,
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [inputKey, setInputKey] = useState(Date.now());
   const { deleteImage } = useDeleteImage();
-  const [isUploading, setIsUploading] = useState<boolean>(false);
 
-  const handleFileChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    if (event.target.files && event.target.files.length) {
-      setIsUploading(true);
-      const fileArray = Array.from(event.target.files);
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const updatedImages = [...imageUrls];
 
-      const urls = await Promise.all(
-        fileArray.map((file) => UploadImages(file))
-      );
-      setImageUrls((prevUrls) => [...prevUrls, ...urls]);
-      setIsUploading(false);
+      Array.from(files).forEach((file) => {
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+          const base64String = reader.result as string;
+          updatedImages.push(base64String);
+
+          // Update the state and localStorage after all files are processed
+          if (updatedImages.length === imageUrls.length + files.length) {
+            setImageUrls(updatedImages);
+            localStorage.setItem("images", JSON.stringify(updatedImages));
+          }
+        };
+
+        reader.readAsDataURL(file);
+      });
     }
   };
 
   const handleDeleteImages = () => {
     setInputKey(Date.now());
 
-    Promise.all(imageUrls.map((url) => deleteImage(url)));
+    const cloudinaryUrls = imageUrls.filter((url) =>
+      url.includes("cloudinary.com")
+    );
 
-    setImageUrls([]);
-    setInputKey(Date.now());
+    Promise.all(cloudinaryUrls.map((url) => deleteImage(url)))
+      .then(() => {
+        setImageUrls([]);
+        setInputKey(Date.now());
+      })
+      .catch((error) => {
+        console.error("Error deleting images:", error);
+      });
   };
-
-  useEffect(() => {
-    if (imageUploadState) {
-      imageUploadState(isUploading);
-    }
-  }, [isUploading]);
 
   return (
     <div className="mt-4">
@@ -86,7 +94,7 @@ const UploadImagesInput: React.FC<Props> = ({
         />
       </div>
       <div className="flex justify-center mt-4">
-        <RemoveButton onRemove={handleDeleteImages} text="מחק תמונות" disabled={isUploading} />
+        <RemoveButton onRemove={handleDeleteImages} text="מחק תמונות" />
       </div>
     </div>
   );

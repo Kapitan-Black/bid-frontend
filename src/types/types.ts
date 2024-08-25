@@ -21,6 +21,7 @@ export interface Hotel {
 }
 
 export interface RoomFormData {
+  id: string;
   roomType: string;
   images: string[];
 }

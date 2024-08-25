@@ -14,21 +14,13 @@ import SmallCarousel from "@/components/SmallCarousel";
 import { Hotel, Room } from "@/types/types";
 import { useNavigate } from "react-router-dom";
 
-
-
-
-
-
-
 const HotelsPage = () => {
   const { hotels } = useGetHotels();
 
   const { deleteHotel, isSuccess } = useDeleteHotel();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [selectedHotel, setSelectedHotel] = useState<string | null>(null);
-  const navigate = useNavigate()
-
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isSuccess) {
@@ -61,21 +53,12 @@ const HotelsPage = () => {
   };
 
   const handleUpdateHotel = (hotel: Hotel) => {
-    navigate(`/update-hotel`, {state: {hotel}})
-  }
-
-
-
-
-
-
-
+    navigate(`/update-hotel`, { state: { hotel } });
+  };
 
   return (
     <div className="sm:container mx-auto" dir="rtl">
-      
-        <HotelsForm />
-
+      <HotelsForm />
 
       <Accordion type="single" collapsible className="space-y-2 mt-12">
         {sortedHotels.map((hotel) => (
@@ -119,7 +102,7 @@ const HotelsPage = () => {
                 <Button
                   type="button"
                   onClick={() => handleDeleteHotel(hotel.hotelName)}
-                  className="bg-red-400 rounded p-2 hover:bg-red-500"
+                  className="bg-red-400 rounded p-2 hover:bg-red-500 text-black hover:text-white"
                 >
                   למחוק בית מלון
                 </Button>
@@ -128,9 +111,9 @@ const HotelsPage = () => {
                 <Button
                   type="button"
                   onClick={() => handleUpdateHotel(hotel)}
-                  className="bg-purple-400 rounded p-2 hover:bg-purple-500"
+                  className="bg-purple-400 rounded p-2 hover:bg-purple-500 text-black hover:text-white"
                 >
-                  update
+                  עריכה
                 </Button>
               </div>
             </AccordionContent>

@@ -8,12 +8,12 @@ export const useUpdateHotel = () => {
   // const { getAccessTokenSilently } = useAuth0();
 
   const updateHotelRequest = async (
-    hotelId: string,
+    id: string,
     updatedHotelData: HotelFormData
   ) => {
     // const accessToken = await getAccessTokenSilently();
     const response = await fetch(
-      `${API_BASE_URL}/api/hotels-update/${hotelId}`,
+      `${API_BASE_URL}/api/hotels-update/${id}`,
       {
         method: "PUT",
         headers: {
@@ -50,7 +50,7 @@ export const useUpdateHotel = () => {
 };
 
 type Props = {
-  hotelName: string;
+  id: string;
   roomImageUrls?: string[];
   hotelImageUrls?: string[];
 };
@@ -59,14 +59,14 @@ export const useDeleteSelectedHotelImages = () => {
   // const { getAccessTokenSilently } = useAuth0();
 
   const deleteSelectedHotelImagesRequest = async ({
-    hotelName,
+    id,
     roomImageUrls,
     hotelImageUrls,
   }: Props) => {
     // const accessToken = await getAccessTokenSilently();
 
     const requestBody = {
-      hotelName,
+      id,
       roomImageUrls,
       hotelImageUrls,
     };
