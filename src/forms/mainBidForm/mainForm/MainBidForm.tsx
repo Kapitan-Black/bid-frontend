@@ -51,7 +51,7 @@ const MainBidForm: React.FC = () => {
     { selectedHotel: Hotel | null; selectedRooms: Room[] }[]
     >([]);
   
-    console.log("hotelData", hotelData);
+    // console.log("hotelData", hotelData);
 
   const handleHotelDataChange = (
     index: number,
@@ -193,7 +193,7 @@ const MainBidForm: React.FC = () => {
     }
   }, [isSuccess, error]);
 
-  console.log(form.getValues().items)
+  // console.log(form.getValues().items)
 
   return (
     <FormProvider {...form}>

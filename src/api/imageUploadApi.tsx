@@ -8,7 +8,7 @@ const cloudName = import.meta.env.VITE_cloudName;
 
 
 const folderName = "Hotels"
-  export const UploadImages = async (image: File)=> {
+  export const uploadImages = async (image: File)=> {
     const formData = new FormData();
     formData.append("file", image);
     formData.append("upload_preset", uploadPreset);
@@ -31,6 +31,7 @@ const folderName = "Hotels"
     toast.success("Image uploaded successfully!");
     return data.secure_url;
   }
+
 
 
 

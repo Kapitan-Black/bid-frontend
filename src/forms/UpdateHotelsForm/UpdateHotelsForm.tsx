@@ -9,7 +9,7 @@ import LoadingButton from "@/components/LoadingButton";
 import { v4 as uuidv4 } from "uuid";
 
 import { Separator } from "@/components/ui/separator";
-import { UploadImages, useDeleteImage } from "@/api/imageUploadApi";
+import { uploadImages, useDeleteImage } from "@/api/imageUploadApi";
 import { HotelFormData, RoomFormData } from "@/types/types";
 import UploadImagesInput from "@/components/UploadImagesInput";
 import UpdateHotelsRoom from "./UpdateHotelsRoom";
@@ -108,7 +108,7 @@ const UpdateHotelsForm = () => {
         const blob = await response.blob();
         const file = new File([blob], "image.jpg", { type: blob.type });
 
-        const url = await UploadImages(file);
+        const url = await uploadImages(file);
         uploadedUrls.push(url);
       } catch (err) {
         toast.error("Image upload failed. Please try again.");
@@ -158,7 +158,9 @@ const UpdateHotelsForm = () => {
         setRooms([]);
         setShowForm(!showForm);
         localStorage.removeItem("images");
-        navigate("/hotels");
+        setTimeout(() => {
+          navigate("/hotels");
+        }, 1000);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -175,6 +177,8 @@ const UpdateHotelsForm = () => {
       toast.error("עדכון הבית מלון נכשל");
     }
   }, [isSuccess, error]);
+
+  console.log("isUploading=======>>>", isUploading);
 
   return (
     <>

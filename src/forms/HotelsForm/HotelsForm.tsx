@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import LoadingButton from "@/components/LoadingButton";
 import HotelRoomForm from "./HotelRoomForm";
 import { Separator } from "@/components/ui/separator";
-import { UploadImages } from "@/api/imageUploadApi";
+import  { uploadImages } from "@/api/imageUploadApi";
 import RemoveButton from "@/components/RemoveButton";
 import { HotelFormData, RoomFormData } from "@/types/types";
 import UploadImagesInput from "@/components/UploadImagesInput";
@@ -35,11 +35,12 @@ const HotelsForm = () => {
   });
 
   const [hotelUrls, setHotelUrls] = useState<string[]>([]);
-  console.log("hotelUrls===>>>", hotelUrls);
+  // console.log("hotelUrls===>>>", hotelUrls);
   const [rooms, setRooms] = useState<RoomFormData[]>([]);
-  console.log("rooms===>>>", rooms);
+  // console.log("rooms===>>>", rooms);
   const [showForm, setShowForm] = React.useState(false);
   const [isUploading, setIsUploading] = useState(false);
+
 
   const handleToggleForm = () => {
     setHotelUrls([]);
@@ -88,7 +89,7 @@ const HotelsForm = () => {
         const blob = await response.blob();
         const file = new File([blob], "image.jpg", { type: blob.type });
 
-        const url = await UploadImages(file);
+        const url = await uploadImages(file);
         uploadedUrls.push(url);
       } catch (err) {
         toast.error("Image upload failed. Please try again.");
@@ -220,7 +221,6 @@ const HotelsForm = () => {
                     onUpdate={(newRoomData) =>
                       handleRoomDataChange(index, newRoomData)
                     }
-                    setHotelsIsUploading={setIsUploading}
                   />
                 ))}
                 <Button

@@ -10,7 +10,6 @@ interface HotelRoomProps {
   id: string;
   onRemove: () => void;
   onUpdate: (newRoomData: RoomFormData) => void;
-  setHotelsIsUploading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface RoomData extends RoomFormData {
