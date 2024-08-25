@@ -13,8 +13,7 @@ import ReadyHotelCard from "./ReadyHotelCard";
 import ReadyImageCard from "./ReadyImageCard";
 import ReadyBidHeader from "./ReadyBidHeader";
 import { useAuth0 } from "@auth0/auth0-react";
-import { access } from "fs";
-// import { useAuth0 } from "@auth0/auth0-react";
+
 
 const ReadyBid = () => {
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;

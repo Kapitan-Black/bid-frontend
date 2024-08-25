@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useFormContext, Controller } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import RemoveButton from "@/components/RemoveButton";
-import { Hotel, RoomFormData } from "@/types/types";
+import { RoomFormData } from "@/types/types";
 import UploadImagesInput from "@/components/UploadImagesInput";
 import ConfirmationModal from "@/components/ConfirmationModal";
 
@@ -37,7 +37,6 @@ const UpdateHotelsRoom: React.FC<HotelRoomProps> = ({
 
   // console.log("roomData", roomData);
 
-  const [isUploading, setIsUploading] = useState(false);
   const [showModal, setShowModal] = useState<boolean>(false);
 
 
@@ -95,7 +94,6 @@ const UpdateHotelsRoom: React.FC<HotelRoomProps> = ({
         <RemoveButton
           onRemove={handleDeleteRoom}
           text="מחק חדר"
-          disabled={isUploading}
         />
       </div>
       <ConfirmationModal
