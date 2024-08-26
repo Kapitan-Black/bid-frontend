@@ -81,7 +81,7 @@ const Countdown: React.FC<CountdownProps> = ({ createDate, flightDate }) => {
             איזה כיף! החופשה החלומית שלכם בתאילנד מתחילה בעוד...
           </h2>
         ):( <h2 className="text-center text-lg mb-2">
-            שתהיה לכם חופשא מהנה
+            שתהיה לכם חופשה מהנה
           </h2>)}
         
         <div className="flex justify-center text-sky-600">
