@@ -1,4 +1,6 @@
-import { Route, Routes } from "react-router-dom";
+
+
+import {  Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import Layout from "./layout/Layout";
 import BidFormPage from "./pages/BidFormPage";
@@ -8,7 +10,7 @@ import ReadyBid from "./components/readyBids/ReadyBid";
 import AuthCallbackPage from "./pages/AuthCallbackPage";
 import ProtectedRoute from "./auth/ProtactedRoute";
 import UpdateHotelsForm from "./forms/UpdateHotelsForm/UpdateHotelsForm";
-// import UpdateHotelsForm from "./forms/UpdateHotelsForm/UpdateHotelsForm";
+
 
 const AppRoutes = () => {
   return (
@@ -64,7 +66,7 @@ const AppRoutes = () => {
 
       <Route path="/auth-callback" element={<AuthCallbackPage />} />
 
-      {/* <Route path="*" element={<Navigate to="/" />} /> */}
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
 };
