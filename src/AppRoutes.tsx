@@ -64,7 +64,7 @@ const AppRoutes = () => {
 
       <Route path="/auth-callback" element={<AuthCallbackPage />} />
 
-      <Route path="*" element={<Navigate to="/" />} />
+      {/* <Route path="*" element={<Navigate to="/" />} /> */}
     </Routes>
   );
 };
