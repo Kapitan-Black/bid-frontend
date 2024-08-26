@@ -12,34 +12,28 @@ import ReadyTransferCard from "./ReadyTransferCard";
 import ReadyHotelCard from "./ReadyHotelCard";
 import ReadyImageCard from "./ReadyImageCard";
 import ReadyBidHeader from "./ReadyBidHeader";
-import { useAuth0 } from "@auth0/auth0-react";
 
 
 const ReadyBid = () => {
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const { formName } = useParams<{ formName: string }>();
-  const [form, setBid] = useState<MainBidServerResponse[] | undefined>();
-  const {getAccessTokenSilently} = useAuth0()
+  const [form, setForm] = useState<MainBidServerResponse[] | undefined>();
 
   useEffect(() => {
     
     const fetchData = async () => {
-      const accessToken = await getAccessTokenSilently()
       try {
         const response = await fetch(
           `${API_BASE_URL}/api/main-form/${formName}`,
           {
             method: "GET",
-            headers: {
-              Authorization: `Bearer ${accessToken}`
-            }
           }
 
         );
 
         const data = await response.json();
-        setBid(data);
+        setForm(data);
       } catch (error) {
         console.log(error, "Error");
       }

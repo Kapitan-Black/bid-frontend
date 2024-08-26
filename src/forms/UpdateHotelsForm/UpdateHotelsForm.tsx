@@ -158,9 +158,7 @@ const UpdateHotelsForm = () => {
         setRooms([]);
         setShowForm(!showForm);
         localStorage.removeItem("images");
-        setTimeout(() => {
-          navigate("/hotels");
-        }, 1000);
+       
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -172,6 +170,9 @@ const UpdateHotelsForm = () => {
   useEffect(() => {
     if (isSuccess) {
       toast.success("הבית מלון עודכן במערכת");
+       setTimeout(() => {
+         navigate("/hotels");
+       }, 1000);
     }
     if (error) {
       toast.error("עדכון הבית מלון נכשל");
