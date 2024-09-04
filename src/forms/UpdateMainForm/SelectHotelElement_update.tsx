@@ -23,14 +23,12 @@ interface Props {
   data: (hotelData: Hotel) => void;
   hotelName: string | undefined;
   hotelsToUpdate: Hotel | null;
-  index: number;
 }
 
 const HotelDropdown: React.FC<Props> = ({
   data,
   hotelName,
   hotelsToUpdate,
-  index,
 }) => {
   const [hotelsData, setHotelsData] = useState<Hotel[]>([]);
   // console.log("hotelsData", hotelsData);
