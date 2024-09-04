@@ -79,23 +79,6 @@ export const useGetHotels = () => {
   };
 };
 
-// export const useGetHotel = (id:string) => {
-//   const getHotelsRequest = async (): Promise<Hotel[]> => {
-//     const response = await fetch(`${API_BASE_URL}/api/hotels${id}`, {
-//       method: "GET",
-//     });
-//     if (!response.ok) {
-//       throw new Error("Failed to fetch Hotel");
-//     }
-
-//     return response.json();
-//   };
-//   const { data: hotel, isLoading } = useQuery("getHotel", getHotelsRequest);
-//   return {
-//     hotel,
-//     isLoading,
-//   };
-// };
 
 
 const folderName = "Hotels";

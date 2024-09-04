@@ -2,6 +2,7 @@ import RemoveButton from "@/components/RemoveButton";
 import SmallCarousel from "@/components/SmallCarousel";
 import { Room } from "../../types/types";
 import { Controller, useFormContext } from "react-hook-form";
+import { useEffect } from "react";
 
 interface HotelRoomCardProps {
   onRemove: () => void;
@@ -9,20 +10,44 @@ interface HotelRoomCardProps {
   onRoomDataChange: (roomData: Room) => void;
   index: number;
   roomIndex: number;
+  initialSelectedRooms: Room[];
 }
 
-const HotelsRoomCard: React.FC<HotelRoomCardProps> = ({
+const HotelsRoomCard_Update: React.FC<HotelRoomCardProps> = ({
   onRemove,
   rooms,
   onRoomDataChange,
   index,
   roomIndex,
+  initialSelectedRooms,
 }) => {
   const { control, watch, setValue } = useFormContext();
+
+    const defaultRoom = initialSelectedRooms[roomIndex];
+
+
+   useEffect(() => {
+     // Set initial values when the component mounts
+     if (defaultRoom) {
+       setValue(`items.${index}.rooms.${roomIndex}.selectedRoom`, defaultRoom);
+       setValue(
+         `items.${index}.rooms.${roomIndex}.nightPrice`,
+         defaultRoom.nightPrice
+       );
+       setValue(
+         `items.${index}.rooms.${roomIndex}.numberOfRooms`,
+         defaultRoom.numberOfRooms
+       );
+     }
+   }, []);
+
 
   const handleRoomChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedId = event.target.value;
     const room = rooms?.find((room) => room.id === selectedId) || null;
+    // const roomToUpdate = selectedRoomsToUpdate[roomIndex]
+    // console.log(roomToUpdate)
+    // console.log(room)
     if (room) {
       setValue(`items.${index}.rooms.${roomIndex}.selectedRoom`, room);
       onRoomDataChange({
@@ -71,12 +96,14 @@ const HotelsRoomCard: React.FC<HotelRoomCardProps> = ({
         <Controller
           name={`items.${index}.rooms.${roomIndex}.selectedRoom`}
           control={control}
+          
           render={({ field }) => (
             <select
               className="border"
               id={`room-select-${roomIndex}`}
               onChange={handleRoomChange}
               value={field.value?.id || ""}
+              // defaultValue={selectedRoomsToUpdate[roomIndex]._id}
             >
               <option value="">--Please choose an option--</option>
               {rooms &&
@@ -127,4 +154,4 @@ const HotelsRoomCard: React.FC<HotelRoomCardProps> = ({
   );
 };
 
-export default HotelsRoomCard;
+export default HotelsRoomCard_Update;

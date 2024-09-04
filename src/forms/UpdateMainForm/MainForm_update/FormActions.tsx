@@ -1,17 +1,20 @@
-
 import { SeparatorUrls } from "@/config/separatorUrls";
 
-const FormActions: React.FC<{
+const FormActions_Update: React.FC<{
   addHotel: () => void;
   addTransfer: () => void;
   addFlight: () => void;
-    addImageComponent: () => void;
+  addImageComponent: () => void;
   selectedImageUrl: string;
-  // selectedImageDescription: string;
-    setSelectedImageUrl: React.Dispatch<React.SetStateAction<string>>
-}> = ({ addHotel, addTransfer, addFlight, addImageComponent, setSelectedImageUrl, selectedImageUrl }) => {
-
-
+  setSelectedImageUrl: React.Dispatch<React.SetStateAction<string>>;
+}> = ({
+  addHotel,
+  addTransfer,
+  addFlight,
+  addImageComponent,
+  setSelectedImageUrl,
+  selectedImageUrl,
+}) => {
   return (
     <div className="flex flex-col gap-2 mt-12">
       <button
@@ -62,4 +65,4 @@ const FormActions: React.FC<{
   );
 };
 
-export default FormActions;
+export default FormActions_Update;

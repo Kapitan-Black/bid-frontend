@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Slider from "react-slick";
 import "./carousel.css"
 import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
+import ImageModal from "./ImageModal";
 
 interface CarouselProps {
   images: string[] | undefined;
@@ -21,6 +22,12 @@ const SmallCarousel: React.FC<CarouselProps> = ({
   slidesToShow = 1,
   responsive = [],
 }) => {
+
+   const [isModalOpen, setModalOpen] = useState(false);
+
+   const handleImageClick = () => {
+     setModalOpen(true);
+   };
 
    const CustomPrevArrow = (props: any) => {
      const { className, style, onClick } = props;
@@ -74,6 +81,11 @@ const SmallCarousel: React.FC<CarouselProps> = ({
 
   return (
     <div className="carousel-container mx-auto my-4 w-full max-w-7xl px-6">
+      <ImageModal
+        isOpen={isModalOpen}
+        imageSrc={images}
+        onClose={() => setModalOpen(false)}
+      />
       {images.length > 0 ? (
         <Slider {...settings}>
           {images.map((image, index) => (
@@ -85,6 +97,7 @@ const SmallCarousel: React.FC<CarouselProps> = ({
                 src={image}
                 alt={`Slide ${index}`}
                 className="w-full h-full object-cover rounded-lg"
+                onClick={() => handleImageClick()}
               />
             </div>
           ))}

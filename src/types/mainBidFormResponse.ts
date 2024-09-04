@@ -67,12 +67,12 @@ type ImageResponse = {
   id: string;
   type: string;
   imageUrl: string;
+  description: string;
   _id: string;
 };
 
 type MainBidServerResponse = {
   createDate: string;
-  flightDate: string;
   formName: string;
   flight: FlightResponse[];
   hotel: HotelResponse[];

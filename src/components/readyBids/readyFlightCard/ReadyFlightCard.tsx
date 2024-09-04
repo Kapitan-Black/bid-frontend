@@ -27,18 +27,16 @@ const ReadyFlightCard: React.FC<ReadyFlightCardProps> = ({ data }) => {
       <Accordion type="single" collapsible>
         <AccordionItem key={data.id} value={data.id} className="group">
           <AccordionTrigger
-            className={`flex flex-col sm:flex-row bg-gradient-to-r from-yellow-500 to-green-500  text-white p-4 hover:no-underline ${
+            className={`flex flex-col sm:flex-row bg-gradient-to-r from-yellow-500 to-green-500  text-white p-4 hover:no-underline border-2 hover:border-green-300 ${
               isOpen ? "rounded-t-full" : "rounded-full"
             }`}
             onClick={handleToggle}
           >
-            <div className="flex gap-4" >
+            <div className="flex gap-4">
               <div className="hidden sm:block mr-4">
                 <Plane />
               </div>
-              <h3 className="text-sm sm:text-lg">
-                {data.flightDescription}
-              </h3>
+              <h3 className="text-sm sm:text-lg">{data.flightDescription}</h3>
             </div>
             <div className="flex gap-1">
               <p>חברת תעופה</p>

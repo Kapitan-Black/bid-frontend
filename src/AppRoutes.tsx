@@ -10,6 +10,7 @@ import ReadyBid from "./components/readyBids/ReadyBid";
 import AuthCallbackPage from "./pages/AuthCallbackPage";
 import ProtectedRoute from "./auth/ProtactedRoute";
 import UpdateHotelsForm from "./forms/UpdateHotelsForm/UpdateHotelsForm";
+import UpdateMainFormPage from "./pages/UpdateMainFormPage";
 
 
 const AppRoutes = () => {
@@ -59,6 +60,14 @@ const AppRoutes = () => {
           element={
             <Layout>
               <UpdateHotelsForm />
+            </Layout>
+          }
+        />
+        <Route
+          path="/update-main-form"
+          element={
+            <Layout>
+              <UpdateMainFormPage />
             </Layout>
           }
         />

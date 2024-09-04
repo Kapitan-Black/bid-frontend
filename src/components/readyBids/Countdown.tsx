@@ -29,6 +29,8 @@ const Countdown: React.FC<CountdownProps> = ({ createDate, flightDate }) => {
     return () => clearInterval(interval);
   }, [createDate, flightDate]);
 
+  // console.log(createDate, flightDate)
+
   const updateCountdown = () => {
     const now = new Date().getTime();
     const startDateTime = new Date(createDate).getTime();
@@ -66,6 +68,12 @@ const Countdown: React.FC<CountdownProps> = ({ createDate, flightDate }) => {
     }
   };
 
+const isTimeUp =
+  timeLeft.days === 0 &&
+  timeLeft.hours === 0 &&
+  timeLeft.minutes === 0 &&
+  timeLeft.seconds === 0;
+
   return (
     <div dir="rtl" className="flex justify-center my-8">
       {/* <h1>
@@ -76,14 +84,15 @@ const Countdown: React.FC<CountdownProps> = ({ createDate, flightDate }) => {
       </h1> */}
 
       <div className=" bg-blue-50 gap-2 p-4 rounded-md w-[500px]">
-        {Object.values(timeLeft).every((value) => value > 0) ? (
+        {/* {Object.values(timeLeft).every((value) => value > 0) ? ( */}
+        {!isTimeUp ? (
           <h2 className="text-center text-lg mb-2">
             איזה כיף! החופשה החלומית שלכם בתאילנד מתחילה בעוד...
           </h2>
-        ):( <h2 className="text-center text-lg mb-2">
-            שתהיה לכם חופשה מהנה
-          </h2>)}
-        
+        ) : (
+          <h2 className="text-center text-lg mb-2">שתהיה לכם חופשה מהנה</h2>
+        )}
+
         <div className="flex justify-center text-sky-600">
           <div className="flex justify-center bg-blue-100 gap-2 text-sky-600 sm:text-xl">
             {/* <div className="bg-sky-200 p-4 py-8 rounded-md">
@@ -112,7 +121,7 @@ const Countdown: React.FC<CountdownProps> = ({ createDate, flightDate }) => {
           </div>
         </div>
         <div className="flex justify-center gap-2 mt-4">
-          <p>מספר הצאה:</p>
+          <p>מספר הצעה:</p>
           <p>0000</p>
         </div>
       </div>

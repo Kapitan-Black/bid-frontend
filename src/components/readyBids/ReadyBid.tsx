@@ -6,19 +6,26 @@ import {
   TransferResponse,
 } from "@/types/mainBidFormResponse";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ReadyFlightCard from "./readyFlightCard/ReadyFlightCard";
 import ReadyTransferCard from "./ReadyTransferCard";
 import ReadyHotelCard from "./ReadyHotelCard";
 import ReadyImageCard from "./ReadyImageCard";
 import ReadyBidHeader from "./ReadyBidHeader";
+import { Button } from "../ui/button";
+
 
 
 const ReadyBid = () => {
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+  const navigate = useNavigate()
+
   const { formName } = useParams<{ formName: string }>();
   const [form, setForm] = useState<MainBidServerResponse[] | undefined>();
+
+  // console.log(form)
+
 
   useEffect(() => {
     
@@ -76,12 +83,15 @@ const ReadyBid = () => {
       sortedElements,
       idArray: form.idArray,
       id: form._id,
-      flightDate: form.flightDate,
     };
   };
 
   const processedBidForms = flattenAndSortBidForm(form);
   // console.log(processedBidForms)
+
+    const handleUpdateHotel = (mainForm: MainBidServerResponse[]) => {
+      navigate(`/update-main-form`, { state: { mainForm } });
+    };
 
   return (
     <div>
@@ -90,7 +100,7 @@ const ReadyBid = () => {
       </h2>
       <ReadyBidHeader
         createDate={form[0].createDate}
-        flightDate={form[0].flightDate}
+        flightDate={form[0].flight[0].departureDate}
       />
       <div className="space-y-2">
         {processedBidForms?.sortedElements.map((element, index) => {
@@ -119,6 +129,13 @@ const ReadyBid = () => {
           }
         })}
       </div>
+      <Button
+        type="button"
+        onClick={() => handleUpdateHotel(form)}
+        className="bg-purple-400 rounded p-2 hover:bg-purple-500 text-black hover:text-white mt-8"
+      >
+        עריכה
+      </Button>
     </div>
   );
 };

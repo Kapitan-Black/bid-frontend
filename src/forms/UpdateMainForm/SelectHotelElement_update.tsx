@@ -1,5 +1,3 @@
-
-
 import { useGetHotels } from "@/api/HotelsFormApi";
 import { Hotel } from "@/types/types";
 import React, { useEffect, useState } from "react";
@@ -11,31 +9,37 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "../../components/ui/command"
+} from "../../components/ui/command";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "../../components/ui/popover"
+} from "../../components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+
 
 interface Props {
   data: (hotelData: Hotel) => void;
   hotelName: string | undefined;
+  hotelsToUpdate: Hotel | null;
+  index: number;
 }
 
-
-const HotelDropdown: React.FC<Props> = ({ data, hotelName }) => {
+const HotelDropdown: React.FC<Props> = ({
+  data,
+  hotelName,
+  hotelsToUpdate,
+  index,
+}) => {
   const [hotelsData, setHotelsData] = useState<Hotel[]>([]);
-  // console.log("hotelData", hotelsData)
-  const [selectedHotel, setSelectedHotel] = useState<Hotel | null>(null);
+  // console.log("hotelsData", hotelsData);
+  const [selectedHotel, setSelectedHotel] = useState<Hotel | null>(hotelsToUpdate);
   // console.log("selectedHotel", selectedHotel);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<string>("");
 
   const { hotels } = useGetHotels();
-
 
   useEffect(() => {
     if (selectedHotel) {
@@ -50,6 +54,7 @@ const HotelDropdown: React.FC<Props> = ({ data, hotelName }) => {
   }, [hotels]);
 
   const handleHotelSelect = (selectedValue: string) => {
+    console.log(selectedValue)
     const selectedHotel = hotelsData.find(
       (hotel) => hotel.hotelName === selectedValue
     );
@@ -83,7 +88,8 @@ const HotelDropdown: React.FC<Props> = ({ data, hotelName }) => {
                 <CommandItem
                   key={hotel.hotelName}
                   value={hotel.hotelName}
-                  onSelect={handleHotelSelect}
+                      onSelect={handleHotelSelect}
+                      // defaultValue={hotelsToUpdate[index]?._id}
                 >
                   <Check
                     className={cn(
@@ -103,3 +109,5 @@ const HotelDropdown: React.FC<Props> = ({ data, hotelName }) => {
 };
 
 export default HotelDropdown;
+
+

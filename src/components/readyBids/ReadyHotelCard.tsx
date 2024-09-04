@@ -12,8 +12,6 @@ import { useState } from "react";
 import { ArrowBigDownDash, ArrowBigUpDash } from "lucide-react";
 import { RiHotelFill } from "react-icons/ri";
 
-
-
 interface ReadyHotelCardProps {
   data: HotelResponse;
 }
@@ -23,7 +21,6 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
 
   const [isOpen1, setIsOpen1] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
-
 
   const handleToggle1 = () => {
     setIsOpen1(!isOpen1);
@@ -36,13 +33,13 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
       <Accordion type="single" collapsible className="">
         <AccordionItem key={data._id} value={data._id}>
           <AccordionTrigger
-            className={`flex flex-col md:flex-row bg-gradient-to-r from-sky-400 to-blue-600  text-white p-2 sm:p-4 hover:no-underline text-sm sm:text-lg ${
+            className={`flex flex-col md:flex-row bg-gradient-to-r from-sky-400 to-blue-600  text-white p-2 sm:p-4 hover:no-underline text-sm sm:text-lg border-2 hover:border-sky-400 ${
               isOpen1 ? "rounded-t-full" : "rounded-full"
             }`}
             onClick={handleToggle1}
           >
             <div className="flex items-center gap-2 sm:mr-4">
-              <RiHotelFill/>
+              <RiHotelFill />
               <p className="sm:mr-4"> {data.hotelName}</p>
             </div>
 

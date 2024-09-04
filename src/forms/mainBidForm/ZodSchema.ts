@@ -67,6 +67,7 @@ const imageSchema = z.object({
   id: z.string(),
   type: z.literal("image"),
   imageUrl: z.string().url(),
+  description: z.string(),
 });
 
 export const formSchema = z.object({

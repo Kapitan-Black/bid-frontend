@@ -1,24 +1,8 @@
-export type Images = {
-  id: string;
-  images: string[];
-};
+// export type Images = {
+//   id: string;
+//   images: string[];
+// };
 
-export interface Room {
-  roomType: string;
-  images: string[];
-  nightPrice?: number;
-  numberOfRooms?: number;
-  _id: string;
-}
-export interface Hotel {
-  _id: string;
-  id: string;
-  type: string;
-  hotelName: string;
-  hotelDescription: string;
-  images: string[];
-  rooms: Room[];
-}
 
 export interface RoomFormData {
   id: string;
@@ -32,11 +16,29 @@ export interface HotelFormData {
   rooms: RoomFormData[];
 }
 
-export interface ImageComponent {
-  id: string;
-  type: "image";
-  imageUrl: string;
+
+
+
+export interface Room {
+  roomType: string;
+  images: string[];
+  nightPrice?: number;
+  numberOfRooms?: number;
+  // _id: string;
+  id: string; ///added
 }
+export interface Hotel {
+  // _id: string;
+  id: string;
+  type: string;
+  hotelName: string;
+  hotelDescription: string;
+  images: string[];
+  rooms: Room[];
+}
+
+
+
 
 export interface HotelCardFields {
   id: string;
@@ -45,6 +47,7 @@ export interface HotelCardFields {
   checkInDate: Date;
   checkOutDate: Date;
   hotelDescription: string;
+  images: string[];
   rooms: RoomFormData[];
   sum: number;
 }
@@ -92,7 +95,27 @@ export type FlightCardFields = {
   agentComments: string;
 };
 
-// export type MainBidForm = {
-//   hotel: HotelForm[];
-//   attraction: AttractionForm[];
-// }
+
+export interface ImageComponent {
+  id: string;
+  type: "image";
+  imageUrl: string;
+  description: string;
+}
+
+
+export interface FormFields {
+  formName: string;
+  idArray: string[];
+  items: (
+    | HotelCardFields
+    | TransferCardFields
+    | FlightCardFields
+    | ImageComponent
+  )[];
+}
+
+
+// bg-gradient-to-r from-yellow-500 to-green-500
+// bg-gradient-to-r from-sky-400 to-blue-600
+// bg-gradient-to-r from-rose-400 to-stone-500

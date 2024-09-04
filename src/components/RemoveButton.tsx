@@ -1,5 +1,6 @@
 type Props = {
-  onRemove: (e: React.MouseEvent) => void;
+  onRemove: (e: React.MouseEvent<HTMLButtonElement>) => void;
+
   text: string;
   disabled?: boolean;
 };

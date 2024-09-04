@@ -179,7 +179,7 @@ const UpdateHotelsForm = () => {
     }
   }, [isSuccess, error]);
 
-  console.log("isUploading=======>>>", isUploading);
+  // console.log("isUploading=======>>>", isUploading);
 
   return (
     <>

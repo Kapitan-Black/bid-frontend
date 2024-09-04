@@ -62,7 +62,7 @@ const HotelsPage = () => {
 
       <Accordion type="single" collapsible className="space-y-2 mt-12">
         {sortedHotels.map((hotel) => (
-          <AccordionItem key={hotel._id} value={hotel._id}>
+          <AccordionItem key={hotel.hotelName} value={hotel.hotelName}>
             <AccordionTrigger className="flex flex-col md:flex-row justify-between bg-blue-500 rounded-md p-2 sm:p-4 hover:no-underline">
               <p> {hotel.hotelName}</p>
             </AccordionTrigger>
@@ -74,7 +74,7 @@ const HotelsPage = () => {
 
               <Accordion type="single" collapsible className="space-y-2">
                 {hotel.rooms.map((room: Room) => (
-                  <AccordionItem key={room._id} value={room._id}>
+                  <AccordionItem key={room.id} value={room.id}>
                     <AccordionTrigger className="bg-amber-200 rounded p-4 ">
                       <div className="flex space-x-2">
                         <p className="ml-2"> {room.roomType}</p>

@@ -126,6 +126,7 @@ const HotelsForm = () => {
           images: cloudinaryHotelUrls,
           rooms: cloudinaryRoomUrls,
         };
+        console.log(fullFormData)
 
         createHotel(fullFormData);
         setHotelUrls([]);

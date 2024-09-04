@@ -22,7 +22,7 @@ interface AttractionCardProps {
 
 type AttractionFieldPath = `items.${number}.${keyof TransferCardFields}`;
 
-const TransferCard: React.FC<AttractionCardProps> = ({
+const TransferCard_Update: React.FC<AttractionCardProps> = ({
   id,
   index,
   onRemove,
@@ -192,4 +192,4 @@ const TransferCard: React.FC<AttractionCardProps> = ({
   );
 };
 
-export default TransferCard;
+export default TransferCard_Update;

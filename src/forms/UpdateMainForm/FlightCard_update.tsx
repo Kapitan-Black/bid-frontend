@@ -22,7 +22,11 @@ interface FlightCardProps {
 
 type FlightCardFieldPath = `items.${number}.${keyof FlightCardFields}`;
 
-const FlightCard: React.FC<FlightCardProps> = ({ id, index, onRemove }) => {
+const FlightCard_Update: React.FC<FlightCardProps> = ({
+  id,
+  index,
+  onRemove,
+}) => {
   const { register, control, watch } = useFormContext<{
     items: FlightCardFields[];
   }>();
@@ -44,7 +48,10 @@ const FlightCard: React.FC<FlightCardProps> = ({ id, index, onRemove }) => {
   const renderInput = (label: string, field: keyof FlightCardFields) => (
     <div className="flex flex-1 flex-col">
       <label>{label}:</label>
-      <input {...register(getFieldPath(index, field))} className="border sm:p-1" />
+      <input
+        {...register(getFieldPath(index, field))}
+        className="border sm:p-1"
+      />
     </div>
   );
 
@@ -309,4 +316,4 @@ const FlightCard: React.FC<FlightCardProps> = ({ id, index, onRemove }) => {
   );
 };
 
-export default FlightCard;
+export default FlightCard_Update;

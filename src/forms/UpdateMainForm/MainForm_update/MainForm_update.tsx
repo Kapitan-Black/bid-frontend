@@ -9,39 +9,121 @@ import {
   Room,
   HotelCardFields,
   FlightCardFields,
+  ImageComponent,
   FormFields,
 } from "../../../types/types";
-import SortableList from "./SortableList";
-import FormActions from "./FormActions";
-import { useCreateMainBidForm } from "@/api/MainFormApi";
-import { formSchema } from "../../mainBidForm/ZodSchema"
+
+import { useUpdateMainForm } from "@/api/MainFormApi";
+import { formSchema } from "../../mainBidForm/ZodSchema";
 import { SeparatorUrls } from "@/config/separatorUrls";
+import SortableList_Update from "./SortableList_update";
+import FormActions_Update from "./FormActions";
+import { MainBidServerResponse } from "@/types/mainBidFormResponse";
+
+interface MainBidForm_UpdateProps {
+  formToUpdate: MainBidServerResponse[];
+}
+
+const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
+  formToUpdate,
+}) => {
+  const transformFormToUpdate = (data: MainBidServerResponse[]): FormFields => {
+    const firstResponse = data[0];
+
+    // Step 1: Create a map of items by their IDs
+    const itemMap: { [key: string]: FormFields["items"][0] } = {};
+
+    firstResponse.hotel.forEach((hotel) => {
+      itemMap[hotel.id] = {
+        ...hotel,
+        type: "hotel",
+        checkInDate: new Date(hotel.checkInDate),
+        checkOutDate: new Date(hotel.checkOutDate),
+        rooms: hotel.rooms.map((room) => ({
+          ...room,
+          id: room._id || uuidv4(),
+        })),
+      } as HotelCardFields;
+    });
+
+    firstResponse.transfer.forEach((transfer) => {
+      itemMap[transfer.id] = {
+        ...transfer,
+        type: "transfer",
+        transferDate: new Date(transfer.transferDate),
+      } as TransferCardFields;
+    });
+
+    firstResponse.flight.forEach((flight) => {
+      itemMap[flight.id] = {
+        ...flight,
+        type: "flight",
+        departureDate: new Date(flight.departureDate),
+        arrivalDate: new Date(flight.arrivalDate),
+      } as FlightCardFields;
+    });
+
+    firstResponse.image.forEach((image) => {
+      itemMap[image.id] = {
+        ...image,
+        type: "image",
+      } as ImageComponent;
+    });
+
+    // Step 2: Sort items according to the idArray
+    const sortedItems = firstResponse.idArray.map((id) => itemMap[id]);
+
+    // Step 3: Return the sorted items in the form structure
+    return {
+      idArray: data[0].idArray,
+      formName: firstResponse.formName,
+      items: sortedItems,
+    };
+  };
+
+  const sortedFormToUpdate = transformFormToUpdate(formToUpdate);
 
 
-
-const MainBidForm: React.FC = () => {
   const form = useForm<FormFields>({
     resolver: zodResolver(formSchema),
-    defaultValues: { items: [] },
+    defaultValues: sortedFormToUpdate,
   });
-    
-    const [selectedImageUrl, setSelectedImageUrl] = useState(
-      SeparatorUrls[0].url
-    );
 
+  const [selectedImageUrl, setSelectedImageUrl] = useState(
+    SeparatorUrls[0].url
+  );
 
   const { fields, append, remove, move } = useFieldArray({
     control: form.control,
     name: "items",
   });
 
-  const [hotelData, setHotelData] = useState<
-    { selectedHotel: Hotel | null; selectedRooms: Room[] }[]
-    >([]);
-  
-  
-  
-    console.log("hotelData", hotelData);
+  const initialHotelData = sortedFormToUpdate.items.map((item) => {
+    if (item.type === "hotel") {
+      return {
+        selectedHotel: {
+          id: item.id,
+          type: item.type,
+          hotelName: item.hotelName,
+          hotelDescription: item.hotelDescription,
+          images: item.images,
+          rooms: item.rooms,
+        },
+        selectedRooms: item.rooms,
+      };
+    }
+    return {
+      selectedHotel: null,
+      selectedRooms: [],
+    };
+  });
+
+  const [hotelData, setHotelData] =
+    useState<{ selectedHotel: Hotel | null; selectedRooms: Room[] }[]>(
+      initialHotelData
+    );
+
+  // console.log("hotelData---mainForm_update", hotelData);
 
   const handleHotelDataChange = (
     index: number,
@@ -75,7 +157,6 @@ const MainBidForm: React.FC = () => {
       rooms: [],
       sum: 0,
     } as HotelCardFields);
-
   };
 
   const addTransfer = () => {
@@ -126,7 +207,9 @@ const MainBidForm: React.FC = () => {
   };
 
   const addImageComponent = () => {
-      const selectedImage = SeparatorUrls.find(image => image.url === selectedImageUrl);
+      const selectedImage = SeparatorUrls.find(
+        (image) => image.url === selectedImageUrl
+      );
     append({
       id: uuidv4(),
       type: "image",
@@ -135,9 +218,9 @@ const MainBidForm: React.FC = () => {
     });
   };
 
-  const { createForm, isLoading, isSuccess, error } = useCreateMainBidForm();
+  const { updateMainForm, isLoading, isSuccess, error } = useUpdateMainForm();
 
-  const handleSumbmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = form.getValues();
 
@@ -145,21 +228,20 @@ const MainBidForm: React.FC = () => {
       if (item.type === "hotel") {
         const hotelDataEntry = hotelData[index];
         if (hotelDataEntry) {
-            return {
-              ...item,
-              hotelName: hotelDataEntry.selectedHotel?.hotelName,
-              hotelDescription: hotelDataEntry.selectedHotel?.hotelDescription,
-              images: hotelDataEntry.selectedHotel?.images,
-              
-              rooms: hotelDataEntry.selectedRooms.map((room) => ({
-                roomType: room.roomType,
-                images: room.images,
-                nightPrice: room.nightPrice,
-                numberOfRooms: room.numberOfRooms,
-              })),
-            };
+          return {
+            ...item,
+            hotelName: hotelDataEntry.selectedHotel?.hotelName,
+            hotelDescription: hotelDataEntry.selectedHotel?.hotelDescription,
+            images: hotelDataEntry.selectedHotel?.images,
+
+            rooms: hotelDataEntry.selectedRooms.map((room) => ({
+              roomType: room.roomType,
+              images: room.images,
+              nightPrice: room.nightPrice,
+              numberOfRooms: room.numberOfRooms,
+            })),
+          };
         }
-      
       }
       return item;
     });
@@ -174,8 +256,12 @@ const MainBidForm: React.FC = () => {
       image: formData.items.filter((item) => item.type === "image") || [],
       idArray,
     };
-    // console.log(payload)
-    createForm(payload);
+
+    const updateData = {
+      id: formToUpdate[0]._id,
+      updateFormData: payload,
+    };
+    updateMainForm(updateData);
   };
 
   useEffect(() => {
@@ -187,11 +273,9 @@ const MainBidForm: React.FC = () => {
     }
   }, [isSuccess, error]);
 
-  // console.log(form.getValues().items)
-
   return (
     <FormProvider {...form}>
-      <form onSubmit={handleSumbmit}>
+      <form onSubmit={handleSubmit}>
         <div className="flex flex-row-reverse justify-center mb-12">
           <label htmlFor="formName">:שם ההצעה</label>
           <input
@@ -202,21 +286,22 @@ const MainBidForm: React.FC = () => {
           />
         </div>
 
-        <SortableList 
+        <SortableList_Update
           fields={fields}
           move={move}
           handleHotelRemove={handleHotelRemove}
           handleHotelDataChange={handleHotelDataChange}
           remove={remove}
+          sortedFormToUpdate={sortedFormToUpdate}
         />
 
-        <FormActions
+        <FormActions_Update
           addHotel={addHotel}
           addTransfer={addTransfer}
           addFlight={addFlight}
-                  addImageComponent={addImageComponent}
-                  selectedImageUrl={selectedImageUrl}
-                  setSelectedImageUrl={setSelectedImageUrl}
+          addImageComponent={addImageComponent}
+          selectedImageUrl={selectedImageUrl}
+          setSelectedImageUrl={setSelectedImageUrl}
         />
 
         <div className="space-x-8 mt-10">
@@ -232,4 +317,4 @@ const MainBidForm: React.FC = () => {
   );
 };
 
-export default MainBidForm;
+export default MainBidForm_Update;

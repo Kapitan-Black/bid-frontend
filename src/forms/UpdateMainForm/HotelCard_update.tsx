@@ -11,13 +11,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Hotel, HotelCardFields, Room } from "../../types/types";
 import ImageCarousel from "@/components/ImageCarousel";
 import { Button } from "@/components/ui/button";
-import HotelslRoomCard from "./HotelslRoomCard";
 import ConfirmationModal from "@/components/ConfirmationModal";
 import RemoveButton from "@/components/RemoveButton";
 
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import SelectHotelElement from "./SelectHotelElement";
+import HotelsRoomCard_Update from "./HotelsRoomCard_update";
+import SelectHotelElement_update from "./SelectHotelElement_update";
 
 interface HotelCardProps {
   id: string;
@@ -27,6 +27,9 @@ interface HotelCardProps {
     index: number,
     data: { selectedHotel: Hotel | null; selectedRooms: Room[] }
   ) => void;
+  // sortedFormToUpdate: FormFields;
+  initialSelectedHotel: Hotel | null;
+  initialSelectedRooms: Room[];
 }
 type HotelCardFieldPath = `items.${number}.${keyof HotelCardFields}`;
 
@@ -37,22 +40,28 @@ function getFieldPath(
   return `items.${index}.${field}`;
 }
 
-const HotelCard: React.FC<HotelCardProps> = ({
+const HotelCard_Update: React.FC<HotelCardProps> = ({
   id,
   index,
   onRemove,
   onDataChange,
+  initialSelectedHotel,
+  initialSelectedRooms,
 }) => {
-  const [rooms, setRooms] = useState<Room[]>([]);
-  const [selectedHotel, setSelectedHotel] = useState<Hotel | null>(null);
+
+  const [rooms, setRooms] = useState<Room[]>(initialSelectedRooms);
+  // console.log("rooms", rooms);
+  const [selectedHotel, setSelectedHotel] = useState<Hotel | null>(initialSelectedHotel);
+
   // console.log("selectedHotel------", selectedHotel);
-  const [selectedRooms, setSelectedRooms] = useState<Room[]>([]);
+
+  const [selectedRooms, setSelectedRooms] =
+    useState<Room[]>(initialSelectedRooms);
   // console.log("selectedRooms------", selectedRooms);
   const [showModal, setShowModal] = useState<boolean>(false);
   const { register, control, watch, setValue } = useFormContext<{
     items: HotelCardFields[];
   }>();
-
 
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
@@ -61,32 +70,34 @@ const HotelCard: React.FC<HotelCardProps> = ({
     transform: CSS.Transform.toString(transform),
     transition,
   };
-useEffect(() => {
-  const checkInDate = watch(`items.${index}.checkInDate`);
-  const checkOutDate = watch(`items.${index}.checkOutDate`);
-  const nights = calculateNights(checkInDate, checkOutDate);
 
-  if (selectedRooms.length > 0) {
-    const totalSum = selectedRooms.reduce((acc, room) => {
-      return acc + (room.nightPrice || 0) * (room.numberOfRooms || 1) * nights;
-    }, 0);
+  useEffect(() => {
+    const checkInDate = watch(`items.${index}.checkInDate`);
+    const checkOutDate = watch(`items.${index}.checkOutDate`);
+    const nights = calculateNights(checkInDate, checkOutDate);
 
-    setValue(getFieldPath(index, "sum" as keyof HotelCardFields), totalSum);
-  } else {
-    setValue(getFieldPath(index, "sum" as keyof HotelCardFields), 0);
-  }
+    if (selectedRooms.length > 0) {
+      const totalSum = selectedRooms.reduce((acc, room) => {
+        return (
+          acc + (room.nightPrice || 0) * (room.numberOfRooms || 1) * nights
+        );
+      }, 0);
 
-  onDataChange(index, {selectedHotel, selectedRooms})
+      setValue(getFieldPath(index, "sum" as keyof HotelCardFields), totalSum);
+    } else {
+      setValue(getFieldPath(index, "sum" as keyof HotelCardFields), 0);
+    }
 
-}, [
-  selectedHotel,
-  selectedRooms,
-  watch(`items.${index}.checkInDate`),
-  watch(`items.${index}.checkOutDate`),
-  index,
-]);
+    onDataChange(index, { selectedHotel, selectedRooms });
+  }, [
+    selectedHotel,
+    selectedRooms,
+    watch(`items.${index}.checkInDate`),
+    watch(`items.${index}.checkOutDate`),
+    index,
+  ]);
 
-  const receiveDataFromInput = (hotelData: Hotel) => {
+  const receiveDataFromSelectHotelElement = (hotelData: Hotel) => {
     setSelectedHotel(hotelData);
   };
 
@@ -122,7 +133,7 @@ useEffect(() => {
       newRooms[index] = {
         ...newRooms[index],
         ...roomData,
-      }
+      };
       return newRooms;
     });
   };
@@ -153,9 +164,7 @@ useEffect(() => {
             e.target.tagName === "TEXTAREA" ||
             e.target.tagName === "DIV" ||
             e.target.tagName === "H2" ||
-            e.target.tagName === "SPAN" ||
             e.target.tagName === "IMG")
-          
         ) {
           e.stopPropagation();
         }
@@ -163,7 +172,7 @@ useEffect(() => {
     >
       <Accordion type="single" collapsible>
         <AccordionItem value={`item-${id}`}>
-          <AccordionTrigger  className="relative flex flex-col md:flex-row justify-between bg-gradient-to-r from-sky-400 to-blue-600 rounded-md p-1 sm:p-4 hover:no-underline border-2 hover:border-sky-500">
+          <AccordionTrigger className="relative flex flex-col md:flex-row justify-between bg-gradient-to-r from-sky-400 to-blue-600 rounded-md p-1 sm:p-4 hover:no-underline border-2 hover:border-sky-500">
             <h3 className="mr-4">{selectedHotel?.hotelName}</h3>
             <div className="flex flex-col lg:flex-row md:gap-2">
               <div className="flex items-center">
@@ -195,7 +204,12 @@ useEffect(() => {
             </div>
 
             <div className="space-y-2 p-4">
-              <SelectHotelElement data={receiveDataFromInput} hotelName={selectedHotel?.hotelName} />
+              <SelectHotelElement_update
+                data={receiveDataFromSelectHotelElement}
+                hotelName={selectedHotel?.hotelName}
+                hotelsToUpdate={selectedHotel}
+                index={index}
+              />
 
               <div className="flex flex-col sm:flex-row">
                 <p>תאריכים:</p>
@@ -250,15 +264,16 @@ useEffect(() => {
 
             <div>
               {rooms.map((_, roomIndex) => (
-                <HotelslRoomCard
+                <HotelsRoomCard_Update
+                  key={roomIndex}
                   index={index}
                   roomIndex={roomIndex}
-                  key={roomIndex}
                   onRemove={() => handleRemoveRoom(roomIndex)}
-                  rooms={selectedHotel?.rooms}
+                  rooms={selectedHotel?.rooms || []}
                   onRoomDataChange={(roomData) =>
                     handleRoomDataChange(roomIndex, roomData)
                   }
+                  initialSelectedRooms={initialSelectedRooms}
                 />
               ))}
               <Button type="button" onClick={handleAddRoom} className="mt-4">
@@ -281,4 +296,4 @@ useEffect(() => {
   );
 };
 
-export default HotelCard;
+export default HotelCard_Update;
