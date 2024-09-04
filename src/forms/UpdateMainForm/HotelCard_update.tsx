@@ -208,7 +208,6 @@ const HotelCard_Update: React.FC<HotelCardProps> = ({
                 data={receiveDataFromSelectHotelElement}
                 hotelName={selectedHotel?.hotelName}
                 hotelsToUpdate={selectedHotel}
-                index={index}
               />
 
               <div className="flex flex-col sm:flex-row">
