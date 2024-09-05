@@ -13,6 +13,7 @@ import ReadyHotelCard from "./ReadyHotelCard";
 import ReadyImageCard from "./ReadyImageCard";
 import ReadyBidHeader from "./ReadyBidHeader";
 import { Button } from "../ui/button";
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 
@@ -24,7 +25,7 @@ const ReadyBid = () => {
   const { formName } = useParams<{ formName: string }>();
   const [form, setForm] = useState<MainBidServerResponse[] | undefined>();
 
-  // console.log(form)
+  const {isAuthenticated} = useAuth0()
 
 
   useEffect(() => {
@@ -129,13 +130,15 @@ const ReadyBid = () => {
           }
         })}
       </div>
-      <Button
-        type="button"
-        onClick={() => handleUpdateHotel(form)}
-        className="bg-purple-400 rounded p-2 hover:bg-purple-500 text-black hover:text-white mt-8"
-      >
-        עריכה
-      </Button>
+      {isAuthenticated && (
+        <Button
+          type="button"
+          onClick={() => handleUpdateHotel(form)}
+          className="bg-purple-400 rounded p-2 hover:bg-purple-500 text-black hover:text-white mt-8"
+        >
+          עריכה
+        </Button>
+      )}
     </div>
   );
 };

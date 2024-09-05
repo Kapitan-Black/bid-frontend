@@ -13,7 +13,7 @@ import {
 } from "../../../types/types";
 import SortableList from "./SortableList";
 import FormActions from "./FormActions";
-import { useCreateMainBidForm } from "@/api/MainFormApi";
+import { useCreateMainBidForm, useGetMainBidForms } from "@/api/MainFormApi";
 import { formSchema } from "../../mainBidForm/ZodSchema"
 import { SeparatorUrls } from "@/config/separatorUrls";
 
@@ -24,6 +24,8 @@ const MainBidForm: React.FC = () => {
     resolver: zodResolver(formSchema),
     defaultValues: { items: [] },
   });
+
+  
     
     const [selectedImageUrl, setSelectedImageUrl] = useState(
       SeparatorUrls[0].url
@@ -136,10 +138,19 @@ const MainBidForm: React.FC = () => {
   };
 
   const { createForm, isLoading, isSuccess, error } = useCreateMainBidForm();
+  const {data} = useGetMainBidForms()
 
   const handleSumbmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = form.getValues();
+
+    const formExist = data?.some((form) => form.formName === formData.formName)
+
+    if (formExist) {
+      console.error(`A form with the name ${formData.formName} is already exist`)
+      toast.error(`כבר קיימת במערכת "${formData.formName}" הצאה עם השם`)
+      return
+    }
 
     const hotelDataArray = formData.items.map((item, index) => {
       if (item.type === "hotel") {

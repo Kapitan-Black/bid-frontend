@@ -3,7 +3,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import ImageCarousel from "@/components/ImageCarousel";
-import { useCreateHotel } from "@/api/HotelsFormApi";
+import { useCreateHotel, useGetHotels } from "@/api/HotelsFormApi";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import LoadingButton from "@/components/LoadingButton";
@@ -40,6 +40,8 @@ const HotelsForm = () => {
   // console.log("rooms===>>>", rooms);
   const [showForm, setShowForm] = React.useState(false);
   const [isUploading, setIsUploading] = useState(false);
+
+  const {hotels} = useGetHotels()
 
 
   const handleToggleForm = () => {
@@ -102,10 +104,25 @@ const HotelsForm = () => {
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+
     event.preventDefault();
     const formData = methods.getValues();
 
+    const hotelName = formData.hotelName
+    
+
     try {
+          const hotelExists = hotels?.some(
+            (hotel) => hotel.hotelName === hotelName
+          );
+      
+      if (hotelExists) {
+        console.error(`A hotel with the name "${hotelName}" already exists.`);
+        toast.error(`כבר קיים במערכת "${hotelName}" בית מלון עם השם`);
+        return
+      }
+
+
       if (formData.hotelName && formData.hotelDescription) {
         setIsUploading(true);
 
