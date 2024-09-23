@@ -84,6 +84,11 @@ const HotelsRoomCard_Update: React.FC<HotelRoomCardProps> = ({
     });
   };
 
+    const selectedRoom = watch(
+      `items.${index}.rooms.${roomIndex}.selectedRoom`
+    );
+
+
   return (
     <div className="bg-amber-100 rounded-lg mt-4 p-2">
       <SmallCarousel
@@ -96,7 +101,6 @@ const HotelsRoomCard_Update: React.FC<HotelRoomCardProps> = ({
         <Controller
           name={`items.${index}.rooms.${roomIndex}.selectedRoom`}
           control={control}
-          
           render={({ field }) => (
             <select
               className="border"
@@ -115,6 +119,11 @@ const HotelsRoomCard_Update: React.FC<HotelRoomCardProps> = ({
             </select>
           )}
         />
+        {selectedRoom?.roomDescription && (
+          <div className="text-gray-700 text-lg mb-4">
+            <strong>תיאור החדר:</strong> <br /> {selectedRoom.roomDescription}
+          </div>
+        )}
       </div>
       <div className="flex flex-col sm:flex-row">
         <label htmlFor={`night-price-${roomIndex}`}>מחיר ללילה :</label>

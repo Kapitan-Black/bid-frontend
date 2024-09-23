@@ -29,6 +29,7 @@ type FlightResponse = {
 
 type HotelRoom = {
   roomType: string;
+  roomDescription: string;
   images: string[];
   nightPrice: number;
   numberOfRooms: number;
@@ -74,6 +75,7 @@ type ImageResponse = {
 type MainBidServerResponse = {
   createDate: string;
   formName: string;
+  holidayStartDate: string;
   flight: FlightResponse[];
   hotel: HotelResponse[];
   transfer: TransferResponse[];

@@ -78,6 +78,7 @@ const HotelsPage = () => {
                     <AccordionTrigger className="bg-amber-200 rounded p-4 ">
                       <div className="flex space-x-2">
                         <p className="ml-2"> {room.roomType}</p>
+
                         <p>({room.images.length}תמונות)</p>
                       </div>
                     </AccordionTrigger>
@@ -94,6 +95,10 @@ const HotelsPage = () => {
                           },
                         ]}
                       />
+
+                      <div className="flex justify-center">
+                        <p className="mt-8"> {room.roomDescription}</p>
+                      </div>
                     </AccordionContent>
                   </AccordionItem>
                 ))}

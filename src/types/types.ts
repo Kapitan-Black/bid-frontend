@@ -7,6 +7,7 @@
 export interface RoomFormData {
   id: string;
   roomType: string;
+  roomDescription: string;
   images: string[];
 }
 export interface HotelFormData {
@@ -21,6 +22,7 @@ export interface HotelFormData {
 
 export interface Room {
   roomType: string;
+  roomDescription: string;
   images: string[];
   nightPrice?: number;
   numberOfRooms?: number;
@@ -106,6 +108,7 @@ export interface ImageComponent {
 
 export interface FormFields {
   formName: string;
+  holidayStartDate: Date;
   idArray: string[];
   items: (
     | HotelCardFields

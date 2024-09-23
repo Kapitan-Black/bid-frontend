@@ -38,19 +38,21 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
             }`}
             onClick={handleToggle1}
           >
-            <div className="flex items-center gap-2 sm:mr-4">
-              <RiHotelFill />
-              <p className="sm:mr-4"> {data.hotelName}</p>
-            </div>
 
-            <div className="flex gap-2">
-              <span className="flex gap-1">
-                <p>{dateFormat(data.checkInDate)}</p>
-                <p>-</p>
-                <p>{dateFormat(data.checkOutDate)}</p>
-              </span>
-              <p>({nights}-לילות)</p>
-            </div>
+              <div className="flex items-center gap-2 sm:mr-4 md:w-[400px]">
+                <RiHotelFill />
+                <p className="sm:mr-4"> {data.hotelName}</p>
+              </div>
+
+              <div className="flex gap-2">
+                <span className="flex gap-1">
+                  <p>{dateFormat(data.checkInDate)}</p>
+                  <p>-</p>
+                  <p>{dateFormat(data.checkOutDate)}</p>
+                </span>
+                <p>({nights}-לילות)</p>
+              </div>
+
           </AccordionTrigger>
           <AccordionContent className="bg-sky-50 border p-2 sm:p-4">
             <div className="flex justify-center">
@@ -70,7 +72,9 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
                 <p>({nights}-לילות)</p>
               </div>
 
-              <p className="mt-4 sm:text-lg">{data.hotelDescription}</p>
+              <div className="flex justify-center">
+                <p className="mt-4 sm:text-lg">{data.hotelDescription}</p>
+              </div>
 
               <div className="flex gap-1 mt-4 text-lg">
                 <p>סה׳׳כ:</p>
@@ -83,7 +87,7 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
                 <AccordionItem key={room._id} value={room._id}>
                   <AccordionTrigger
                     onClick={handleToggle2}
-                    className="bg-sky-200 rounded-2xl p-4 sm:text-lg hover:no-underline hover:bg-sky-300"
+                    className="bg-sky-300 rounded-2xl p-4 sm:text-lg hover:no-underline hover:bg-sky-400"
                   >
                     <div className="flex gap-2">
                       <div className="flex flex-col sm:flex-row sm:gap-2">
@@ -115,7 +119,13 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
                       ]}
                     />
 
-                    <div className="bg-sky-200 flex flex-col sm:flex-row justify-between rounded-lg mt-8 sm:text-lg">
+                    <div className="flex justify-center items-center font-semibold text-lg mt-8">
+                      <p className="w-2/3 text-center">
+                        {room.roomDescription}
+                      </p>
+                    </div>
+
+                    <div className="bg-sky-100 flex flex-col sm:flex-row justify-between rounded-lg mt-8 sm:text-lg">
                       <div className="flex flex-col sm:flex-row gap-2 sm:gap-20 m-2 mr-4">
                         <div className="flex flex-row sm:flex-col gap-8 sm:gap-4">
                           <p>סוג חדר</p>
@@ -137,7 +147,7 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
                         </div>
                       </div>
 
-                      <div className="bg-sky-300 p-4 md:px-16 lg:px-36 text-center rounded">
+                      <div className="bg-sky-200 p-4 md:px-16 lg:px-36 text-center rounded">
                         <p>סה׳׳כ</p>
                         <p className="text-xl font-bold">
                           ฿{room.numberOfRooms * room.nightPrice * nights}

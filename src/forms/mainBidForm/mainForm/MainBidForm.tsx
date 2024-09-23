@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import { Controller, FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
@@ -16,6 +16,7 @@ import FormActions from "./FormActions";
 import { useCreateMainBidForm, useGetMainBidForms } from "@/api/MainFormApi";
 import { formSchema } from "../../mainBidForm/ZodSchema"
 import { SeparatorUrls } from "@/config/separatorUrls";
+import DatePicker from "react-datepicker";
 
 
 
@@ -26,6 +27,8 @@ const MainBidForm: React.FC = () => {
   });
 
   
+    const { control } = form;
+
     
     const [selectedImageUrl, setSelectedImageUrl] = useState(
       SeparatorUrls[0].url
@@ -43,7 +46,7 @@ const MainBidForm: React.FC = () => {
   
   
   
-    console.log("hotelData", hotelData);
+    // console.log("hotelData", hotelData);
 
   const handleHotelDataChange = (
     index: number,
@@ -164,6 +167,7 @@ const MainBidForm: React.FC = () => {
               
               rooms: hotelDataEntry.selectedRooms.map((room) => ({
                 roomType: room.roomType,
+                roomDescription: room.roomDescription,
                 images: room.images,
                 nightPrice: room.nightPrice,
                 numberOfRooms: room.numberOfRooms,
@@ -179,13 +183,14 @@ const MainBidForm: React.FC = () => {
 
     const payload = {
       formName: formData.formName,
+      holidayStartDate: formData.holidayStartDate,
       hotel: hotelDataArray.filter((item) => item.type === "hotel") || [],
       transfer: formData.items.filter((item) => item.type === "transfer") || [],
       flight: formData.items.filter((item) => item.type === "flight") || [],
       image: formData.items.filter((item) => item.type === "image") || [],
       idArray,
     };
-    // console.log(payload)
+    // console.log("payload", payload);
     createForm(payload);
   };
 
@@ -203,17 +208,36 @@ const MainBidForm: React.FC = () => {
   return (
     <FormProvider {...form}>
       <form onSubmit={handleSumbmit}>
-        <div className="flex flex-row-reverse justify-center mb-12">
-          <label htmlFor="formName">:שם ההצעה</label>
-          <input
-            dir="rtl"
-            id={"formName"}
-            className="border border-black"
-            {...form.register("formName")}
-          />
+        <div className="flex flex-col"> 
+          <div className="flex flex-row-reverse justify-start gap-2">
+            <label htmlFor="formName">:שם ההצעה</label>
+            <input
+              dir="rtl"
+              id={"formName"}
+              className="border border-black"
+              {...form.register("formName")}
+            />
+          </div>
+
+          <div className="flex flex-row-reverse justify-start items-center gap-2 mb-12 mt-4">
+            <label className="mb-2">:תאריך תחילת החופשה</label>
+            <Controller
+              name="holidayStartDate"
+              control={control}
+              render={({ field }) => (
+                <DatePicker
+                  selected={field.value}
+                  onChange={(date) => field.onChange(date)}
+                  dateFormat="dd/MM/yyyy"
+                  placeholderText="בחרו תאריך"
+                  className="border border-black p-1 text-center w-full"
+                />
+              )}
+            />
+          </div>
         </div>
 
-        <SortableList 
+        <SortableList
           fields={fields}
           move={move}
           handleHotelRemove={handleHotelRemove}
@@ -225,9 +249,9 @@ const MainBidForm: React.FC = () => {
           addHotel={addHotel}
           addTransfer={addTransfer}
           addFlight={addFlight}
-                  addImageComponent={addImageComponent}
-                  selectedImageUrl={selectedImageUrl}
-                  setSelectedImageUrl={setSelectedImageUrl}
+          addImageComponent={addImageComponent}
+          selectedImageUrl={selectedImageUrl}
+          setSelectedImageUrl={setSelectedImageUrl}
         />
 
         <div className="space-x-8 mt-10">

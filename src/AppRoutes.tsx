@@ -21,9 +21,9 @@ const AppRoutes = () => {
       <Route
         path="/form/:formName"
         element={
-          <Layout>
+          // <Layout>
             <ReadyBid />
-          </Layout>
+          // </Layout>
         }
       />
 
@@ -42,7 +42,7 @@ const AppRoutes = () => {
           element={
             <Layout>
               <ReadyBidPage />
-            </Layout>
+             </Layout>
           }
         />
 

@@ -59,13 +59,17 @@ const HotelsRoomCard: React.FC<HotelRoomCardProps> = ({
     });
   };
 
+    const selectedRoom = watch(
+      `items.${index}.rooms.${roomIndex}.selectedRoom`
+    );
+
+
   return (
     <div className="bg-amber-100 rounded-lg mt-4 p-2">
       <SmallCarousel
         images={watch(`items.${index}.rooms.${roomIndex}.selectedRoom`)?.images}
         slidesToShow={3}
       />
-
       <div className="mb-2">
         <label htmlFor={`room-select-${roomIndex}`}>בחירת סוג חדר:</label>
         <Controller
@@ -89,6 +93,11 @@ const HotelsRoomCard: React.FC<HotelRoomCardProps> = ({
           )}
         />
       </div>
+      {selectedRoom?.roomDescription && (
+        <div className="text-gray-700 text-lg mb-4">
+          <strong>תיאור החדר:</strong> <br /> {selectedRoom.roomDescription}
+        </div>
+      )}
       <div className="flex flex-col sm:flex-row">
         <label htmlFor={`night-price-${roomIndex}`}>מחיר ללילה :</label>
         <Controller

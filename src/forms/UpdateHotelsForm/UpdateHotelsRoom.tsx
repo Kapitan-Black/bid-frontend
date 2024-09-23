@@ -32,6 +32,7 @@ const UpdateHotelsRoom: React.FC<HotelRoomProps> = ({
     id,
     index,
     roomType: room.roomType || "",
+    roomDescription: room.roomDescription || "",
     images: room.images || [],
   });
 
@@ -47,6 +48,12 @@ const UpdateHotelsRoom: React.FC<HotelRoomProps> = ({
       roomType: roomType,
     }));
   };
+   const handleRoomDescriptionChange = (roomDescription: string) => {
+     setRoomData((prevData) => ({
+       ...prevData,
+       roomDescription,
+     }));
+   };
 
   useEffect(() => {
     setRoomData((prevData) => ({
@@ -74,7 +81,9 @@ const UpdateHotelsRoom: React.FC<HotelRoomProps> = ({
           showImages
         />
       </div>
-      <div className="w-[250px]">
+      <div className="flex gap-2 items-center">
+        <h3 className="sm:text-xl">סוג החדר:</h3>
+
         <Controller
           control={control}
           name={`rooms[${index}].roomType`}
@@ -82,19 +91,35 @@ const UpdateHotelsRoom: React.FC<HotelRoomProps> = ({
           render={({ field }) => (
             <Input
               {...field}
-              placeholder="Room Type"
+              placeholder="סוג החדר"
               value={roomData.roomType}
               onChange={(e) => handleRoomTypeChange(e.target.value)}
+              className="w-[250px]"
+            />
+          )}
+        />
+      </div>
+      <div className="mt-4">
+        <h3 className="sm:text-xl">תיאור החדר:</h3>
+
+        <Controller
+          control={control}
+          name={`rooms[${index}].roomDescription`}
+          defaultValue=""
+          render={({ field }) => (
+            <textarea
+              {...field}
+              placeholder="תיאור החדר"
+              value={roomData.roomDescription}
+              onChange={(e) => handleRoomDescriptionChange(e.target.value)}
+              className="border h-[100px] w-full text-sm  sm:text-xl"
             />
           )}
         />
       </div>
 
       <div className="flex justify-end mt-4">
-        <RemoveButton
-          onRemove={handleDeleteRoom}
-          text="מחק חדר"
-        />
+        <RemoveButton onRemove={handleDeleteRoom} text="מחק חדר" />
       </div>
       <ConfirmationModal
         show={showModal}

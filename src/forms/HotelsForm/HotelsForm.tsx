@@ -23,6 +23,7 @@ const hotelSchema = z.object({
   rooms: z.array(
     z.object({
       roomType: z.string().min(1),
+      roomDescription: z.string().min(1),
       images: z.array(z.string()).optional(),
     })
   ),
@@ -57,7 +58,7 @@ const HotelsForm = () => {
   };
 
   const handleAddRoom = () => {
-    setRooms((rooms) => [...rooms, { id: uuidv4(), roomType: "", images: [] }]);
+    setRooms((rooms) => [...rooms, { id: uuidv4(), roomType: "", roomDescription: "", images: [] }]);
   };
 
   const handleRemoveRoom = async (id: string) => {

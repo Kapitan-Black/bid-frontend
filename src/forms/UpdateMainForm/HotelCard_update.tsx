@@ -117,7 +117,7 @@ const HotelCard_Update: React.FC<HotelCardProps> = ({
   };
 
   const handleAddRoom = () => {
-    setRooms((rooms) => [...rooms, { roomType: "", images: [], id: "" }]);
+    setRooms((rooms) => [...rooms, { roomType: "", roomDescription: "", images: [], id: "" }]);
   };
 
   const handleRemoveRoom = (roomIndex: number) => {

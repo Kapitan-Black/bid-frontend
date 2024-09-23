@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import { Controller, FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
@@ -19,6 +19,7 @@ import { SeparatorUrls } from "@/config/separatorUrls";
 import SortableList_Update from "./SortableList_update";
 import FormActions_Update from "./FormActions";
 import { MainBidServerResponse } from "@/types/mainBidFormResponse";
+import DatePicker from "react-datepicker";
 
 interface MainBidForm_UpdateProps {
   formToUpdate: MainBidServerResponse[];
@@ -28,7 +29,7 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
   formToUpdate,
 }) => {
   const transformFormToUpdate = (data: MainBidServerResponse[]): FormFields => {
-    const firstResponse = data[0];
+    const firstResponse = data[0]
 
     // Step 1: Create a map of items by their IDs
     const itemMap: { [key: string]: FormFields["items"][0] } = {};
@@ -77,6 +78,7 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
     return {
       idArray: data[0].idArray,
       formName: firstResponse.formName,
+      holidayStartDate: new Date(firstResponse.holidayStartDate),
       items: sortedItems,
     };
   };
@@ -236,6 +238,7 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
 
             rooms: hotelDataEntry.selectedRooms.map((room) => ({
               roomType: room.roomType,
+              roomDescription: room.roomDescription,
               images: room.images,
               nightPrice: room.nightPrice,
               numberOfRooms: room.numberOfRooms,
@@ -250,6 +253,7 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
 
     const payload = {
       formName: formData.formName,
+      holidayStartDate: formData.holidayStartDate,
       hotel: hotelDataArray.filter((item) => item.type === "hotel") || [],
       transfer: formData.items.filter((item) => item.type === "transfer") || [],
       flight: formData.items.filter((item) => item.type === "flight") || [],
@@ -276,14 +280,33 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
   return (
     <FormProvider {...form}>
       <form onSubmit={handleSubmit}>
-        <div className="flex flex-row-reverse justify-center mb-12">
-          <label htmlFor="formName">:שם ההצעה</label>
-          <input
-            dir="rtl"
-            id={"formName"}
-            className="border border-black"
-            {...form.register("formName")}
-          />
+        <div className="flex flex-col">
+          <div className="flex flex-row-reverse justify-start gap-2">
+            <label htmlFor="formName">:שם ההצעה</label>
+            <input
+              dir="rtl"
+              id={"formName"}
+              className="border border-black"
+              {...form.register("formName")}
+            />
+          </div>
+
+          <div className="flex flex-row-reverse justify-start items-center gap-2 mb-12 mt-4">
+            <label className="mb-2">:תאריך תחילת החופשה</label>
+            <Controller
+              name="holidayStartDate"
+              control={form.control}
+              render={({ field }) => (
+                <DatePicker
+                  selected={field.value}
+                  onChange={(date) => field.onChange(date)}
+                  dateFormat="dd/MM/yyyy"
+                  placeholderText="בחרו תאריך"
+                  className="border border-black p-1 text-center w-full"
+                />
+              )}
+            />
+          </div>
         </div>
 
         <SortableList_Update

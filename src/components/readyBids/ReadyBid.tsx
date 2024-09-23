@@ -14,6 +14,7 @@ import ReadyImageCard from "./ReadyImageCard";
 import ReadyBidHeader from "./ReadyBidHeader";
 import { Button } from "../ui/button";
 import { useAuth0 } from "@auth0/auth0-react";
+import ReadyBidsTopHeader from "./ReadyBidsTopHeader";
 
 
 
@@ -24,6 +25,7 @@ const ReadyBid = () => {
 
   const { formName } = useParams<{ formName: string }>();
   const [form, setForm] = useState<MainBidServerResponse[] | undefined>();
+  console.log(form)
 
   const {isAuthenticated} = useAuth0()
 
@@ -88,58 +90,62 @@ const ReadyBid = () => {
   };
 
   const processedBidForms = flattenAndSortBidForm(form);
-  // console.log(processedBidForms)
+
 
     const handleUpdateHotel = (mainForm: MainBidServerResponse[]) => {
       navigate(`/update-main-form`, { state: { mainForm } });
     };
 
   return (
-    <div>
-      <h2 className="text-center mb-8 text-lg">
-        {processedBidForms?.formName}
-      </h2>
-      <ReadyBidHeader
-        createDate={form[0].createDate}
-        flightDate={form[0].flight[0].departureDate}
-      />
-      <div className="space-y-2">
-        {processedBidForms?.sortedElements.map((element, index) => {
-          switch (element.type) {
-            case "flight":
-              return (
-                <ReadyFlightCard key={index} data={element as FlightResponse} />
-              );
-            case "image":
-              return (
-                <ReadyImageCard key={index} data={element as ImageResponse} />
-              );
-            case "hotel":
-              return (
-                <ReadyHotelCard key={index} data={element as HotelResponse} />
-              );
-            case "transfer":
-              return (
-                <ReadyTransferCard
-                  key={index}
-                  data={element as TransferResponse}
-                />
-              );
-            default:
-              return null;
-          }
-        })}
+    <>
+      <ReadyBidsTopHeader/>
+      <div className="sm:px-8">
+        <ReadyBidHeader
+          createDate={form[0].createDate}
+          flightDate={form[0].holidayStartDate}
+          formName={processedBidForms?.formName}
+        />
+        <div className="space-y-2">
+          {processedBidForms?.sortedElements.map((element, index) => {
+            switch (element.type) {
+              case "flight":
+                return (
+                  <ReadyFlightCard
+                    key={index}
+                    data={element as FlightResponse}
+                  />
+                );
+              case "image":
+                return (
+                  <ReadyImageCard key={index} data={element as ImageResponse} />
+                );
+              case "hotel":
+                return (
+                  <ReadyHotelCard key={index} data={element as HotelResponse} />
+                );
+              case "transfer":
+                return (
+                  <ReadyTransferCard
+                    key={index}
+                    data={element as TransferResponse}
+                  />
+                );
+              default:
+                return null;
+            }
+          })}
+        </div>
+        {isAuthenticated && (
+          <Button
+            type="button"
+            onClick={() => handleUpdateHotel(form)}
+            className="bg-purple-400 rounded p-2 hover:bg-purple-500 text-black hover:text-white mt-8"
+          >
+            עריכה
+          </Button>
+        )}
       </div>
-      {isAuthenticated && (
-        <Button
-          type="button"
-          onClick={() => handleUpdateHotel(form)}
-          className="bg-purple-400 rounded p-2 hover:bg-purple-500 text-black hover:text-white mt-8"
-        >
-          עריכה
-        </Button>
-      )}
-    </div>
+    </>
   );
 };
 
