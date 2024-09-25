@@ -114,7 +114,9 @@ const FlightCard: React.FC<FlightCardProps> = ({ id, index, onRemove }) => {
                       render={({ field }) => (
                         <DatePicker
                           selected={field.value ? new Date(field.value) : null}
-                          onChange={(date) => field.onChange(date)}
+                          onChange={(date) => {
+                            field.onChange(date)
+                          }}
                           dateFormat="dd/MM/yyyy"
                           placeholderText="Select date"
                           className="border p-1"

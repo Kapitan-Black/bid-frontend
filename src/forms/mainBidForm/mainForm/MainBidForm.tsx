@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Controller, FormProvider, useFieldArray, useForm } from "react-hook-form";
+import {
+  Controller,
+  FormProvider,
+  useFieldArray,
+  useForm,
+} from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
@@ -14,26 +19,23 @@ import {
 import SortableList from "./SortableList";
 import FormActions from "./FormActions";
 import { useCreateMainBidForm, useGetMainBidForms } from "@/api/MainFormApi";
-import { formSchema } from "../../mainBidForm/ZodSchema"
+import { formSchema } from "../../mainBidForm/ZodSchema";
 import { SeparatorUrls } from "@/config/separatorUrls";
 import DatePicker from "react-datepicker";
-
-
 
 const MainBidForm: React.FC = () => {
   const form = useForm<FormFields>({
     resolver: zodResolver(formSchema),
-    defaultValues: { items: [] },
+    defaultValues: {
+      items: [],
+    },
   });
 
-  
-    const { control } = form;
+  const { control } = form;
 
-    
-    const [selectedImageUrl, setSelectedImageUrl] = useState(
-      SeparatorUrls[0].url
-    );
-
+  const [selectedImageUrl, setSelectedImageUrl] = useState(
+    SeparatorUrls[0].url
+  );
 
   const { fields, append, remove, move } = useFieldArray({
     control: form.control,
@@ -42,11 +44,7 @@ const MainBidForm: React.FC = () => {
 
   const [hotelData, setHotelData] = useState<
     { selectedHotel: Hotel | null; selectedRooms: Room[] }[]
-    >([]);
-  
-  
-  
-    // console.log("hotelData", hotelData);
+  >([]);
 
   const handleHotelDataChange = (
     index: number,
@@ -80,7 +78,6 @@ const MainBidForm: React.FC = () => {
       rooms: [],
       sum: 0,
     } as HotelCardFields);
-
   };
 
   const addTransfer = () => {
@@ -131,50 +128,64 @@ const MainBidForm: React.FC = () => {
   };
 
   const addImageComponent = () => {
-      const selectedImage = SeparatorUrls.find(image => image.url === selectedImageUrl);
+    // const { start, end } = form.control._getWatch();
+    // console.log("start====", start, "end", end);
+    const selectedImage = SeparatorUrls.find(
+      (image) => image.url === selectedImageUrl
+    );
     append({
       id: uuidv4(),
       type: "image",
       imageUrl: selectedImageUrl,
       description: selectedImage ? selectedImage.description : "",
+      start: new Date(),
+      end: new Date(),
     });
   };
 
   const { createForm, isLoading, isSuccess, error } = useCreateMainBidForm();
-  const {data} = useGetMainBidForms()
+  const { data } = useGetMainBidForms();
 
   const handleSumbmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = form.getValues();
 
-    const formExist = data?.some((form) => form.formName === formData.formName)
+    const formExist = data?.some((form) => form.formName === formData.formName);
 
     if (formExist) {
-      console.error(`A form with the name ${formData.formName} is already exist`)
-      toast.error(`כבר קיימת במערכת "${formData.formName}" הצאה עם השם`)
-      return
+      console.error(
+        `A form with the name ${formData.formName} is already exist`
+      );
+      toast.error(`כבר קיימת במערכת "${formData.formName}" הצאה עם השם`);
+      return;
+    }
+
+    const { holidayStartDate, formName } = formData;
+    if (!holidayStartDate || !formName) {
+      console.error(`Need to choose holiday start date`);
+      toast.error("חייב לבחור שם ההצעה ותאריך תחילת החופשה");
+      return;
     }
 
     const hotelDataArray = formData.items.map((item, index) => {
       if (item.type === "hotel") {
         const hotelDataEntry = hotelData[index];
         if (hotelDataEntry) {
-            return {
-              ...item,
-              hotelName: hotelDataEntry.selectedHotel?.hotelName,
-              hotelDescription: hotelDataEntry.selectedHotel?.hotelDescription,
-              images: hotelDataEntry.selectedHotel?.images,
-              
-              rooms: hotelDataEntry.selectedRooms.map((room) => ({
-                roomType: room.roomType,
-                roomDescription: room.roomDescription,
-                images: room.images,
-                nightPrice: room.nightPrice,
-                numberOfRooms: room.numberOfRooms,
-              })),
-            };
+          return {
+            ...item,
+            hotelName: hotelDataEntry.selectedHotel?.hotelName,
+            hotelDescription: hotelDataEntry.selectedHotel?.hotelDescription,
+            images: hotelDataEntry.selectedHotel?.images,
+
+            rooms: hotelDataEntry.selectedRooms.map((room) => ({
+              roomType: room.roomType,
+              roomDescription: room.roomDescription,
+              images: room.images,
+              nightPrice: room.nightPrice,
+              numberOfRooms: room.numberOfRooms,
+            })),
+          };
         }
-      
       }
       return item;
     });
@@ -184,6 +195,8 @@ const MainBidForm: React.FC = () => {
     const payload = {
       formName: formData.formName,
       holidayStartDate: formData.holidayStartDate,
+      isBidApproved: formData.isBidApproved,
+
       hotel: hotelDataArray.filter((item) => item.type === "hotel") || [],
       transfer: formData.items.filter((item) => item.type === "transfer") || [],
       flight: formData.items.filter((item) => item.type === "flight") || [],
@@ -203,24 +216,24 @@ const MainBidForm: React.FC = () => {
     }
   }, [isSuccess, error]);
 
-  // console.log(form.getValues().items)
+  // console.log("items",form.getValues().items);
 
   return (
     <FormProvider {...form}>
       <form onSubmit={handleSumbmit}>
-        <div className="flex flex-col"> 
-          <div className="flex flex-row-reverse justify-start gap-2">
-            <label htmlFor="formName">:שם ההצעה</label>
+        <div dir="rtl" className="flex flex-col gap-4 mb-4">
+          <div className="flex justify-start gap-2">
+            <label htmlFor="formName">שם ההצאה:</label>
             <input
               dir="rtl"
               id={"formName"}
-              className="border border-black"
+              className="border text-center border-black w-64"
               {...form.register("formName")}
             />
           </div>
 
-          <div className="flex flex-row-reverse justify-start items-center gap-2 mb-12 mt-4">
-            <label className="mb-2">:תאריך תחילת החופשה</label>
+          <div className="flex justify-start items-center gap-2">
+            <label className="mb-2">תאריך תחילת החופשה:</label>
             <Controller
               name="holidayStartDate"
               control={control}
@@ -235,6 +248,17 @@ const MainBidForm: React.FC = () => {
               )}
             />
           </div>
+
+          <div className="flex justify-start items-center gap-2 ">
+            <label>האם ההצעה מאושרת?</label>
+            <select
+              {...form.register("isBidApproved")}
+              className="border border-black p-1"
+            >
+              <option value="false">לא</option>
+              <option value="true">כן</option>
+            </select>
+          </div>
         </div>
 
         <SortableList
@@ -243,6 +267,7 @@ const MainBidForm: React.FC = () => {
           handleHotelRemove={handleHotelRemove}
           handleHotelDataChange={handleHotelDataChange}
           remove={remove}
+          control={control}
         />
 
         <FormActions

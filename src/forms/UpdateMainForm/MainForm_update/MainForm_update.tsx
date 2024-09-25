@@ -17,9 +17,10 @@ import { useUpdateMainForm } from "@/api/MainFormApi";
 import { formSchema } from "../../mainBidForm/ZodSchema";
 import { SeparatorUrls } from "@/config/separatorUrls";
 import SortableList_Update from "./SortableList_update";
-import FormActions_Update from "./FormActions";
+import FormActions_Update from "./FormActions_update";
 import { MainBidServerResponse } from "@/types/mainBidFormResponse";
 import DatePicker from "react-datepicker";
+
 
 interface MainBidForm_UpdateProps {
   formToUpdate: MainBidServerResponse[];
@@ -29,7 +30,7 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
   formToUpdate,
 }) => {
   const transformFormToUpdate = (data: MainBidServerResponse[]): FormFields => {
-    const firstResponse = data[0]
+    const firstResponse = data[0];
 
     // Step 1: Create a map of items by their IDs
     const itemMap: { [key: string]: FormFields["items"][0] } = {};
@@ -68,6 +69,10 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
       itemMap[image.id] = {
         ...image,
         type: "image",
+        // start: new Date(image.start), // Convert string to Date
+        // end: new Date(image.end), // Convert string to Date
+        start: image.start ? new Date(image.start) : new Date(), // Convert string to Date or set to current date
+        end: image.end ? new Date(image.end) : new Date(), // Convert string to Date or set to current date
       } as ImageComponent;
     });
 
@@ -85,11 +90,14 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
 
   const sortedFormToUpdate = transformFormToUpdate(formToUpdate);
 
+  console.log("sortedFormToUpdate", sortedFormToUpdate.items);
 
   const form = useForm<FormFields>({
     resolver: zodResolver(formSchema),
     defaultValues: sortedFormToUpdate,
   });
+
+  const { control } = form;
 
   const [selectedImageUrl, setSelectedImageUrl] = useState(
     SeparatorUrls[0].url
@@ -124,7 +132,6 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
     useState<{ selectedHotel: Hotel | null; selectedRooms: Room[] }[]>(
       initialHotelData
     );
-
   // console.log("hotelData---mainForm_update", hotelData);
 
   const handleHotelDataChange = (
@@ -209,14 +216,16 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
   };
 
   const addImageComponent = () => {
-      const selectedImage = SeparatorUrls.find(
-        (image) => image.url === selectedImageUrl
-      );
+    const selectedImage = SeparatorUrls.find(
+      (image) => image.url === selectedImageUrl
+    );
     append({
       id: uuidv4(),
       type: "image",
       imageUrl: selectedImageUrl,
       description: selectedImage ? selectedImage.description : "",
+      start: new Date(),
+      end: new Date(),
     });
   };
 
@@ -277,6 +286,8 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
     }
   }, [isSuccess, error]);
 
+  console.log("items",form.getValues().items);
+
   return (
     <FormProvider {...form}>
       <form onSubmit={handleSubmit}>
@@ -316,6 +327,7 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
           handleHotelDataChange={handleHotelDataChange}
           remove={remove}
           sortedFormToUpdate={sortedFormToUpdate}
+          control={control}
         />
 
         <FormActions_Update

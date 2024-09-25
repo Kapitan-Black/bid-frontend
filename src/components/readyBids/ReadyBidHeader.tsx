@@ -3,13 +3,13 @@ import Countdown from "./Countdown";
 
 interface Props {
   createDate: string;
-  flightDate: string;
+  holidayStartDate: string;
   formName: string | undefined;
 }
 
 const ReadyBidHeader: React.FC<Props> = ({
   createDate,
-  flightDate,
+  holidayStartDate,
   formName,
 }) => {
   return (
@@ -17,7 +17,7 @@ const ReadyBidHeader: React.FC<Props> = ({
       <Hero />
       <Countdown
         createDate={createDate}
-        flightDate={flightDate}
+        holidayStartDate={holidayStartDate}
         formName={formName}
       />
     </>

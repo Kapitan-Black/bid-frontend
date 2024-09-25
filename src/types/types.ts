@@ -3,7 +3,6 @@
 //   images: string[];
 // };
 
-
 export interface RoomFormData {
   id: string;
   roomType: string;
@@ -16,9 +15,6 @@ export interface HotelFormData {
   images: string[];
   rooms: RoomFormData[];
 }
-
-
-
 
 export interface Room {
   roomType: string;
@@ -38,9 +34,6 @@ export interface Hotel {
   images: string[];
   rooms: Room[];
 }
-
-
-
 
 export interface HotelCardFields {
   id: string;
@@ -97,18 +90,19 @@ export type FlightCardFields = {
   agentComments: string;
 };
 
-
 export interface ImageComponent {
   id: string;
   type: "image";
   imageUrl: string;
   description: string;
+  start: Date;
+  end: Date;
 }
-
 
 export interface FormFields {
   formName: string;
   holidayStartDate: Date;
+  isBidApproved: boolean;
   idArray: string[];
   items: (
     | HotelCardFields
@@ -117,7 +111,6 @@ export interface FormFields {
     | ImageComponent
   )[];
 }
-
 
 // bg-gradient-to-r from-yellow-500 to-green-500
 // bg-gradient-to-r from-sky-400 to-blue-600

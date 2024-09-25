@@ -68,6 +68,8 @@ const imageSchema = z.object({
   type: z.literal("image"),
   imageUrl: z.string().url(),
   description: z.string(),
+  start: z.date(),
+  end: z.date(),
 });
 
 export const formSchema = z.object({

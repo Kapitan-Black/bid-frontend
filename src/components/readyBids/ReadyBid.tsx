@@ -25,7 +25,6 @@ const ReadyBid = () => {
 
   const { formName } = useParams<{ formName: string }>();
   const [form, setForm] = useState<MainBidServerResponse[] | undefined>();
-  console.log(form)
 
   const {isAuthenticated} = useAuth0()
 
@@ -98,14 +97,14 @@ const ReadyBid = () => {
 
   return (
     <>
-      <ReadyBidsTopHeader/>
+      <ReadyBidsTopHeader />
       <div className="sm:px-8">
         <ReadyBidHeader
           createDate={form[0].createDate}
-          flightDate={form[0].holidayStartDate}
+          holidayStartDate={form[0].holidayStartDate}
           formName={processedBidForms?.formName}
         />
-        <div className="space-y-2">
+        <div className="space-y-2 md:px-36">
           {processedBidForms?.sortedElements.map((element, index) => {
             switch (element.type) {
               case "flight":
@@ -135,6 +134,7 @@ const ReadyBid = () => {
             }
           })}
         </div>
+
         {isAuthenticated && (
           <Button
             type="button"

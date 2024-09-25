@@ -14,8 +14,8 @@ import { FieldArrayWithId } from "react-hook-form";
 import HotelCard from "../HotelCard";
 import TransferCard from "../TransferCard";
 import FlightCard from "../FlightCard";
-import ImageSeparator from "../ImageSeparatorCard";
 import { FormFields } from "@/types/types";
+import ImageSeparatorCard from "../ImageSeparatorCard";
 
 
 
@@ -26,7 +26,15 @@ const SortableList: React.FC<{
   handleHotelRemove: (index: number) => void;
   handleHotelDataChange: (index: number, data: any) => void;
   remove: (index: number) => void;
-}> = ({ fields, move, handleHotelRemove, handleHotelDataChange, remove }) => {
+  control: any;
+}> = ({
+  fields,
+  move,
+  handleHotelRemove,
+  handleHotelDataChange,
+  remove,
+  control,
+}) => {
   const sensors = useSensors(useSensor(PointerSensor));
 
   const handleDragEnd = (event: any) => {
@@ -67,12 +75,13 @@ const SortableList: React.FC<{
                   onRemove={() => remove(index)}
                 />
               ) : (
-                <ImageSeparator
+                <ImageSeparatorCard
                   id={field.id}
                   index={index}
                   imageUrl={field.imageUrl}
                   imageText={field.description}
                   onRemove={remove}
+                  control={control}
                 />
               )}
             </SortableItem>

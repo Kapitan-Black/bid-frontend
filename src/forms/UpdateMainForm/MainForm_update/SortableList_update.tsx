@@ -27,6 +27,7 @@ const SortableList_Update: React.FC<{
     data: { selectedHotel: Hotel | null; selectedRooms: Room[] }
   ) => void;
   remove: (index: number) => void;
+  control: any;
 }> = ({
   fields,
   move,
@@ -34,6 +35,7 @@ const SortableList_Update: React.FC<{
   handleHotelDataChange,
   remove,
   sortedFormToUpdate,
+  control,
 }) => {
   const sensors = useSensors(useSensor(PointerSensor));
 
@@ -88,9 +90,10 @@ const SortableList_Update: React.FC<{
                 <ImageSeparator_Update
                   id={field.id}
                   index={index}
-                        imageUrl={field.imageUrl}
-                        imageText={field.description}
+                  imageUrl={field.imageUrl}
+                  imageText={field.description}
                   onRemove={remove}
+                  // control={control}
                 />
               )}
             </SortableItem_update>

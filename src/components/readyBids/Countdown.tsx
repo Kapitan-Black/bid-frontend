@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 interface CountdownProps {
   createDate: string;
-  flightDate: string;
+  holidayStartDate: string;
   formName: string | undefined;
 }
 
@@ -13,7 +13,11 @@ export interface TimeLeft {
   seconds: number;
 }
 
-const Countdown: React.FC<CountdownProps> = ({ createDate, flightDate, formName }) => {
+const Countdown: React.FC<CountdownProps> = ({
+  createDate,
+  holidayStartDate,
+  formName,
+}) => {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({
     days: 0,
     hours: 0,
@@ -28,17 +32,17 @@ const Countdown: React.FC<CountdownProps> = ({ createDate, flightDate, formName 
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [createDate, flightDate]);
+  }, [createDate, holidayStartDate]);
 
   // console.log(createDate, flightDate)
 
   const updateCountdown = () => {
     const now = new Date().getTime();
     const startDateTime = new Date(createDate).getTime();
-    const futureDateTime = new Date(flightDate).getTime();
+    const futureDateTime = new Date(holidayStartDate).getTime();
 
     if (isNaN(futureDateTime)) {
-      console.error("Invalid flightDate:", flightDate);
+      console.error("Invalid holidayStartDate:", holidayStartDate);
       return;
     }
 
@@ -69,16 +73,14 @@ const Countdown: React.FC<CountdownProps> = ({ createDate, flightDate, formName 
     }
   };
 
-const isTimeUp =
-  timeLeft.days === 0 &&
-  timeLeft.hours === 0 &&
-  timeLeft.minutes === 0 &&
-  timeLeft.seconds === 0;
+  const isTimeUp =
+    timeLeft.days === 0 &&
+    timeLeft.hours === 0 &&
+    timeLeft.minutes === 0 &&
+    timeLeft.seconds === 0;
 
   return (
     <div dir="rtl" className="flex justify-center -my-44 mb-8">
-  
-
       <div className=" bg-blue-50 gap-2 p-4 rounded-md w-[500px] shadow-md">
         <h2 className="text-center mb-4 text-lg">{formName}</h2>
 
@@ -92,7 +94,6 @@ const isTimeUp =
 
         <div className="flex justify-center text-sky-600">
           <div className="flex justify-center bg-blue-100 gap-2 text-sky-600 sm:text-xl">
-
             {timeLeft.minutes > 0 && (
               <div className="bg-sky-200 p-4 py-8 rounded-md">
                 <p className="text-center"> {timeLeft.minutes}</p>

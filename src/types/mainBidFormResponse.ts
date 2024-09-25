@@ -69,6 +69,8 @@ type ImageResponse = {
   type: string;
   imageUrl: string;
   description: string;
+  start: Date;
+  end: Date;
   _id: string;
 };
 
@@ -76,6 +78,7 @@ type MainBidServerResponse = {
   createDate: string;
   formName: string;
   holidayStartDate: string;
+  isBidApproved: boolean;
   flight: FlightResponse[];
   hotel: HotelResponse[];
   transfer: TransferResponse[];

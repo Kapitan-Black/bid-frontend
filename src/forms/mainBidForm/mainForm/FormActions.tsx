@@ -1,17 +1,26 @@
-
 import { SeparatorUrls } from "@/config/separatorUrls";
+import DatePicker from "react-datepicker";
+import { Controller } from "react-hook-form";
+
 
 const FormActions: React.FC<{
   addHotel: () => void;
   addTransfer: () => void;
   addFlight: () => void;
-    addImageComponent: () => void;
+  addImageComponent: () => void;
   selectedImageUrl: string;
-  // selectedImageDescription: string;
-    setSelectedImageUrl: React.Dispatch<React.SetStateAction<string>>
-}> = ({ addHotel, addTransfer, addFlight, addImageComponent, setSelectedImageUrl, selectedImageUrl }) => {
+  setSelectedImageUrl: React.Dispatch<React.SetStateAction<string>>;
+}> = ({
+  addHotel,
+  addTransfer,
+  addFlight,
+  addImageComponent,
+  setSelectedImageUrl,
+  selectedImageUrl,
+}) => {
 
 
+  
   return (
     <div className="flex flex-col gap-2 mt-12">
       <button
@@ -38,6 +47,45 @@ const FormActions: React.FC<{
 
       <div className="bg-purple-300 rounded">
         <div className="flex justify-center">
+          
+          {/* <div className="flex flex-col-reverse md:flex-row">
+            <div className="flex flex-row-reverse justify-start items-center gap-2">
+              <Controller
+                name="end"
+                control={control}
+                render={({ field }) => (
+                  <DatePicker
+                    selected={field.value}
+                    onChange={(date) => {
+                      field.onChange(date);
+                    }}
+                    dateFormat="dd/MM/yyyy"
+                    placeholderText="עד התאריך"
+                    className="border border-black p-1 text-center w-full"
+                  />
+                )}
+              />
+            </div>
+            <p>_</p>
+            <div className="flex flex-row-reverse justify-start items-center gap-2">
+              <Controller
+                name="start"
+                control={control}
+                render={({ field }) => (
+                  <DatePicker
+                    selected={field.value}
+                    onChange={(date) => {
+                      field.onChange(date);
+                    }}
+                    dateFormat="dd/MM/yyyy"
+                    placeholderText="מהתאריך"
+                    className="border border-black p-1 text-center w-full"
+                  />
+                )}
+              />
+            </div>
+          </div> */}
+
           <button
             type="button"
             onClick={addImageComponent}
@@ -46,7 +94,7 @@ const FormActions: React.FC<{
             הוסף רכיב תמונה
           </button>
           <select
-            className="border border-black rounded"
+            className="border border-black text-center rounded"
             value={selectedImageUrl}
             onChange={(e) => setSelectedImageUrl(e.target.value)}
           >

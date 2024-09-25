@@ -41,6 +41,7 @@ const FormActions_Update: React.FC<{
 
       <div className="bg-purple-300 rounded">
         <div className="flex justify-center">
+
           <button
             type="button"
             onClick={addImageComponent}
