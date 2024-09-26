@@ -14,7 +14,6 @@ import ReadyImageCard from "./ReadyImageCard";
 import ReadyBidHeader from "./ReadyBidHeader";
 import { Button } from "../ui/button";
 import { useAuth0 } from "@auth0/auth0-react";
-import ReadyBidsTopHeader from "./ReadyBidsTopHeader";
 
 
 

@@ -35,7 +35,6 @@ const SortableList_Update: React.FC<{
   handleHotelDataChange,
   remove,
   sortedFormToUpdate,
-  control,
 }) => {
   const sensors = useSensors(useSensor(PointerSensor));
 

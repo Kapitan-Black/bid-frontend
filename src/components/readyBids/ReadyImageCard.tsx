@@ -1,4 +1,4 @@
-import { dateFormat } from "@/config/utils";
+
 import { ImageResponse } from "@/types/mainBidFormResponse";
 
 interface ReadyImageCardProps {
@@ -16,17 +16,6 @@ const ReadyImageCard: React.FC<ReadyImageCardProps> = ({ data }) => {
       >
         <p className="flex justify-center text-lg sm:text-2xl">{data.description}</p>
 
-        {/* <div className="sm:space-y-2">
-          <p className="flex justify-center">{data.description}</p>
-          <div className="flex">
-            <p className="w-28">מהתאריך:</p>
-            <p>{dateFormat(data.start)}</p>
-          </div>
-          <div className="flex">
-            <p className="w-28">עד התאריך:</p>
-            <p>{dateFormat(data.end)}</p>
-          </div>
-        </div> */}
       </div>
     </div>
   );
