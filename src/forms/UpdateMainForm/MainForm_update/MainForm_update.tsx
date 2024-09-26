@@ -85,7 +85,7 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
       formName: firstResponse.formName,
       holidayStartDate: new Date(firstResponse.holidayStartDate),
       isBidApproved: firstResponse.isBidApproved,
-      randomNumber: firstResponse.randomNumber,
+      fakeCountNumber: firstResponse.fakeCountNumber,
       items: sortedItems,
     };
   };
