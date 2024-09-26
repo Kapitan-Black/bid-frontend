@@ -2,8 +2,6 @@ import ConfirmationModal from "@/components/ConfirmationModal";
 import React, { useState } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Controller } from "react-hook-form";
-import DatePicker from "react-datepicker";
 
 interface ImageSeparatorCard {
   id: string;
@@ -11,8 +9,6 @@ interface ImageSeparatorCard {
   imageUrl: string;
   imageText: string;
   onRemove: (index: number) => void;
- 
-  control: any;
 }
 
 const ImageSeparatorCard: React.FC<ImageSeparatorCard> = ({
@@ -21,8 +17,6 @@ const ImageSeparatorCard: React.FC<ImageSeparatorCard> = ({
   imageUrl,
   imageText,
   onRemove,
-  // imageSeparatorStartEndDates,
-  control,
 }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -75,9 +69,11 @@ const ImageSeparatorCard: React.FC<ImageSeparatorCard> = ({
         text-xl
         className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-30"
       >
-
-        <div>
-          <p className="flex justify-center font-semibold text-xl mb-4">
+        <p className="flex justify-center text-white font-semibold text-4xl">
+          {imageText}
+        </p>
+        {/* <div>
+          <p className="flex justify-center text-white font-semibold text-4xl">
             {imageText}
           </p>
 
@@ -123,10 +119,7 @@ const ImageSeparatorCard: React.FC<ImageSeparatorCard> = ({
               />
             </div>
           </div>
-        </div>
-
-
-
+        </div> */}
       </div>
 
       <button

@@ -2,9 +2,6 @@ import ConfirmationModal from "@/components/ConfirmationModal";
 import React, { useState } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Controller, useForm, useFormContext } from "react-hook-form";
-import DatePicker from "react-datepicker";
-import { ImageComponent } from "@/types/types";
 
 interface ImageSeparator {
   id: string;
@@ -12,10 +9,8 @@ interface ImageSeparator {
   imageUrl: string;
   imageText: string;
   onRemove: (index: number) => void;
-  // control: any;
 }
 
-type ImageComponentPath = `items.${number}.${keyof ImageComponent}`;
 
 
 const ImageSeparator_Update: React.FC<ImageSeparator> = ({
@@ -24,19 +19,7 @@ const ImageSeparator_Update: React.FC<ImageSeparator> = ({
   imageUrl,
   onRemove,
   imageText,
-  // control,
 }) => {
-
-  function getFieldPath(
-    index: number,
-    field: keyof ImageComponent
-  ): ImageComponentPath {
-    return `items.${index}.${field}`;
-  }
-
-    const { control, watch } = useFormContext<{
-      items: ImageComponent[];
-    }>();
 
   
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -59,12 +42,6 @@ const ImageSeparator_Update: React.FC<ImageSeparator> = ({
     setShowModal(false);
   };
 
-
-const values = watch(`items.${index}.start`); // Watch specific field
-console.log("Start date for item", index, ":", values);
-
-
-
   return (
     <div
       key={id}
@@ -76,27 +53,28 @@ console.log("Start date for item", index, ":", values);
       onPointerDown={(e) => {
         if (
           e.target instanceof HTMLElement &&
-          (
-            e.target.tagName === "BUTTON" ||
+          (e.target.tagName === "BUTTON" ||
             e.target.tagName === "INPUT" ||
             e.target.tagName === "SELECT" ||
             e.target.tagName === "TEXTAREA" ||
             e.target.tagName === "DIV" ||
             e.target.tagName === "H2" ||
-            e.target.tagName === "SPAN"
-          )
+            e.target.tagName === "SPAN")
         ) {
           e.stopPropagation();
         }
       }}
     >
-      <img src={imageUrl} alt="Selected" className="relative h-36" />
+      <img src={imageUrl} alt="Selected" className="relative h-28" />
 
       <div
         dir="rtl"
         className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-30"
       >
-        <div>
+        <p className="flex justify-center text-white text-4xl mb-4">
+          {imageText}
+        </p>
+        {/* <div>
           <p className="flex justify-center font-semibold text-xl mb-4">
             {imageText}
           </p>
@@ -143,7 +121,7 @@ console.log("Start date for item", index, ":", values);
               />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
       <button
         className="bg-red-400 hover:bg-red-500 p-1 rounded-md absolute sm:top-4 sm:left-12 top-2 left-8 sm:text-md text-xs"

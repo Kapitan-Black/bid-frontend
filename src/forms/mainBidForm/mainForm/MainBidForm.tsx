@@ -267,7 +267,6 @@ const MainBidForm: React.FC = () => {
           handleHotelRemove={handleHotelRemove}
           handleHotelDataChange={handleHotelDataChange}
           remove={remove}
-          control={control}
         />
 
         <FormActions

@@ -26,14 +26,12 @@ const SortableList: React.FC<{
   handleHotelRemove: (index: number) => void;
   handleHotelDataChange: (index: number, data: any) => void;
   remove: (index: number) => void;
-  control: any;
 }> = ({
   fields,
   move,
   handleHotelRemove,
   handleHotelDataChange,
   remove,
-  control,
 }) => {
   const sensors = useSensors(useSensor(PointerSensor));
 
@@ -81,7 +79,6 @@ const SortableList: React.FC<{
                   imageUrl={field.imageUrl}
                   imageText={field.description}
                   onRemove={remove}
-                  control={control}
                 />
               )}
             </SortableItem>
