@@ -2,9 +2,8 @@ import ConfirmationModal from "@/components/ConfirmationModal";
 import React, { useState } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Controller, useForm } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import DatePicker from "react-datepicker";
-// import control from "react-hook-form"
 
 interface ImageSeparatorCard {
   id: string;
@@ -12,11 +11,7 @@ interface ImageSeparatorCard {
   imageUrl: string;
   imageText: string;
   onRemove: (index: number) => void;
-  // imageSeparatorStartEndDates: {
-  //   id: string;
-  //   start: Date | null;
-  //   end: Date | null;
-  // }[];
+ 
   control: any;
 }
 
@@ -48,9 +43,6 @@ const ImageSeparatorCard: React.FC<ImageSeparatorCard> = ({
     onRemove(index);
     setShowModal(false);
   };
-
-  const formatDate = (date: Date | null): string =>
-    date ? date.toLocaleDateString() : "N/A";
 
   return (
     <div
@@ -101,18 +93,7 @@ const ImageSeparatorCard: React.FC<ImageSeparatorCard> = ({
                     onChange={(date) => {
                       field.onChange(date);
                     }}
-                    // onChange={(date) => {
-                    //   if (date) {
-                    //     const utcDate = new Date(
-                    //       Date.UTC(
-                    //         date.getFullYear(),
-                    //         date.getMonth(),
-                    //         date.getDate()
-                    //       )
-                    //     );
-                    //     field.onChange(utcDate); // Set date to UTC
-                    //   }
-                    // }}
+
                     dateFormat="dd/MM/yyyy"
                     placeholderText="מהתאריך"
                     className="border border-black p-1 text-center w-full"
@@ -133,18 +114,7 @@ const ImageSeparatorCard: React.FC<ImageSeparatorCard> = ({
                     onChange={(date) => {
                       field.onChange(date);
                     }}
-                    // onChange={(date) => {
-                    //   if (date) {
-                    //     const utcDate = new Date(
-                    //       Date.UTC(
-                    //         date.getFullYear(),
-                    //         date.getMonth(),
-                    //         date.getDate()
-                    //       )
-                    //     );
-                    //     field.onChange(utcDate); // Set date to UTC
-                    //   }
-                    // }}
+      
                     dateFormat="dd/MM/yyyy"
                     placeholderText="עד התאריך"
                     className="border border-black p-1 text-center w-full"

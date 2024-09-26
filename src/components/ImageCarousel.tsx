@@ -68,7 +68,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
               <img
                 src={image}
                 alt={`Slide ${index}`}
-                className="rounded-md object-cover h-[500px] w-full block"
+                className="rounded-md object-cover h-[600px] w-full block"
               />
               {showDeleteButtons && handleRemoveImage && (
                 <button

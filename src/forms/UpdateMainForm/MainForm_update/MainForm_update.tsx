@@ -84,6 +84,7 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
       idArray: data[0].idArray,
       formName: firstResponse.formName,
       holidayStartDate: new Date(firstResponse.holidayStartDate),
+      isBidApproved: firstResponse.isBidApproved,
       items: sortedItems,
     };
   };

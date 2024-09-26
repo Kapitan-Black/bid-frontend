@@ -223,7 +223,7 @@ const MainBidForm: React.FC = () => {
       <form onSubmit={handleSumbmit}>
         <div dir="rtl" className="flex flex-col gap-4 mb-4">
           <div className="flex justify-start gap-2">
-            <label htmlFor="formName">שם ההצאה:</label>
+            <label htmlFor="formName">שם ההצעה:</label>
             <input
               dir="rtl"
               id={"formName"}

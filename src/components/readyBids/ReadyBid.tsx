@@ -97,7 +97,7 @@ const ReadyBid = () => {
 
   return (
     <>
-      <ReadyBidsTopHeader />
+      {/* <ReadyBidsTopHeader /> */}
       <div className="sm:px-8">
         <ReadyBidHeader
           createDate={form[0].createDate}

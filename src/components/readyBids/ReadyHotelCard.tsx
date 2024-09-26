@@ -50,7 +50,7 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
                   <p>-</p>
                   <p>{dateFormat(data.checkOutDate)}</p>
                 </span>
-                <p>({nights}-לילות)</p>
+                <p>({nights} לילות)</p>
               </div>
 
           </AccordionTrigger>
@@ -58,18 +58,18 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
             <div className="flex justify-center">
               <ImageCarousel images={data.images} />
             </div>
-            <h2 className="text-2xl mb-4 mt-8 text-center font-bold">
+            <h2 className="text-2xl mb-4 mt-8 text-center">
               {data.hotelName}
             </h2>
             <div className="bg-sky-100 p-2 rounded-md">
-              <div className="flex sm:text-lg gap-2 font-semibold">
+              <div className="flex sm:text-lg gap-2">
                 <span className="flex gap-1">
                   <p>{dateFormat(data.checkInDate)}</p>
                   <p>-</p>
                   <p>{dateFormat(data.checkOutDate)}</p>
                 </span>
 
-                <p>({nights}-לילות)</p>
+                <p>({nights} לילות)</p>
               </div>
 
               <div className="flex justify-center">
@@ -92,7 +92,7 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
                     <div className="flex gap-2">
                       <div className="flex flex-col sm:flex-row sm:gap-2">
                         <p>סוג החדר:</p>
-                        <p className="ml-2 font-semibold"> {room.roomType}</p>
+                        <p className="ml-2"> {room.roomType}</p>
                       </div>
 
                       <div className="flex hover:underline">
@@ -119,7 +119,7 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
                       ]}
                     />
 
-                    <div className="flex justify-center items-center font-semibold text-lg mt-8">
+                    <div className="flex justify-center items-center text-lg mt-8">
                       <p className="w-2/3 text-center">
                         {room.roomDescription}
                       </p>
