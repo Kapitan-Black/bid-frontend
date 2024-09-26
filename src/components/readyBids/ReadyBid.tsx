@@ -82,7 +82,7 @@ const ReadyBid = () => {
       formName: form.formName,
       createDate: form.createDate,
       isBidApproved: form.isBidApproved,
-      randomNumber: form.randomNumber,
+      fakeCountNumber: form.fakeCountNumber,
       sortedElements,
       idArray: form.idArray,
       id: form._id,
@@ -106,7 +106,7 @@ const ReadyBid = () => {
           holidayStartDate={form[0].holidayStartDate}
           formName={processedBidForms?.formName}
           isBidApproved={processedBidForms?.isBidApproved}
-          randomNumber={processedBidForms?.randomNumber}
+          fakeCountNumber={processedBidForms?.fakeCountNumber}
         />
         <div className="space-y-2 md:px-36">
           {processedBidForms?.sortedElements.map((element, index) => {

@@ -8,7 +8,7 @@ interface Props {
   holidayStartDate: string;
   formName: string | undefined;
   isBidApproved: boolean | undefined;
-  randomNumber: number | undefined;
+  fakeCountNumber: number | undefined;
 }
 
 const ReadyBidHeader: React.FC<Props> = ({
@@ -16,7 +16,7 @@ const ReadyBidHeader: React.FC<Props> = ({
   holidayStartDate,
   formName,
   isBidApproved,
-  randomNumber,
+  fakeCountNumber,
 }) => {
   return (
     <>
@@ -26,10 +26,10 @@ const ReadyBidHeader: React.FC<Props> = ({
           createDate={createDate}
           holidayStartDate={holidayStartDate}
           formName={formName}
-          randomNumber={randomNumber}
+          randomNumber={fakeCountNumber}
         />
       ) : (
-          <BeforeApproved formName={formName} randomNumber={randomNumber}/>
+        <BeforeApproved formName={formName} randomNumber={fakeCountNumber} />
       )}
     </>
   );

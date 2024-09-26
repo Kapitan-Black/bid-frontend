@@ -77,7 +77,7 @@ type MainBidServerResponse = {
   formName: string;
   holidayStartDate: string;
   isBidApproved: boolean;
-  randomNumber: number;
+  fakeCountNumber: number;
 
   flight: FlightResponse[];
   hotel: HotelResponse[];

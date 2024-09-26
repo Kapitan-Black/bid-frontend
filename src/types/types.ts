@@ -101,7 +101,6 @@ export interface FormFields {
   formName: string;
   holidayStartDate: Date;
   isBidApproved: boolean;
-  randomNumber: number;
   idArray: string[];
   items: (
     | HotelCardFields
