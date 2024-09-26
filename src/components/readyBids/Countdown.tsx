@@ -89,8 +89,8 @@ const Countdown: React.FC<CountdownProps> = ({
     timeLeft.seconds === 0;
 
   return (
-    <div dir="rtl" className="flex justify-center -my-44 mb-8">
-      <div className=" bg-blue-50 gap-2 p-4 rounded-md w-[500px] shadow-md">
+    <div dir="rtl" className="flex justify-center -my-44 mb-8 px-4">
+      <div className=" bg-blue-50 gap-2 p-4 rounded-md w-[500px] shadow-md" >
         <h2 className="text-center mb-4 text-lg">{formName}</h2>
 
         {!isTimeUp ? (
