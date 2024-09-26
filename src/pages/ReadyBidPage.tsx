@@ -9,7 +9,6 @@ import ConfirmationModalForMainFormDelete from "@/components/ConfirmationModalFo
 const ReadyBidPage = () => {
   const { data: initialData, refetch } = useGetMainBidForms();
   const [data, setData] = useState(initialData || []);
-  console.log("data", data);
 
   // Default sort settings
   const [sortCriteria, setSortCriteria] = useState("name");
@@ -81,6 +80,21 @@ const ReadyBidPage = () => {
   return (
     <div dir="rtl" className="container mx-auto">
       <div className="flex gap-4 mb-4">
+        <p>להציג תוצאות:</p>
+        <select
+          id="isBidApprovedFilter"
+          value={isBidApprovedFilter}
+          onChange={(e) =>
+            setIsBidApprovedFilter(e.target.value as "all" | "yes" | "no")
+          }
+          className="border border-black text-center"
+        >
+          <option value="all">הכל</option>
+          <option value="yes">מאושר</option>
+          <option value="no">לא מאושר</option>
+        </select>
+      </div>
+      <div className="flex gap-4 mb-4">
         <p>מיון לפי:</p>
         <select
           id="sortBy"
@@ -100,20 +114,6 @@ const ReadyBidPage = () => {
         >
           <option value="asc">סדר עולה</option>
           <option value="desc">סדר יורד</option>
-        </select>
-
-        {/* Filter for isBidApproved */}
-        <select
-          id="isBidApprovedFilter"
-          value={isBidApprovedFilter}
-          onChange={(e) =>
-            setIsBidApprovedFilter(e.target.value as "all" | "yes" | "no")
-          }
-          className="border border-black text-center"
-        >
-          <option value="all">הכל</option>
-          <option value="yes">מאושר</option>
-          <option value="no">לא מאושר</option>
         </select>
       </div>
 
