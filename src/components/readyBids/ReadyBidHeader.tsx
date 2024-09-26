@@ -1,4 +1,4 @@
-import { Divide } from "lucide-react";
+
 import Hero from "../Hero";
 import Countdown from "./Countdown";
 import BeforeApproved from "./BeforeApproved";
