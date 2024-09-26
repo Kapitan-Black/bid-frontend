@@ -92,7 +92,6 @@ const SortableList_Update: React.FC<{
                   imageUrl={field.imageUrl}
                   imageText={field.description}
                   onRemove={remove}
-                  // control={control}
                 />
               )}
             </SortableItem_update>

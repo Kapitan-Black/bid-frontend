@@ -81,6 +81,8 @@ const ReadyBid = () => {
     return {
       formName: form.formName,
       createDate: form.createDate,
+      isBidApproved: form.isBidApproved,
+      randomNumber: form.randomNumber,
       sortedElements,
       idArray: form.idArray,
       id: form._id,
@@ -88,6 +90,7 @@ const ReadyBid = () => {
   };
 
   const processedBidForms = flattenAndSortBidForm(form);
+  console.log("processedBidForms", processedBidForms);
 
 
     const handleUpdateHotel = (mainForm: MainBidServerResponse[]) => {
@@ -102,6 +105,8 @@ const ReadyBid = () => {
           createDate={form[0].createDate}
           holidayStartDate={form[0].holidayStartDate}
           formName={processedBidForms?.formName}
+          isBidApproved={processedBidForms?.isBidApproved}
+          randomNumber={processedBidForms?.randomNumber}
         />
         <div className="space-y-2 md:px-36">
           {processedBidForms?.sortedElements.map((element, index) => {

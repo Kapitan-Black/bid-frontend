@@ -4,6 +4,7 @@ interface CountdownProps {
   createDate: string;
   holidayStartDate: string;
   formName: string | undefined;
+  randomNumber: number | undefined;
 }
 
 export interface TimeLeft {
@@ -17,6 +18,7 @@ const Countdown: React.FC<CountdownProps> = ({
   createDate,
   holidayStartDate,
   formName,
+  randomNumber,
 }) => {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({
     days: 0,
@@ -25,15 +27,22 @@ const Countdown: React.FC<CountdownProps> = ({
     seconds: 0,
   });
   // console.log(timeLeft)
+  // const [proposalNumber, setProposalNumber] = useState<number | null>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
       updateCountdown();
     }, 1000);
 
+    // const randomProposalNumber =
+    //   Math.floor(Math.random() * (1000 - 100 + 1)) + 100;
+    // setProposalNumber(randomProposalNumber);
+
+
     return () => clearInterval(interval);
   }, [createDate, holidayStartDate]);
 
+  
   // console.log(createDate, flightDate)
 
   const updateCountdown = () => {
@@ -117,7 +126,7 @@ const Countdown: React.FC<CountdownProps> = ({
         </div>
         <div className="flex justify-center gap-2 mt-4">
           <p>מספר הצעה:</p>
-          <p>0000</p>
+          <p>{randomNumber}</p>
         </div>
       </div>
     </div>

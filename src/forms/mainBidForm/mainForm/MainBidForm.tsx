@@ -163,6 +163,9 @@ const MainBidForm: React.FC = () => {
       return;
     }
 
+    // Generate a random number between 100 and 1000
+    const randomNumber = Math.floor(Math.random() * 901) + 100;
+
     const hotelDataArray = formData.items.map((item, index) => {
       if (item.type === "hotel") {
         const hotelDataEntry = hotelData[index];
@@ -192,6 +195,7 @@ const MainBidForm: React.FC = () => {
       formName: formData.formName,
       holidayStartDate: formData.holidayStartDate,
       isBidApproved: formData.isBidApproved,
+      randomNumber,
 
       hotel: hotelDataArray.filter((item) => item.type === "hotel") || [],
       transfer: formData.items.filter((item) => item.type === "transfer") || [],

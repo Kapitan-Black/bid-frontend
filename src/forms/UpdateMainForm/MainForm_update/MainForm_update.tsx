@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Controller, FormProvider, useFieldArray, useForm } from "react-hook-form";
+import {
+  Controller,
+  FormProvider,
+  useFieldArray,
+  useForm,
+} from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
@@ -20,7 +25,6 @@ import SortableList_Update from "./SortableList_update";
 import FormActions_Update from "./FormActions_update";
 import { MainBidServerResponse } from "@/types/mainBidFormResponse";
 import DatePicker from "react-datepicker";
-
 
 interface MainBidForm_UpdateProps {
   formToUpdate: MainBidServerResponse[];
@@ -81,6 +85,7 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
       formName: firstResponse.formName,
       holidayStartDate: new Date(firstResponse.holidayStartDate),
       isBidApproved: firstResponse.isBidApproved,
+      randomNumber: firstResponse.randomNumber,
       items: sortedItems,
     };
   };
@@ -258,6 +263,8 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
     const payload = {
       formName: formData.formName,
       holidayStartDate: formData.holidayStartDate,
+      isBidApproved: formData.isBidApproved,
+
       hotel: hotelDataArray.filter((item) => item.type === "hotel") || [],
       transfer: formData.items.filter((item) => item.type === "transfer") || [],
       flight: formData.items.filter((item) => item.type === "flight") || [],
@@ -281,27 +288,27 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
     }
   }, [isSuccess, error]);
 
-  console.log("items",form.getValues().items);
+  console.log("items", form.getValues().items);
 
   return (
     <FormProvider {...form}>
       <form onSubmit={handleSubmit}>
-        <div className="flex flex-col">
-          <div className="flex flex-row-reverse justify-start gap-2">
-            <label htmlFor="formName">:שם ההצעה</label>
+        <div dir="rtl" className="flex flex-col gap-4 mb-4">
+          <div className="flex justify-start gap-2">
+            <label htmlFor="formName">שם ההצעה:</label>
             <input
               dir="rtl"
               id={"formName"}
-              className="border border-black"
+              className="border text-center border-black w-64"
               {...form.register("formName")}
             />
           </div>
 
-          <div className="flex flex-row-reverse justify-start items-center gap-2 mb-12 mt-4">
-            <label className="mb-2">:תאריך תחילת החופשה</label>
+          <div className="flex justify-start items-center gap-2">
+            <label className="mb-2">תאריך תחילת החופשה:</label>
             <Controller
               name="holidayStartDate"
-              control={form.control}
+              control={control}
               render={({ field }) => (
                 <DatePicker
                   selected={field.value}
@@ -312,6 +319,17 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
                 />
               )}
             />
+          </div>
+
+          <div className="flex justify-start items-center gap-2 ">
+            <label>האם ההצעה מאושרת?</label>
+            <select
+              {...form.register("isBidApproved")}
+              className="border border-black p-1"
+            >
+              <option value="false">לא</option>
+              <option value="true">כן</option>
+            </select>
           </div>
         </div>
 
