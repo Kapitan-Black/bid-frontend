@@ -69,10 +69,6 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
       itemMap[image.id] = {
         ...image,
         type: "image",
-        // start: new Date(image.start), // Convert string to Date
-        // end: new Date(image.end), // Convert string to Date
-        start: image.start ? new Date(image.start) : new Date(), // Convert string to Date or set to current date
-        end: image.end ? new Date(image.end) : new Date(), // Convert string to Date or set to current date
       } as ImageComponent;
     });
 
@@ -225,8 +221,6 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
       type: "image",
       imageUrl: selectedImageUrl,
       description: selectedImage ? selectedImage.description : "",
-      start: new Date(),
-      end: new Date(),
     });
   };
 

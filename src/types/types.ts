@@ -95,8 +95,6 @@ export interface ImageComponent {
   type: "image";
   imageUrl: string;
   description: string;
-  start: Date;
-  end: Date;
 }
 
 export interface FormFields {

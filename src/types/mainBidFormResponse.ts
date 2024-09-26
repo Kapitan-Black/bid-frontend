@@ -69,8 +69,6 @@ type ImageResponse = {
   type: string;
   imageUrl: string;
   description: string;
-  start: Date;
-  end: Date;
   _id: string;
 };
 

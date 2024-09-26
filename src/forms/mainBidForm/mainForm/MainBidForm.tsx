@@ -128,8 +128,6 @@ const MainBidForm: React.FC = () => {
   };
 
   const addImageComponent = () => {
-    // const { start, end } = form.control._getWatch();
-    // console.log("start====", start, "end", end);
     const selectedImage = SeparatorUrls.find(
       (image) => image.url === selectedImageUrl
     );
@@ -138,8 +136,6 @@ const MainBidForm: React.FC = () => {
       type: "image",
       imageUrl: selectedImageUrl,
       description: selectedImage ? selectedImage.description : "",
-      start: new Date(),
-      end: new Date(),
     });
   };
 
