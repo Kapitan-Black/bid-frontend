@@ -60,6 +60,7 @@ export const flightSchema = z.object({
   priceForAdult: z.number(),
   priceForChild: z.number(),
   priceForBaby: z.number(),
+  currency: z.string(),
   agentComments: z.string().optional(),
 });
 

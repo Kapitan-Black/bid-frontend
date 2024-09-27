@@ -115,7 +115,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ id, index, onRemove }) => {
                         <DatePicker
                           selected={field.value ? new Date(field.value) : null}
                           onChange={(date) => {
-                            field.onChange(date)
+                            field.onChange(date);
                           }}
                           dateFormat="dd/MM/yyyy"
                           placeholderText="Select date"
@@ -278,6 +278,14 @@ const FlightCard: React.FC<FlightCardProps> = ({ id, index, onRemove }) => {
                         className="border sm:p-1"
                       />
                     </div>
+                  </div>
+
+                  <div className="flex items-center mt-4">
+                    <label className="">מטבעה:</label>
+                    <input
+                      {...register(getFieldPath(index, "currency"))}
+                      className="border sm:p-1"
+                    />
                   </div>
                 </div>
               </div>

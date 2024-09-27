@@ -18,7 +18,7 @@ const FlightDetails = ({ data }: Props) => {
         </div>
 
         <div className="flex flex-row justify-between gap-8 sm:w-4/5">
-          <div className="flex flex-col items-center sm:items-center">
+          <div className="flex flex-col items-center sm:items-center sm:mr-36">
             <PlaneTakeoff className="-scale-x-100" />
             <p>{data.departureAirport}</p>
             <p className="text-center">{data.flightTime}</p>
@@ -43,7 +43,7 @@ const FlightDetails = ({ data }: Props) => {
             )}
           </div>
 
-          <div className="flex flex-col items-center sm:items-center">
+          <div className="flex flex-col items-center sm:items-center sm:ml-36">
             <div className="flex">
               <PlaneLanding className="-scale-x-100" />
             </div>

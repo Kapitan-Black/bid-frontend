@@ -90,6 +90,7 @@ export type FlightCardFields = {
   priceForAdult: number;
   priceForChild: number;
   priceForBaby: number;
+  currency: string;
   agentComments: string;
 };
 

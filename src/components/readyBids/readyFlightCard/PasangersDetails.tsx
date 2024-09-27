@@ -51,7 +51,10 @@ const PasangersDetails = ({ data }: Props) => {
         </div>
         <div className="flex gap-4 font-bold">
           <p>סה׳׳כ לתשלום</p>
+          <div className="flex gap-1">
           <p> {sum}</p>
+            <p>{data.currency}</p>
+          </div>
         </div>
       </div>
 

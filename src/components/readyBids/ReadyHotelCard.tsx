@@ -34,7 +34,7 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
       <Accordion type="single" collapsible className="">
         <AccordionItem key={data._id} value={data._id}>
           <AccordionTrigger
-            className={`flex flex-col lg:flex-row bg-gradient-to-r from-customYellow2 to-customYellow1  text-black p-2 sm:p-4 hover:no-underline text-sm sm:text-lg border-2 hover:border-yellow-400 ${
+            className={`flex flex-col lg:flex-row bg-gradient-to-r from-customYellow2 to-customYellow1  text-black font-normal p-2 sm:p-4 hover:no-underline text-sm sm:text-lg border-2 hover:border-yellow-400 ${
               isOpen1 ? "rounded-t-full" : "rounded-full"
             }`}
             onClick={handleToggle1}
@@ -93,7 +93,7 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
                     className="bg-yellow-300 rounded-2xl p-4 sm:text-lg hover:no-underline hover:bg-yellow-400"
                   >
                     <div className="flex gap-2">
-                      <div className="flex flex-col sm:flex-row sm:gap-2">
+                      <div className="flex flex-col sm:flex-row sm:gap-2 sm:w-[400px]">
                         <p>סוג החדר:</p>
                         <p className="ml-2"> {room.roomType}</p>
                       </div>

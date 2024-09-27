@@ -215,6 +215,7 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
       priceForAdult: 0,
       priceForChild: 0,
       priceForBaby: 0,
+      currency: "",
       agentComments: "",
     } as FlightCardFields);
   };

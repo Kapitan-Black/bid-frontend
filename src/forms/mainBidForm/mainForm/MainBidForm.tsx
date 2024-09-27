@@ -125,6 +125,7 @@ const MainBidForm: React.FC = () => {
       priceForAdult: 0,
       priceForChild: 0,
       priceForBaby: 0,
+      currency: "",
       agentComments: "",
     } as FlightCardFields);
   };

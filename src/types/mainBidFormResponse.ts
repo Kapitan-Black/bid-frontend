@@ -22,6 +22,7 @@ type FlightResponse = {
   priceForAdult: number;
   priceForChild: number;
   priceForBaby: number;
+  currency: string;
   type: string;
   id: string;
   _id: string;

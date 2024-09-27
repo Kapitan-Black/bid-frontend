@@ -284,6 +284,13 @@ const FlightCard_Update: React.FC<FlightCardProps> = ({
                       />
                     </div>
                   </div>
+                  <div className="flex items-center mt-4">
+                    <label className="">מטבעה:</label>
+                    <input
+                      {...register(getFieldPath(index, "currency"))}
+                      className="border sm:p-1"
+                    />
+                  </div>
                 </div>
               </div>
 
