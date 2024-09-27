@@ -11,9 +11,13 @@ const StarRating: React.FC<StarProps> = ({ star }) => {
 
   return (
     <div className="flex mt-4">
-      {Array.from({ length: validStar }).map((_, index) => (
-          // <img key={index} src={yellowStar} className="w-8" alt="star" />
-          <Star/>
+      {/* {Array.from({ length: validStar }).map((_, index) => (
+        // <img key={index} src={yellowStar} className="w-8" alt="star" />
+        <Star />
+      ))} */}
+      {Array.from({ length: validStar }).map((_, ) => (
+        // <img key={index} src={yellowStar} className="w-8" alt="star" />
+        <Star />
       ))}
     </div>
   );
