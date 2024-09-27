@@ -15,7 +15,6 @@ import UploadImagesInput from "@/components/UploadImagesInput";
 import UpdateHotelsRoom from "./UpdateHotelsRoom";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useUpdateHotel } from "@/api/UpdateHotelsFormApi";
-import { Stars } from "lucide-react";
 
 const hotelSchema = z.object({
   hotelName: z.string().min(1, "Hotel name is required"),
