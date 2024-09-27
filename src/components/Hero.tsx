@@ -4,7 +4,7 @@ import logo from "../assets/logo-thailand-sababa1.png";
 
 const Hero = () => {
   return (
-    <div className=" sm:-mx-12">
+    <div className=" sm:-mx-10 -mx-2">
       <img src={hero} className="w-full h-[500px] object-cover" />
       <img
         src={logo}
