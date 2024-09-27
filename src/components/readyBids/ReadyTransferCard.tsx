@@ -30,9 +30,11 @@ const ReadyTransferCard: React.FC<ReadyTransferCardProps> = ({ data }) => {
             }`}
             onClick={handleToggle}
           >
-            <div className="flex items-center ml-8 sm:mr-4 ">
-              <FaCar />
-              <h3 className="mr-4 text-sm sm:text-lg ">
+            <div className="flex items-center justify-start ml-8 md:w-[400px]">
+              <span className="hidden md:block w-[30px]">
+                <FaCar />
+              </span>
+              <h3 className="mr-4 text-sm sm:text-lg">
                 {data.transferDescription}
               </h3>
             </div>

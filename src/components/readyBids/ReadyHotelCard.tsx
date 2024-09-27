@@ -9,8 +9,7 @@ import ImageCarousel from "../ImageCarousel";
 import SmallCarousel from "../SmallCarousel";
 import { calculateNights, dateFormat } from "@/config/utils";
 import { useState } from "react";
-import { ArrowBigDownDash, ArrowBigUpDash } from "lucide-react";
-import { RiHotelFill } from "react-icons/ri";
+import { ArrowBigDownDash, ArrowBigUpDash, BedDouble } from "lucide-react";
 import StarRating from "../StarRaiting";
 
 interface ReadyHotelCardProps {
@@ -34,14 +33,16 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
       <Accordion type="single" collapsible className="">
         <AccordionItem key={data._id} value={data._id}>
           <AccordionTrigger
-            className={`flex flex-col lg:flex-row bg-gradient-to-r from-customYellow2 to-customYellow1  text-black font-normal p-2 sm:p-4 hover:no-underline text-sm sm:text-lg border-2 hover:border-yellow-400 ${
+            className={`flex flex-col md:flex-row bg-gradient-to-r from-customYellow2 to-customYellow1  text-black font-normal p-2 sm:p-4 hover:no-underline text-sm sm:text-lg border-2 hover:border-yellow-400 ${
               isOpen1 ? "rounded-t-full" : "rounded-full"
             }`}
             onClick={handleToggle1}
           >
-            <div className="flex items-center gap-2 sm:mr-4 md:w-[400px]">
-              <RiHotelFill />
-              <p className="sm:mr-4"> {data.hotelName}</p>
+            <div className="flex justify-start items-center gap-2 md:w-[400px]">
+              <span className="hidden md:block w-[35px]">
+                <BedDouble />
+              </span>
+              <p> {data.hotelName}</p>
             </div>
 
             <div className="flex gap-2">
@@ -60,11 +61,10 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
             <h2 className="text-2xl mb-4 mt-8 text-center">{data.hotelName}</h2>
             <div className="bg-yellow-100 p-2 rounded-md">
               <div className="flex justify-center">
-                <p className="mt-4 sm:text-lg text-center">{data.hotelDescription}</p>
+                <p className="mt-4 sm:text-lg text-center">
+                  {data.hotelDescription}
+                </p>
               </div>
-
-
-            
 
               <div className="flex flex-col md:flex-row sm:justify-between sm:text-lg gap-2 mr-6 mt-4">
                 <span className="flex justify-center gap-1">
