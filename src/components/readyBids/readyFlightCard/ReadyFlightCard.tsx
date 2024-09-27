@@ -10,6 +10,8 @@ import FlightDetails from "./FlightDetails";
 import PasangersDetails from "./PasangersDetails";
 import { Separator } from "@/components/ui/separator";
 import { Plane } from "lucide-react";
+import { dateFormat } from "@/config/utils";
+
 
 interface ReadyFlightCardProps {
   data: FlightResponse;
@@ -39,9 +41,9 @@ const ReadyFlightCard: React.FC<ReadyFlightCardProps> = ({ data }) => {
               <h3 className="text-sm sm:text-lg">{data.flightDescription}</h3>
             </div>
             <div className="flex gap-1">
-              <p>חברת תעופה</p>
+              <p>תאריך טיסה</p>
               <p>:</p>
-              <p>{data.airline}</p>
+              <p>{dateFormat(data.departureDate)}</p>
             </div>
           </AccordionTrigger>
           <AccordionContent>
