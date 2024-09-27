@@ -8,7 +8,7 @@ const Hero = () => {
       <img src={hero} className="w-full h-[500px] object-cover" />
       <img
         src={logo}
-        className="absolute sm:w-[300px] w-[200px] top-[200px] sm:top-[200px] left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        className="absolute sm:w-[500px] sm:h-[400px] w-[250px] top-[250px] sm:top-[200px] left-1/2 transform -translate-x-1/2 -translate-y-1/2"
       />
     </div>
   );
