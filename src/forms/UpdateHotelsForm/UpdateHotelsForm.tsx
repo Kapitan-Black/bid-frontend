@@ -15,6 +15,7 @@ import UploadImagesInput from "@/components/UploadImagesInput";
 import UpdateHotelsRoom from "./UpdateHotelsRoom";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useUpdateHotel } from "@/api/UpdateHotelsFormApi";
+import { Stars } from "lucide-react";
 
 const hotelSchema = z.object({
   hotelName: z.string().min(1, "Hotel name is required"),
@@ -143,6 +144,7 @@ const UpdateHotelsForm = () => {
       const fullFormData = {
         hotelName: formData.hotelName,
         hotelDescription: formData.hotelDescription,
+        stars: formData.stars,
         images: cloudinaryHotelUrls,
         rooms: cloudinaryRoomUrls,
       };
@@ -221,6 +223,18 @@ const UpdateHotelsForm = () => {
                   className="border text-sm sm:text-xl"
                   defaultValue={hotel.hotelName}
                   disabled={isUploading}
+                />
+              </div>
+
+              <div className="flex flex-col sm:flex-row sm:gap-4">
+                <h2 className="sm:text-2xl">כוכבים:</h2>
+                <input
+                  {...methods.register("stars")}
+                  className="border text-sm sm:text-xl"
+                  defaultValue={hotel.stars}
+                  type="number"
+                  min="0"
+                  max="6"
                 />
               </div>
 

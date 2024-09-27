@@ -141,6 +141,7 @@ const HotelsForm = () => {
         const fullFormData = {
           hotelName: formData.hotelName,
           hotelDescription: formData.hotelDescription,
+          stars: formData.stars,
           images: cloudinaryHotelUrls,
           rooms: cloudinaryRoomUrls,
         };
@@ -210,12 +211,23 @@ const HotelsForm = () => {
                 />
               </div>
 
-              <div className="flex flex-col gap-4 bg-gray-50">
+              <div className="flex flex-col gap-4">
                 <div className="flex flex-col sm:flex-row sm:gap-4">
                   <h2 className="sm:text-2xl">שם הבית מלון:</h2>
                   <input
                     {...methods.register("hotelName")}
                     className="border text-sm sm:text-xl"
+                  />
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:gap-4">
+                  <h2 className="sm:text-2xl">כוכבים:</h2>
+                  <input
+                    {...methods.register("stars")}
+                    className="border text-sm sm:text-xl"
+                    type="number"
+                    min="0"
+                    max="6"
                   />
                 </div>
 

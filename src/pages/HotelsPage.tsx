@@ -13,6 +13,8 @@ import ConfirmationModal from "@/components/ConfirmationModal";
 import SmallCarousel from "@/components/SmallCarousel";
 import { Hotel, Room } from "@/types/types";
 import { useNavigate } from "react-router-dom";
+import yellowStar from "../assets/yellowStar.avif"
+import StarRating from "@/components/StarRaiting";
 
 const HotelsPage = () => {
   const { hotels } = useGetHotels();
@@ -70,7 +72,10 @@ const HotelsPage = () => {
               <div className="flex justify-center">
                 <ImageCarousel images={hotel.images} />
               </div>
+
               <p className="mt-8">{hotel.hotelDescription}</p>
+
+              <StarRating star={hotel.stars}/>
 
               <Accordion type="single" collapsible className="space-y-2">
                 {hotel.rooms.map((room: Room) => (

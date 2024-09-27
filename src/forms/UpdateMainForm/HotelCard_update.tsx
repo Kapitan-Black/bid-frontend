@@ -18,6 +18,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import HotelsRoomCard_Update from "./HotelsRoomCard_update";
 import SelectHotelElement_update from "./SelectHotelElement_update";
+import StarRating from "@/components/StarRaiting";
 
 interface HotelCardProps {
   id: string;
@@ -210,39 +211,45 @@ const HotelCard_Update: React.FC<HotelCardProps> = ({
                 hotelsToUpdate={selectedHotel}
               />
 
-              <div className="flex flex-col sm:flex-row">
-                <p>תאריכים:</p>
-                <Controller
-                  name={getFieldPath(index, "checkInDate")}
-                  control={control}
-                  render={({ field }) => (
-                    <DatePicker
-                      selected={
-                        field.value ? new Date(field.value as Date) : null
-                      }
-                      onChange={(date) => field.onChange(date)}
-                      dateFormat="dd/MM/yyyy"
-                      placeholderText="הזן תאריך"
-                      className="border text-center"
-                    />
-                  )}
-                />
-                -
-                <Controller
-                  name={getFieldPath(index, "checkOutDate")}
-                  control={control}
-                  render={({ field }) => (
-                    <DatePicker
-                      selected={
-                        field.value ? new Date(field.value as Date) : null
-                      }
-                      onChange={(date) => field.onChange(date)}
-                      dateFormat="dd/MM/yyyy"
-                      placeholderText="הזן תאריך"
-                      className="border text-center"
-                    />
-                  )}
-                />
+              <div className="flex md:flex-row flex-col justify-between items-center">
+                <div className="flex flex-col sm:flex-row">
+                  <p>תאריכים:</p>
+                  <Controller
+                    name={getFieldPath(index, "checkInDate")}
+                    control={control}
+                    render={({ field }) => (
+                      <DatePicker
+                        selected={
+                          field.value ? new Date(field.value as Date) : null
+                        }
+                        onChange={(date) => field.onChange(date)}
+                        dateFormat="dd/MM/yyyy"
+                        placeholderText="הזן תאריך"
+                        className="border text-center"
+                      />
+                    )}
+                  />
+                  -
+                  <Controller
+                    name={getFieldPath(index, "checkOutDate")}
+                    control={control}
+                    render={({ field }) => (
+                      <DatePicker
+                        selected={
+                          field.value ? new Date(field.value as Date) : null
+                        }
+                        onChange={(date) => field.onChange(date)}
+                        dateFormat="dd/MM/yyyy"
+                        placeholderText="הזן תאריך"
+                        className="border text-center"
+                      />
+                    )}
+                  />
+                </div>
+
+                <span className="md:ml-8">
+                  <StarRating star={selectedHotel?.stars as number} />
+                </span>
               </div>
 
               <h3 className="text-xl">תיאור הבית מלון:</h3>

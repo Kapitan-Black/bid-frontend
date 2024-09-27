@@ -12,6 +12,7 @@ export interface RoomFormData {
 export interface HotelFormData {
   hotelName: string;
   hotelDescription: string;
+  stars: number;
   images: string[];
   rooms: RoomFormData[];
 }
@@ -31,6 +32,7 @@ export interface Hotel {
   type: string;
   hotelName: string;
   hotelDescription: string;
+  stars: number;
   images: string[];
   rooms: Room[];
 }
@@ -42,6 +44,7 @@ export interface HotelCardFields {
   checkInDate: Date;
   checkOutDate: Date;
   hotelDescription: string;
+  stars: number;
   images: string[];
   rooms: RoomFormData[];
   sum: number;

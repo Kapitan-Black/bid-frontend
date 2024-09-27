@@ -44,7 +44,8 @@ const MainBidForm: React.FC = () => {
 
   const [hotelData, setHotelData] = useState<
     { selectedHotel: Hotel | null; selectedRooms: Room[] }[]
-  >([]);
+    >([]);
+
 
   const handleHotelDataChange = (
     index: number,
@@ -74,6 +75,7 @@ const MainBidForm: React.FC = () => {
       checkInDate: today,
       checkOutDate: tomorrow,
       hotelDescription: "",
+      stars: 0,
       images: [],
       rooms: [],
       sum: 0,
@@ -174,6 +176,7 @@ const MainBidForm: React.FC = () => {
             ...item,
             hotelName: hotelDataEntry.selectedHotel?.hotelName,
             hotelDescription: hotelDataEntry.selectedHotel?.hotelDescription,
+            stars: hotelDataEntry.selectedHotel?.stars,
             images: hotelDataEntry.selectedHotel?.images,
 
             rooms: hotelDataEntry.selectedRooms.map((room) => ({

@@ -11,6 +11,7 @@ import { calculateNights, dateFormat } from "@/config/utils";
 import { useState } from "react";
 import { ArrowBigDownDash, ArrowBigUpDash } from "lucide-react";
 import { RiHotelFill } from "react-icons/ri";
+import StarRating from "../StarRaiting";
 
 interface ReadyHotelCardProps {
   data: HotelResponse;
@@ -58,21 +59,27 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
             </div>
             <h2 className="text-2xl mb-4 mt-8 text-center">{data.hotelName}</h2>
             <div className="bg-yellow-100 p-2 rounded-md">
-              <div className="flex sm:text-lg gap-2">
-                <span className="flex gap-1">
+              <div className="flex justify-center">
+                <p className="mt-4 sm:text-lg text-center">{data.hotelDescription}</p>
+              </div>
+
+
+            
+
+              <div className="flex flex-col md:flex-row sm:justify-between sm:text-lg gap-2 mr-6 mt-4">
+                <span className="flex justify-center gap-1">
                   <p>{dateFormat(data.checkInDate)}</p>
                   <p>-</p>
                   <p>{dateFormat(data.checkOutDate)}</p>
+                  <p>({nights} לילות)</p>
                 </span>
 
-                <p>({nights} לילות)</p>
+                <span className="flex justify-center ml-6 ">
+                  <StarRating star={data.stars} />
+                </span>
               </div>
 
-              <div className="flex justify-center">
-                <p className="mt-4 sm:text-lg">{data.hotelDescription}</p>
-              </div>
-
-              <div className="flex gap-1 mt-4 text-lg">
+              <div className="flex justify-center gap-1 mt-4 text-lg mr-6">
                 <p>סה׳׳כ:</p>
                 <p className="font-semibold">฿{data.sum}</p>
               </div>

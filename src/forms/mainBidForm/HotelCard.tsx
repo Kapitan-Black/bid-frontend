@@ -18,6 +18,7 @@ import RemoveButton from "@/components/RemoveButton";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import SelectHotelElement from "./SelectHotelElement";
+import StarRating from "@/components/StarRaiting";
 
 interface HotelCardProps {
   id: string;
@@ -155,7 +156,6 @@ useEffect(() => {
             e.target.tagName === "H2" ||
             e.target.tagName === "SPAN" ||
             e.target.tagName === "IMG")
-          
         ) {
           e.stopPropagation();
         }
@@ -163,7 +163,7 @@ useEffect(() => {
     >
       <Accordion type="single" collapsible>
         <AccordionItem value={`item-${id}`}>
-          <AccordionTrigger  className="relative flex flex-col md:flex-row justify-between bg-gradient-to-r from-sky-400 to-blue-600 rounded-md p-1 sm:p-4 hover:no-underline border-2 hover:border-sky-500">
+          <AccordionTrigger className="relative flex flex-col md:flex-row justify-between bg-gradient-to-r from-sky-400 to-blue-600 rounded-md p-1 sm:p-4 hover:no-underline border-2 hover:border-sky-500">
             <h3 className="mr-4">{selectedHotel?.hotelName}</h3>
             <div className="flex flex-col lg:flex-row md:gap-2">
               <div className="flex items-center">
@@ -195,41 +195,50 @@ useEffect(() => {
             </div>
 
             <div className="space-y-2 p-4">
-              <SelectHotelElement data={receiveDataFromInput} hotelName={selectedHotel?.hotelName} />
+              <SelectHotelElement
+                data={receiveDataFromInput}
+                hotelName={selectedHotel?.hotelName}
+              />
 
-              <div className="flex flex-col sm:flex-row">
-                <p>תאריכים:</p>
-                <Controller
-                  name={getFieldPath(index, "checkInDate")}
-                  control={control}
-                  render={({ field }) => (
-                    <DatePicker
-                      selected={
-                        field.value ? new Date(field.value as Date) : null
-                      }
-                      onChange={(date) => field.onChange(date)}
-                      dateFormat="dd/MM/yyyy"
-                      placeholderText="הזן תאריך"
-                      className="border text-center"
-                    />
-                  )}
-                />
-                -
-                <Controller
-                  name={getFieldPath(index, "checkOutDate")}
-                  control={control}
-                  render={({ field }) => (
-                    <DatePicker
-                      selected={
-                        field.value ? new Date(field.value as Date) : null
-                      }
-                      onChange={(date) => field.onChange(date)}
-                      dateFormat="dd/MM/yyyy"
-                      placeholderText="הזן תאריך"
-                      className="border text-center"
-                    />
-                  )}
-                />
+              <div className="flex md:flex-row flex-col justify-between items-center"> 
+                <div className="flex flex-col sm:flex-row">
+                  <p>תאריכים:</p>
+                  <Controller
+                    name={getFieldPath(index, "checkInDate")}
+                    control={control}
+                    render={({ field }) => (
+                      <DatePicker
+                        selected={
+                          field.value ? new Date(field.value as Date) : null
+                        }
+                        onChange={(date) => field.onChange(date)}
+                        dateFormat="dd/MM/yyyy"
+                        placeholderText="הזן תאריך"
+                        className="border text-center"
+                      />
+                    )}
+                  />
+                  -
+                  <Controller
+                    name={getFieldPath(index, "checkOutDate")}
+                    control={control}
+                    render={({ field }) => (
+                      <DatePicker
+                        selected={
+                          field.value ? new Date(field.value as Date) : null
+                        }
+                        onChange={(date) => field.onChange(date)}
+                        dateFormat="dd/MM/yyyy"
+                        placeholderText="הזן תאריך"
+                        className="border text-center"
+                      />
+                    )}
+                  />
+                </div>
+
+                <span className="md:ml-8">
+                  <StarRating star={selectedHotel?.stars as number} />
+                </span>
               </div>
 
               <h3 className="text-xl">תיאור הבית מלון:</h3>
