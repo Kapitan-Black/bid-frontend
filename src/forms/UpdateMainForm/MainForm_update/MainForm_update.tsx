@@ -118,6 +118,7 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
           type: item.type,
           hotelName: item.hotelName,
           hotelDescription: item.hotelDescription,
+          stars: item.stars,
           images: item.images,
           rooms: item.rooms,
         },
@@ -164,6 +165,7 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
       checkInDate: today,
       checkOutDate: tomorrow,
       hotelDescription: "",
+      stars: 0,
       images: [],
       rooms: [],
       sum: 0,
@@ -243,6 +245,7 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
             ...item,
             hotelName: hotelDataEntry.selectedHotel?.hotelName,
             hotelDescription: hotelDataEntry.selectedHotel?.hotelDescription,
+            stars: hotelDataEntry.selectedHotel?.stars,
             images: hotelDataEntry.selectedHotel?.images,
 
             rooms: hotelDataEntry.selectedRooms.map((room) => ({

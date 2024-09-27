@@ -13,7 +13,6 @@ import ConfirmationModal from "@/components/ConfirmationModal";
 import SmallCarousel from "@/components/SmallCarousel";
 import { Hotel, Room } from "@/types/types";
 import { useNavigate } from "react-router-dom";
-import yellowStar from "../assets/yellowStar.avif"
 import StarRating from "@/components/StarRaiting";
 
 const HotelsPage = () => {
