@@ -33,35 +33,31 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
       <Accordion type="single" collapsible className="">
         <AccordionItem key={data._id} value={data._id}>
           <AccordionTrigger
-            className={`flex flex-col lg:flex-row bg-gradient-to-r from-sky-400 to-blue-600  text-white p-2 sm:p-4 hover:no-underline text-sm sm:text-lg border-2 hover:border-sky-400 ${
+            className={`flex flex-col lg:flex-row bg-gradient-to-r from-customYellow2 to-customYellow1  text-black p-2 sm:p-4 hover:no-underline text-sm sm:text-lg border-2 hover:border-yellow-400 ${
               isOpen1 ? "rounded-t-full" : "rounded-full"
             }`}
             onClick={handleToggle1}
           >
+            <div className="flex items-center gap-2 sm:mr-4 md:w-[400px]">
+              <RiHotelFill />
+              <p className="sm:mr-4"> {data.hotelName}</p>
+            </div>
 
-              <div className="flex items-center gap-2 sm:mr-4 md:w-[400px]">
-                <RiHotelFill />
-                <p className="sm:mr-4"> {data.hotelName}</p>
-              </div>
-
-              <div className="flex gap-2">
-                <span className="flex gap-1">
-                  <p>{dateFormat(data.checkInDate)}</p>
-                  <p>-</p>
-                  <p>{dateFormat(data.checkOutDate)}</p>
-                </span>
-                <p>({nights} לילות)</p>
-              </div>
-
+            <div className="flex gap-2">
+              <span className="flex gap-1">
+                <p>{dateFormat(data.checkInDate)}</p>
+                <p>-</p>
+                <p>{dateFormat(data.checkOutDate)}</p>
+              </span>
+              <p>({nights} לילות)</p>
+            </div>
           </AccordionTrigger>
-          <AccordionContent className="bg-sky-50 border p-2 sm:p-4">
+          <AccordionContent className="bg-yellow-50 border p-2 sm:p-4">
             <div className="flex justify-center">
               <ImageCarousel images={data.images} />
             </div>
-            <h2 className="text-2xl mb-4 mt-8 text-center">
-              {data.hotelName}
-            </h2>
-            <div className="bg-sky-100 p-2 rounded-md">
+            <h2 className="text-2xl mb-4 mt-8 text-center">{data.hotelName}</h2>
+            <div className="bg-yellow-100 p-2 rounded-md">
               <div className="flex sm:text-lg gap-2">
                 <span className="flex gap-1">
                   <p>{dateFormat(data.checkInDate)}</p>
@@ -87,7 +83,7 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
                 <AccordionItem key={room._id} value={room._id}>
                   <AccordionTrigger
                     onClick={handleToggle2}
-                    className="bg-sky-300 rounded-2xl p-4 sm:text-lg hover:no-underline hover:bg-sky-400"
+                    className="bg-yellow-300 rounded-2xl p-4 sm:text-lg hover:no-underline hover:bg-yellow-400"
                   >
                     <div className="flex gap-2">
                       <div className="flex flex-col sm:flex-row sm:gap-2">
@@ -125,7 +121,7 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
                       </p>
                     </div>
 
-                    <div className="bg-sky-100 flex flex-col sm:flex-row justify-between rounded-lg mt-8 sm:text-lg">
+                    <div className="bg-yellow-100 flex flex-col sm:flex-row justify-between rounded-lg mt-8 sm:text-lg">
                       <div className="flex flex-col sm:flex-row gap-2 sm:gap-20 m-2 mr-4">
                         <div className="flex flex-row sm:flex-col gap-8 sm:gap-4">
                           <p>סוג חדר</p>
@@ -147,7 +143,7 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
                         </div>
                       </div>
 
-                      <div className="bg-sky-200 p-4 md:px-16 lg:px-36 text-center rounded">
+                      <div className="bg-yellow-200 p-4 md:px-16 lg:px-36 text-center rounded">
                         <p>סה׳׳כ</p>
                         <p className="text-xl font-bold">
                           ฿{room.numberOfRooms * room.nightPrice * nights}

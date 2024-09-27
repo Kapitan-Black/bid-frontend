@@ -25,7 +25,7 @@ const ReadyTransferCard: React.FC<ReadyTransferCardProps> = ({ data }) => {
       <Accordion type="single" collapsible>
         <AccordionItem key={data.id} value={data.id}>
           <AccordionTrigger
-            className={`bg-gradient-to-r from-rose-400 to-stone-500  text-white hover:no-underline flex flex-col sm:flex-row p-4 border-2 hover:border-rose-400 ${
+            className={`bg-gradient-to-r from-blueSky to-blueSea  text-black hover:no-underline flex flex-col sm:flex-row p-4 border-2 hover:border-blue-300 ${
               isOpen ? "rounded-t-full" : "rounded-full"
             }`}
             onClick={handleToggle}
@@ -38,7 +38,7 @@ const ReadyTransferCard: React.FC<ReadyTransferCardProps> = ({ data }) => {
             </div>
           </AccordionTrigger>
           <AccordionContent>
-            <div className="bg-yellow-100 p-4 space-y-4">
+            <div className="bg-sky-100 p-4 space-y-4">
               <div className="flex flex-col sm:flex-row sm:justify-between gap-2">
                 <div>
                   <p className="underline">מסלול הנסיע:</p>

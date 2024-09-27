@@ -100,7 +100,7 @@ const ReadyBid = () => {
   return (
     <>
       {/* <ReadyBidsTopHeader /> */}
-      <div className="sm:px-8">
+      <div className="sm:px-8 px-2">
         <ReadyBidHeader
           createDate={form[0].createDate}
           holidayStartDate={form[0].holidayStartDate}
