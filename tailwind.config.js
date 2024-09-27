@@ -52,13 +52,13 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
         customYellow1: "#ffe67f",
-        customYellow2: "#f6d423",
+        customYellow2: "#f2952c",
 
         customGreen1: "#bbee72",
         customGreen2: "#418e8c",
 
         blueSky: "#61dbf8",
-        blueSea: "#80b4c2",
+        blueSea: "#4fa7af",
       },
       borderRadius: {
         lg: "var(--radius)",
