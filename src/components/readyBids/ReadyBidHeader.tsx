@@ -1,7 +1,7 @@
 
 import Hero from "../Hero";
 import Countdown from "./Countdown";
-import BeforeApproved from "./BeforeApproved";
+// import BeforeApproved from "./BeforeApproved";
 
 interface Props {
   createDate: string;
@@ -15,13 +15,13 @@ const ReadyBidHeader: React.FC<Props> = ({
   createDate,
   holidayStartDate,
   formName,
-  isBidApproved,
+  // isBidApproved,
   fakeCountNumber,
 }) => {
   return (
     <>
       <Hero />
-      {isBidApproved ? (
+      {/* {isBidApproved ? (
         <Countdown
           createDate={createDate}
           holidayStartDate={holidayStartDate}
@@ -30,7 +30,13 @@ const ReadyBidHeader: React.FC<Props> = ({
         />
       ) : (
         <BeforeApproved formName={formName} randomNumber={fakeCountNumber} />
-      )}
+      )} */}
+      <Countdown
+        createDate={createDate}
+        holidayStartDate={holidayStartDate}
+        formName={formName}
+        randomNumber={fakeCountNumber}
+      />
     </>
   );
 };

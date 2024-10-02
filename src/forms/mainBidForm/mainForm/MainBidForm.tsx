@@ -89,7 +89,6 @@ const MainBidForm: React.FC = () => {
       transferDescription: "",
       transferDate: new Date(),
       departureTime: "00:00",
-      arrivalTime: "00:00",
       from: "",
       to: "",
       passengerComposition: "",

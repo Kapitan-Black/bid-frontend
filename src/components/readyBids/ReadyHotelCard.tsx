@@ -9,8 +9,9 @@ import ImageCarousel from "../ImageCarousel";
 import SmallCarousel from "../SmallCarousel";
 import { calculateNights, dateFormat } from "@/config/utils";
 import { useState } from "react";
-import { ArrowBigDownDash, ArrowBigUpDash, BedDouble } from "lucide-react";
+import { ArrowBigDownDash, ArrowBigUpDash } from "lucide-react";
 import StarRating from "../StarRaiting";
+import hotel_icon from "../../assets/hotle-icon.png"
 
 interface ReadyHotelCardProps {
   data: HotelResponse;
@@ -39,10 +40,11 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
             onClick={handleToggle1}
           >
             <div className="flex justify-start items-center gap-2 md:w-[400px]">
-              <span className="hidden md:block w-[35px]">
-                <BedDouble />
+              {/* <span className="hidden md:block w-[35px]"> */}
+              <span className=" w-[30px]">
+                <img src={hotel_icon} />
               </span>
-              <p> {data.hotelName}</p>
+              <p className="md:mr-2"> {data.hotelName}</p>
             </div>
 
             <div className="flex gap-2">
@@ -79,7 +81,7 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
                 </span>
               </div>
 
-              <div className="flex justify-center gap-1 mt-4 text-lg mr-6">
+              <div className="flex justify-start gap-1 mt-4 sm:text-lg mr-6">
                 <p>סה׳׳כ:</p>
                 <p className="font-semibold">฿{data.sum}</p>
               </div>

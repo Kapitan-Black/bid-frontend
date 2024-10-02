@@ -9,8 +9,8 @@ import {
 import FlightDetails from "./FlightDetails";
 import PasangersDetails from "./PasangersDetails";
 import { Separator } from "@/components/ui/separator";
-import { Plane } from "lucide-react";
 import { dateFormat } from "@/config/utils";
+import flight_icon from "../../../assets/flight-icon.png"
 
 
 interface ReadyFlightCardProps {
@@ -35,8 +35,9 @@ const ReadyFlightCard: React.FC<ReadyFlightCardProps> = ({ data }) => {
             onClick={handleToggle}
           >
             <div className="flex justify-start gap-4 md:w-[400px]">
-              <span className="hidden md:block w-[30px]">
-                <Plane />
+              {/* <span className="hidden md:block w-[30px]">  */}
+              <span className=" w-[30px]">
+                <img src={flight_icon} />
               </span>
               <p className="">{data.flightDescription}</p>
             </div>

@@ -138,15 +138,6 @@ const TransferCard: React.FC<AttractionCardProps> = ({
                     />
                   </div>
 
-                  <div className="flex flex-col">
-                    <label>שעת הגעה משוארת: </label>
-                    <Input
-                      type="time"
-                      {...register(getFieldPath(index, "arrivalTime"))}
-                      className="border"
-                    />
-                  </div>
-
                   {renderInput("מאיפה", "from")}
                   {renderInput(" לאן", "to")}
                 </div>

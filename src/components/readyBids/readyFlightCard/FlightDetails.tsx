@@ -12,9 +12,9 @@ const FlightDetails = ({ data }: Props) => {
   return (
     <>
       <div className="flex flex-col items-center gap-1 mb-4 sm:items-start sm:flex-row sm:justify-between sm:mx-8">
-        <div className="flex flex-col items-center sm:items-start mb-4">
-          <p>תאריך טיסה:</p>
-          <p>{dateFormat(data.departureDate)}</p>
+        <div className="flex flex-col mb-4">
+          <p className="underline">חברת תעופה:</p>
+          <p className="text-center">{data.airline}</p>
         </div>
 
         <div className="flex flex-row justify-between gap-8 sm:w-4/5">

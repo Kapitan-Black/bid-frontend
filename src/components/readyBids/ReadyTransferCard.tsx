@@ -7,8 +7,7 @@ import {
 } from "../ui/accordion";
 import { dateFormat } from "@/config/utils";
 import { useState } from "react";
-import { FaCar } from "react-icons/fa6";
-
+import transfer_icon from "../../assets/transfer-icon.png"
 
 interface ReadyTransferCardProps {
   data: TransferResponse;
@@ -31,8 +30,9 @@ const ReadyTransferCard: React.FC<ReadyTransferCardProps> = ({ data }) => {
             onClick={handleToggle}
           >
             <div className="flex items-center justify-start ml-8 md:w-[400px]">
-              <span className="hidden md:block w-[30px]">
-                <FaCar />
+              {/* <span className="hidden md:block w-[30px]"> */}
+              <span className=" w-[30px]">
+                <img src={transfer_icon} />
               </span>
               <h3 className="mr-4 text-sm sm:text-lg">
                 {data.transferDescription}
@@ -41,23 +41,22 @@ const ReadyTransferCard: React.FC<ReadyTransferCardProps> = ({ data }) => {
           </AccordionTrigger>
           <AccordionContent>
             <div className="bg-sky-100 p-4 space-y-4">
-              <div className="flex flex-col sm:flex-row sm:justify-between gap-2">
+              <div className="flex flex-col sm:flex-row justify-center sm:gap-80">
                 <div>
                   <p className="underline">מסלול הנסיע:</p>
                   <p>מ{data.from}</p>
                   <p>ל{data.to}</p>
                 </div>
-                <div>
-                  <p className="underline">תאריך ההסעה:</p>
-                  <p>{dateFormat(data.transferDate)}</p>
-                </div>
-                <div className="flex gap-1">
-                  <p>שעת הנסיע:</p>
-                  <p>{data.departureTime}</p>
-                </div>
-                <div className="flex gap-1">
-                  <p>שעת הגעה משוערת:</p>
-                  <p>{data.arrivalTime}</p>
+
+                <div className="space-y-2">
+                  <div>
+                    <p className="underline">תאריך ההסעה:</p>
+                    <p>{dateFormat(data.transferDate)}</p>
+                  </div>
+                  <div className="flex gap-1">
+                    <p>שעת איסוף:</p>
+                    <p>{data.departureTime}</p>
+                  </div>
                 </div>
               </div>
 

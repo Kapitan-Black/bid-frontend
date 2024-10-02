@@ -57,7 +57,6 @@ type TransferResponse = {
   transferDescription: string;
   transferDate: string; // ISO date string
   departureTime: string;
-  arrivalTime: string;
   from: string;
   to: string;
   sum: number;

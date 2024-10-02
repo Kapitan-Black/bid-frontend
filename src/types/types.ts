@@ -56,7 +56,6 @@ export interface TransferCardFields {
   transferDescription: string;
   transferDate: Date;
   departureTime: string;
-  arrivalTime: string;
   from: string;
   to: string;
   agentComments: string;
