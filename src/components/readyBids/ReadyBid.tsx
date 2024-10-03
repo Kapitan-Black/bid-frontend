@@ -14,6 +14,9 @@ import ReadyImageCard from "./ReadyImageCard";
 import ReadyBidHeader from "./ReadyBidHeader";
 import { Button } from "../ui/button";
 import { useAuth0 } from "@auth0/auth0-react";
+import Loader from "../loader/Loader";
+import TermsOfUse from "./TermsOfUse";
+
 
 
 
@@ -51,7 +54,11 @@ const ReadyBid = () => {
   }, [formName]);
 
   if (!form) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center mt-64">
+        <Loader />
+      </div>
+    );
   }
 
   const flattenAndSortBidForm = (bidForm: MainBidServerResponse[]) => {
@@ -90,7 +97,6 @@ const ReadyBid = () => {
   };
 
   const processedBidForms = flattenAndSortBidForm(form);
-  console.log("processedBidForms", processedBidForms);
 
 
     const handleUpdateHotel = (mainForm: MainBidServerResponse[]) => {
@@ -100,6 +106,7 @@ const ReadyBid = () => {
   return (
     <>
       {/* <ReadyBidsTopHeader /> */}
+
       <div className="sm:px-8 px-2">
         <ReadyBidHeader
           createDate={form[0].createDate}
@@ -138,6 +145,8 @@ const ReadyBid = () => {
             }
           })}
         </div>
+
+       <TermsOfUse/>
 
         {isAuthenticated && (
           <Button

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { dateFormat } from "@/config/utils";
 import RemoveButton from "@/components/RemoveButton";
 import ConfirmationModalForMainFormDelete from "@/components/ConfirmationModalForMainFormDelete";
+import Loader from "@/components/loader/Loader";
 
 const ReadyBidPage = () => {
   const { data: initialData, refetch } = useGetMainBidForms();
@@ -50,8 +51,8 @@ const ReadyBidPage = () => {
 
   if (!data || !data.length) {
     return (
-      <div className="container mx-auto">
-        <p>Loading...</p>
+      <div className="flex justify-center mt-52">
+        <Loader />
       </div>
     );
   }

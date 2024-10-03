@@ -48,7 +48,11 @@ const Countdown: React.FC<CountdownProps> = ({
   const updateCountdown = () => {
     const now = new Date().getTime();
     const startDateTime = new Date(createDate).getTime();
-    const futureDateTime = new Date(holidayStartDate).getTime();
+ 
+    // const futureDateTime = new Date(holidayStartDate).getTime();
+      const futureDateTime =
+        new Date(holidayStartDate).getTime() - 4 * 60 * 60 * 1000;
+
 
     if (isNaN(futureDateTime)) {
       console.error("Invalid holidayStartDate:", holidayStartDate);
@@ -134,3 +138,7 @@ const Countdown: React.FC<CountdownProps> = ({
 };
 
 export default Countdown;
+
+
+
+

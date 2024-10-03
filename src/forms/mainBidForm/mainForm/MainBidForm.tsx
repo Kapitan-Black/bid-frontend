@@ -23,6 +23,8 @@ import { formSchema } from "../../mainBidForm/ZodSchema";
 import { SeparatorUrls } from "@/config/separatorUrls";
 import DatePicker from "react-datepicker";
 
+
+
 const MainBidForm: React.FC = () => {
   const form = useForm<FormFields>({
     resolver: zodResolver(formSchema),
@@ -44,8 +46,7 @@ const MainBidForm: React.FC = () => {
 
   const [hotelData, setHotelData] = useState<
     { selectedHotel: Hotel | null; selectedRooms: Room[] }[]
-    >([]);
-
+  >([]);
 
   const handleHotelDataChange = (
     index: number,
@@ -280,6 +281,7 @@ const MainBidForm: React.FC = () => {
           selectedImageUrl={selectedImageUrl}
           setSelectedImageUrl={setSelectedImageUrl}
         />
+
 
         <div className="space-x-8 mt-10">
           <button
