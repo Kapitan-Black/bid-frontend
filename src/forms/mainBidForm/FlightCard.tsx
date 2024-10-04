@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -14,6 +14,7 @@ import ConfirmationModal from "@/components/ConfirmationModal";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
+
 interface FlightCardProps {
   id: string;
   index: number;
@@ -23,7 +24,7 @@ interface FlightCardProps {
 type FlightCardFieldPath = `items.${number}.${keyof FlightCardFields}`;
 
 const FlightCard: React.FC<FlightCardProps> = ({ id, index, onRemove }) => {
-  const { register, control, watch } = useFormContext<{
+  const { register, control, watch, setValue } = useFormContext<{
     items: FlightCardFields[];
   }>();
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -44,7 +45,10 @@ const FlightCard: React.FC<FlightCardProps> = ({ id, index, onRemove }) => {
   const renderInput = (label: string, field: keyof FlightCardFields) => (
     <div className="flex flex-1 flex-col">
       <label>{label}:</label>
-      <input {...register(getFieldPath(index, field))} className="border sm:p-1" />
+      <input
+        {...register(getFieldPath(index, field))}
+        className="border sm:p-1"
+      />
     </div>
   );
 
@@ -59,6 +63,34 @@ const FlightCard: React.FC<FlightCardProps> = ({ id, index, onRemove }) => {
   };
 
   const FlightDescription = watch(getFieldPath(index, "flightDescription"));
+
+  const numberOfAdults = Number(
+    watch(getFieldPath(index, "numberOfAdults")) || 0
+  );
+  const priceForAdult = Number(
+    watch(getFieldPath(index, "priceForAdult")) || 0
+  );
+  const numberOfChildren = Number(
+    watch(getFieldPath(index, "numberOfChildren")) || 0
+  );
+  const priceForChild = Number(
+    watch(getFieldPath(index, "priceForChild")) || 0
+  );
+  const numberOfBabies = Number(
+    watch(getFieldPath(index, "numberOfBabies")) || 0
+  );
+  const priceForBaby = Number(watch(getFieldPath(index, "priceForBaby")) || 0);
+
+  const totalPrice =
+    numberOfAdults * priceForAdult +
+    numberOfChildren * priceForChild +
+    numberOfBabies * priceForBaby;
+  
+  
+  useEffect(() => {
+    setValue(getFieldPath(index, "sum"), totalPrice);
+  }, [totalPrice]);
+  
 
   return (
     <div

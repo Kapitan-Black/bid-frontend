@@ -86,6 +86,7 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
       holidayStartDate: new Date(firstResponse.holidayStartDate),
       isBidApproved: firstResponse.isBidApproved,
       fakeCountNumber: firstResponse.fakeCountNumber,
+      totalSum: firstResponse.totalSum,
       items: sortedItems,
     };
   };
@@ -216,6 +217,7 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
       priceForBaby: 0,
       currency: "",
       agentComments: "",
+      sum: 0,
     } as FlightCardFields);
   };
 
@@ -231,11 +233,28 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
     });
   };
 
+  const calculateTotalSum = () => {
+    const formData = form.getValues();
+
+    // Accumulate the total sum only from items that have the sum property
+    const totalSum = formData.items.reduce((acc, item) => {
+      // Check if the item has the "sum" property
+      if ("sum" in item && typeof item.sum === "number") {
+        return acc + item.sum;
+      }
+      return acc;
+    }, 0);
+
+    return totalSum;
+  };
+
   const { updateMainForm, isLoading, isSuccess, error } = useUpdateMainForm();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = form.getValues();
+
+    const totalSum = calculateTotalSum();
 
     const hotelDataArray = formData.items.map((item, index) => {
       if (item.type === "hotel") {
@@ -267,6 +286,7 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
       formName: formData.formName,
       holidayStartDate: formData.holidayStartDate,
       isBidApproved: formData.isBidApproved,
+      totalSum: totalSum,
 
       hotel: hotelDataArray.filter((item) => item.type === "hotel") || [],
       transfer: formData.items.filter((item) => item.type === "transfer") || [],

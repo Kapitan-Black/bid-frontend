@@ -26,6 +26,7 @@ type FlightResponse = {
   type: string;
   id: string;
   _id: string;
+  sum: number;
 };
 
 type HotelRoom = {
@@ -79,6 +80,7 @@ type MainBidServerResponse = {
   holidayStartDate: string;
   isBidApproved: boolean;
   fakeCountNumber: number;
+  totalSum: number;
 
   flight: FlightResponse[];
   hotel: HotelResponse[];

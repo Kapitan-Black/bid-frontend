@@ -17,7 +17,7 @@ const hotelSchema = z.object({
       images: z.array(z.string()),
     })
   ),
-  sum: z.string(),
+  sum: z.number(),
 });
 const transferSchema = z.object({
   id: z.string(),
@@ -28,7 +28,7 @@ const transferSchema = z.object({
   arrivalTime: z.string(),
   from: z.string(),
   to: z.string(),
-  sum: z.string(),
+  sum: z.number(),
   passengerComposition: z.string(),
   agentComments: z.string(),
 });

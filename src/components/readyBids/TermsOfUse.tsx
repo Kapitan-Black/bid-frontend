@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const TermsOfUse = () => {
     return (
-      <div dir="rtl" className=" px-36 mt-24">
+      <div dir="rtl" className="px-2 lg:px-36 mt-24">
         <p>
           לקוח יקר, שלום רב! לפניך תנאי הזמנה ומידע כללי אשר אנו ממליצים לקרוא
           בעיון רב. לתנאי הזמנה המלאים<Link to="#" className="font-bold text-blue-500"> לחצו כאן</Link>

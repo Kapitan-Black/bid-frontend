@@ -16,6 +16,7 @@ import { Button } from "../ui/button";
 import { useAuth0 } from "@auth0/auth0-react";
 import Loader from "../loader/Loader";
 import TermsOfUse from "./TermsOfUse";
+import { totalmem } from "os";
 
 
 
@@ -90,6 +91,7 @@ const ReadyBid = () => {
       createDate: form.createDate,
       isBidApproved: form.isBidApproved,
       fakeCountNumber: form.fakeCountNumber,
+      totalSum: form.totalSum,
       sortedElements,
       idArray: form.idArray,
       id: form._id,
@@ -97,6 +99,9 @@ const ReadyBid = () => {
   };
 
   const processedBidForms = flattenAndSortBidForm(form);
+  // console.log("processedBidForms", processedBidForms);
+
+
 
 
     const handleUpdateHotel = (mainForm: MainBidServerResponse[]) => {
@@ -144,9 +149,14 @@ const ReadyBid = () => {
                 return null;
             }
           })}
+
+          <div className="flex justify-end gap-4 mt-12">
+            <p>{processedBidForms?.totalSum}</p>
+            <p>סה׳׳כ לתשלום</p>
+          </div>
         </div>
 
-       <TermsOfUse/>
+        <TermsOfUse />
 
         {isAuthenticated && (
           <Button

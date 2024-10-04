@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -27,7 +27,7 @@ const FlightCard_Update: React.FC<FlightCardProps> = ({
   index,
   onRemove,
 }) => {
-  const { register, control, watch } = useFormContext<{
+  const { register, control, watch, setValue } = useFormContext<{
     items: FlightCardFields[];
   }>();
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -66,6 +66,33 @@ const FlightCard_Update: React.FC<FlightCardProps> = ({
   };
 
   const FlightDescription = watch(getFieldPath(index, "flightDescription"));
+
+  const numberOfAdults = Number(
+    watch(getFieldPath(index, "numberOfAdults")) || 0
+  );
+  const priceForAdult = Number(
+    watch(getFieldPath(index, "priceForAdult")) || 0
+  );
+  const numberOfChildren = Number(
+    watch(getFieldPath(index, "numberOfChildren")) || 0
+  );
+  const priceForChild = Number(
+    watch(getFieldPath(index, "priceForChild")) || 0
+  );
+  const numberOfBabies = Number(
+    watch(getFieldPath(index, "numberOfBabies")) || 0
+  );
+  const priceForBaby = Number(watch(getFieldPath(index, "priceForBaby")) || 0);
+
+  const totalPrice =
+    numberOfAdults * priceForAdult +
+    numberOfChildren * priceForChild +
+    numberOfBabies * priceForBaby;
+  
+  useEffect(() => {
+    setValue(getFieldPath(index, "sum"), totalPrice);
+  }, [totalPrice]);
+  
 
   return (
     <div

@@ -29,6 +29,7 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
   const handleToggle2 = () => {
     setIsOpen2(!isOpen2);
   };
+
   return (
     <div dir="rtl" className="">
       <Accordion type="single" collapsible className="">

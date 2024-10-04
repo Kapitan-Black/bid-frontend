@@ -91,6 +91,7 @@ export type FlightCardFields = {
   priceForBaby: number;
   currency: string;
   agentComments: string;
+  sum: number;
 };
 
 export interface ImageComponent {
@@ -105,6 +106,7 @@ export interface FormFields {
   holidayStartDate: Date;
   isBidApproved: boolean;
   fakeCountNumber: number;
+  totalSum: number;
   idArray: string[];
   items: (
     | HotelCardFields
@@ -114,6 +116,3 @@ export interface FormFields {
   )[];
 }
 
-// bg-gradient-to-r from-yellow-500 to-green-500
-// bg-gradient-to-r from-sky-400 to-blue-600
-// bg-gradient-to-r from-rose-400 to-stone-500

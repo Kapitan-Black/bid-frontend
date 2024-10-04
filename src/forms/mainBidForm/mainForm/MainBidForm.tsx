@@ -127,6 +127,7 @@ const MainBidForm: React.FC = () => {
       priceForBaby: 0,
       currency: "",
       agentComments: "",
+      sum: 0,
     } as FlightCardFields);
   };
 
@@ -142,12 +143,30 @@ const MainBidForm: React.FC = () => {
     });
   };
 
+ const calculateTotalSum = () => {
+   const formData = form.getValues();
+
+   // Accumulate the total sum only from items that have the sum property
+   const totalSum = formData.items.reduce((acc, item) => {
+     // Check if the item has the "sum" property
+     if ("sum" in item && typeof item.sum === "number") {
+       return acc + item.sum;
+     }
+     return acc;
+   }, 0);
+
+   return totalSum;
+ };
+
+
   const { createForm, isLoading, isSuccess, error } = useCreateMainBidForm();
   const { data } = useGetMainBidForms();
 
   const handleSumbmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = form.getValues();
+
+     const totalSum = calculateTotalSum();
 
     const formExist = data?.some((form) => form.formName === formData.formName);
 
@@ -199,7 +218,7 @@ const MainBidForm: React.FC = () => {
       formName: formData.formName,
       holidayStartDate: formData.holidayStartDate,
       isBidApproved: formData.isBidApproved,
-      // randomNumber,
+      totalSum: totalSum,
 
       hotel: hotelDataArray.filter((item) => item.type === "hotel") || [],
       transfer: formData.items.filter((item) => item.type === "transfer") || [],
@@ -208,7 +227,7 @@ const MainBidForm: React.FC = () => {
       idArray,
     };
     // console.log("payload", payload);
-    createForm(payload);
+    createForm(payload); 
   };
 
   useEffect(() => {
@@ -220,7 +239,7 @@ const MainBidForm: React.FC = () => {
     }
   }, [isSuccess, error]);
 
-  // console.log("items",form.getValues().items);
+  console.log("items",form.getValues().items);
 
   return (
     <FormProvider {...form}>

@@ -146,7 +146,9 @@ const TransferCard: React.FC<AttractionCardProps> = ({
                     <label> מחיר: </label>
                     <Input
                       type="number"
-                      {...register(getFieldPath(index, "sum"))}
+                      {...register(getFieldPath(index, "sum"), {
+                        valueAsNumber: true,
+                      })}
                       className="border"
                     />
                   </div>
