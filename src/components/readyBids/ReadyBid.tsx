@@ -16,7 +16,6 @@ import { Button } from "../ui/button";
 import { useAuth0 } from "@auth0/auth0-react";
 import Loader from "../loader/Loader";
 import TermsOfUse from "./TermsOfUse";
-import { totalmem } from "os";
 
 
 
@@ -150,7 +149,7 @@ const ReadyBid = () => {
             }
           })}
 
-          <div className="flex justify-end gap-4 mt-12">
+          <div className="flex justify-end gap-4">
             <p>{processedBidForms?.totalSum}</p>
             <p>סה׳׳כ לתשלום</p>
           </div>

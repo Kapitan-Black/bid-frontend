@@ -7,11 +7,7 @@ type Props = {
 };
 
 const PasangersDetails = ({ data }: Props) => {
-  const sum =
-    data.numberOfAdults * data.priceForAdult +
-    data.numberOfChildren * data.priceForChild +
-    data.numberOfBabies * data.priceForBaby;
-  
+ 
   return (
     <div className="flex flex-col sm:flex-row sm:gap-36 mx-2 sm:mx-8 mt-4">
       <div>
