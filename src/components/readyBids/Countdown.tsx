@@ -106,7 +106,7 @@ const Countdown: React.FC<CountdownProps> = ({
         )}
 
         <div className="flex justify-center text-sky-600 ">
-          <div className="flex justify-center bg-blue-100 gap-1 sm:gap-2 text-sky-600 text-xs sm:text-xl">
+          <div className="flex justify-center bg-blue-100 gap-1 sm:gap-2 text-sky-600 text-md sm:text-xl">
             {timeLeft.minutes > 0 && (
               <div className="bg-sky-200 p-4 py-8 rounded-md">
                 <p className="text-center"> {timeLeft.minutes}</p>
