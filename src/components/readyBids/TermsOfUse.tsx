@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo-thailand-sababa1.png"
+import logo from "../../assets/logo-thailand-sababa1.png";
+import { PhoneIncoming } from "lucide-react";
 
 const TermsOfUse = () => {
   return (
@@ -45,13 +46,18 @@ const TermsOfUse = () => {
       </div>
       <div>
         <div className="flex flex-col md:flex-row justify-between items-center lg:mx-36 gap-4">
-          <p>00000000 :טלפון</p> 
+          <div className="flex">
+            <p>00000000 :טלפון</p>
+            <span>
+              <PhoneIncoming />
+            </span>
+          </div>
           <img className="w-24" src={logo} alt="img" />
           <p className="">@thailand-sababa</p>
         </div>
       </div>
     </>
   );
-}
+};
 
 export default TermsOfUse;
