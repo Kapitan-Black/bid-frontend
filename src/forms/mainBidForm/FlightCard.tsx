@@ -313,7 +313,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ id, index, onRemove }) => {
                   </div>
 
                   <div className="flex items-center mt-4">
-                    <label className="">מטבעה:</label>
+                    <label className="">מטבע:</label>
                     <input
                       {...register(getFieldPath(index, "currency"))}
                       className="border sm:p-1"

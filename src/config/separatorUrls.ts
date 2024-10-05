@@ -2,52 +2,52 @@
 
 export const SeparatorUrls = [
   {
-    url: "https://res.cloudinary.com/dd6eaahc6/image/upload/v1725364308/Separators/bangkok_qqswdl.jpg",
+    url: "https://res.cloudinary.com/dd6eaahc6/image/upload/v1728134103/Separators/BANGKOK_difwpg.png",
     description: "בנגקוק",
   },
   {
-    url: "https://res.cloudinary.com/dd6eaahc6/image/upload/v1725364308/Separators/pocket_icr8hj.jpg",
+    url: "https://res.cloudinary.com/dd6eaahc6/image/upload/v1728134173/Separators/PHUKET_mb1o5k.png",
     description: "פוקט",
   },
   {
-    url: "https://res.cloudinary.com/dd6eaahc6/image/upload/v1725364310/Separators/pattaya_eppkfo.jpg",
+    url: "https://res.cloudinary.com/dd6eaahc6/image/upload/v1728134154/Separators/PATTAYA_akwsho.png",
     description: "פטאיה",
   },
 
   {
-    url: "https://res.cloudinary.com/dd6eaahc6/image/upload/v1725364310/Separators/cosamoi_rs409w.jpg",
-    description: "קו סמוי",
+    url: "https://res.cloudinary.com/dd6eaahc6/image/upload/v1728134158/Separators/KOH_SAMUI_tmyuva.png",
+    description: "קוסמוי",
   },
   {
-    url: "https://res.cloudinary.com/dd6eaahc6/image/upload/v1725364309/Separators/hua-hin_ns7e9k.jpg",
+    url: "https://res.cloudinary.com/dd6eaahc6/image/upload/v1728134116/Separators/HUA_HIN_qwuzce.png",
     description: "הואה הין",
   },
   {
-    url: "https://res.cloudinary.com/dd6eaahc6/image/upload/v1725364308/Separators/copangan_bpwhch.jpg",
+    url: "https://res.cloudinary.com/dd6eaahc6/image/upload/v1728134114/Separators/KOH_PHANGAN_kljosh.png",
     description: "קופנגן",
   },
   {
-    url: "https://res.cloudinary.com/dd6eaahc6/image/upload/v1725364308/Separators/co-yao-ya_tt52jc.jpg",
-    description: "קו יו יו",
+    url: "https://res.cloudinary.com/dd6eaahc6/image/upload/v1728134163/Separators/KOH_YAO_YAI_hrhrso.png",
+    description: "קו יאו יאו",
   },
   {
-    url: "https://res.cloudinary.com/dd6eaahc6/image/upload/v1725364308/Separators/chang-may_mcumqw.jpg",
+    url: "https://res.cloudinary.com/dd6eaahc6/image/upload/v1728134107/Separators/CHIANG_MAI_ifgp6y.png",
     description: "צ'אנג מאי",
   },
   {
-    url: "https://res.cloudinary.com/dd6eaahc6/image/upload/v1725364308/Separators/cpfifi_qg58tp.jpg",
-    description: "איי פי פי",
+    url: "https://res.cloudinary.com/dd6eaahc6/image/upload/v1728134141/Separators/KOH_PHI_PHI_q9zoue.png",
+    description: "קופיפי",
   },
   {
-    url: "https://res.cloudinary.com/dd6eaahc6/image/upload/v1725364308/Separators/co-lak_lzngun.jpg",
-    description: "קו לאק",
+    url: "https://res.cloudinary.com/dd6eaahc6/image/upload/v1728134173/Separators/KHAO_LAK_shonzj.png",
+    description: "קאו לאק",
   },
   {
-    url: "https://res.cloudinary.com/dd6eaahc6/image/upload/v1725364307/Separators/co_tao_nz7caa.jpg",
-    description: "קו טאו",
+    url: "https://res.cloudinary.com/dd6eaahc6/image/upload/v1728134430/Separators/KOH_TAO_w23itd.png",
+    description: "קוטאו",
   },
   {
-    url: "https://res.cloudinary.com/dd6eaahc6/image/upload/v1725364307/Separators/crabi_eywd7o.jpg",
+    url: "https://res.cloudinary.com/dd6eaahc6/image/upload/v1728134150/Separators/KRABI_z8amvj.png",
     description: "קראבי",
   },
 ];
