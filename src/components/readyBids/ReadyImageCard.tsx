@@ -12,7 +12,7 @@ const ReadyImageCard: React.FC<ReadyImageCardProps> = ({ data }) => {
 
       <div
         dir="rtl"
-        className="absolute top-0 left-0 rounded-lg w-full h-full flex items-center justify-center text-white sm:text-xl bg-black bg-opacity-30"
+        className="absolute top-0 left-0 rounded-lg w-full h-full flex items-center justify-center text-white sm:text-xl bg-black bg-opacity-20"
       >
         <p className="flex justify-center text-lg sm:text-2xl">{data.description}</p>
 
