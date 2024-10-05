@@ -1,5 +1,5 @@
 
-import Hero from "../Hero";
+import Hero from "./Hero";
 import Countdown from "./Countdown";
 // import BeforeApproved from "./BeforeApproved";
 
