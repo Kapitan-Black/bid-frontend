@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import logo from "../../assets/logo-thailand-sababa1.png"
 
 const TermsOfUse = () => {
   return (
@@ -43,7 +44,11 @@ const TermsOfUse = () => {
         </p>
       </div>
       <div>
-        <p className="text-center">thailand-sababa</p>
+        <div className="flex flex-col md:flex-row justify-between items-center mx-36 gap-4">
+          <p>00000000 :טלפון</p> 
+          <p className="">@thailand-sababa</p>
+          <img className="w-24" src={logo} alt="img" />
+        </div>
       </div>
     </>
   );

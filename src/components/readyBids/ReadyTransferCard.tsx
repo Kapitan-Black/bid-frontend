@@ -43,7 +43,7 @@ const ReadyTransferCard: React.FC<ReadyTransferCardProps> = ({ data }) => {
             <div className="bg-sky-100 p-4 space-y-4">
               <div className="flex flex-col sm:flex-row justify-center sm:gap-80">
                 <div>
-                  <p className="underline">מסלול הנסיע:</p>
+                  <p className="underline">מסלול הנסיעה:</p>
                   <p>מ{data.from}</p>
                   <p>ל{data.to}</p>
                 </div>
