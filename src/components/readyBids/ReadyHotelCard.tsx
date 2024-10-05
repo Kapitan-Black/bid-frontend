@@ -11,7 +11,7 @@ import { calculateNights, dateFormat } from "@/config/utils";
 import { useState } from "react";
 import { ArrowBigDownDash, ArrowBigUpDash } from "lucide-react";
 import StarRating from "../StarRaiting";
-import hotel_icon from "../../assets/hotle-icon.png"
+// import hotel_icon from "../../assets/hotle-icon.png"
 
 interface ReadyHotelCardProps {
   data: HotelResponse;
@@ -42,9 +42,9 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
           >
             <div className="flex justify-start items-center gap-2 md:w-[400px]">
               {/* <span className="hidden md:block w-[35px]"> */}
-              <span className=" w-[30px]">
+              {/* <span className=" w-[30px]">
                 <img src={hotel_icon} />
-              </span>
+              </span> */}
               <p className="md:mr-2"> {data.hotelName}</p>
             </div>
 

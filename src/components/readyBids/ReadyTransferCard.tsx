@@ -7,7 +7,7 @@ import {
 } from "../ui/accordion";
 import { dateFormat } from "@/config/utils";
 import { useState } from "react";
-import transfer_icon from "../../assets/transfer-icon.png"
+// import transfer_icon from "../../assets/transfer-icon.png"
 
 interface ReadyTransferCardProps {
   data: TransferResponse;
@@ -31,9 +31,9 @@ const ReadyTransferCard: React.FC<ReadyTransferCardProps> = ({ data }) => {
           >
             <div className="flex items-center justify-start ml-8 md:w-[400px]">
               {/* <span className="hidden md:block w-[30px]"> */}
-              <span className=" w-[30px]">
+              {/* <span className=" w-[30px]">
                 <img src={transfer_icon} />
-              </span>
+              </span> */}
               <h3 className="mr-4 text-sm sm:text-lg">
                 {data.transferDescription}
               </h3>
