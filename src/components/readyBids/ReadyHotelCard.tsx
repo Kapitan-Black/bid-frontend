@@ -39,13 +39,13 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
               isOpen1 ? "rounded-t-full" : "rounded-full"
             }`}
             onClick={handleToggle1}
-          >
-            <div className="flex justify-start items-center gap-2 md:w-[400px]">
+          > 
+            <div className="flex justify-start items-center md:w-[400px]">
               {/* <span className="hidden md:block w-[35px]"> */}
               {/* <span className=" w-[30px]">
                 <img src={hotel_icon} />
               </span> */}
-              <p className="md:mr-2"> {data.hotelName}</p>
+              <h3 className="md:mr-2"> {data.hotelName}</h3>
             </div>
 
             <div className="flex gap-2">

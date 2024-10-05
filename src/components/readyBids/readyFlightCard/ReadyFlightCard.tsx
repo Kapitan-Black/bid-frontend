@@ -34,12 +34,12 @@ const ReadyFlightCard: React.FC<ReadyFlightCardProps> = ({ data }) => {
             }`}
             onClick={handleToggle}
           >
-            <div className="flex justify-start gap-4 md:w-[400px]">
+            <div className="flex justify-start md:w-[400px]">
               {/* <span className="hidden md:block w-[30px]">  */}
               {/* <span className=" w-[30px]">
                 <img src={flight_icon} />
               </span> */}
-              <p className="">{data.flightDescription}</p>
+              <h3 className="md:mr-2">{data.flightDescription}</h3>
             </div>
 
             <div className="flex justify-center gap-1">
