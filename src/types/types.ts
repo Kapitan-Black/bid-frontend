@@ -107,6 +107,7 @@ export interface FormFields {
   isBidApproved: boolean;
   fakeCountNumber: number;
   totalSum: number;
+  currency: string;
   idArray: string[];
   items: (
     | HotelCardFields

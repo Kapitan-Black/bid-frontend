@@ -87,6 +87,7 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
       isBidApproved: firstResponse.isBidApproved,
       fakeCountNumber: firstResponse.fakeCountNumber,
       totalSum: firstResponse.totalSum,
+      currency: firstResponse.currency,
       items: sortedItems,
     };
   };
@@ -287,6 +288,7 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
       holidayStartDate: formData.holidayStartDate,
       isBidApproved: formData.isBidApproved,
       totalSum: totalSum,
+      currency: formData.currency,
 
       hotel: hotelDataArray.filter((item) => item.type === "hotel") || [],
       transfer: formData.items.filter((item) => item.type === "transfer") || [],
@@ -353,6 +355,15 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
               <option value="false">לא</option>
               <option value="true">כן</option>
             </select>
+          </div>
+          <div className="flex justify-start gap-2">
+            <label htmlFor="formName">מטבע</label>
+            <input
+              dir="rtl"
+              id={"currency"}
+              className="border text-center border-black w-20"
+              {...form.register("currency")}
+            />
           </div>
         </div>
 

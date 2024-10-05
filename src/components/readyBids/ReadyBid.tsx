@@ -17,22 +17,17 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Loader from "../loader/Loader";
 import TermsOfUse from "./TermsOfUse";
 
-
-
-
 const ReadyBid = () => {
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { formName } = useParams<{ formName: string }>();
   const [form, setForm] = useState<MainBidServerResponse[] | undefined>();
 
-  const {isAuthenticated} = useAuth0()
-
+  const { isAuthenticated } = useAuth0();
 
   useEffect(() => {
-    
     const fetchData = async () => {
       try {
         const response = await fetch(
@@ -40,7 +35,6 @@ const ReadyBid = () => {
           {
             method: "GET",
           }
-
         );
 
         const data = await response.json();
@@ -91,6 +85,7 @@ const ReadyBid = () => {
       isBidApproved: form.isBidApproved,
       fakeCountNumber: form.fakeCountNumber,
       totalSum: form.totalSum,
+      currency: form.currency,
       sortedElements,
       idArray: form.idArray,
       id: form._id,
@@ -100,12 +95,9 @@ const ReadyBid = () => {
   const processedBidForms = flattenAndSortBidForm(form);
   // console.log("processedBidForms", processedBidForms);
 
-
-
-
-    const handleUpdateHotel = (mainForm: MainBidServerResponse[]) => {
-      navigate(`/update-main-form`, { state: { mainForm } });
-    };
+  const handleUpdateHotel = (mainForm: MainBidServerResponse[]) => {
+    navigate(`/update-main-form`, { state: { mainForm } });
+  };
 
   return (
     <>
@@ -148,10 +140,15 @@ const ReadyBid = () => {
                 return null;
             }
           })}
+        </div>
+        <div className="flex justify-center lg:px-36 mt-8">
+          <div className="flex justify-center bg-orange-400 rounded-full p-2 lg:p-4 gap-2 font-semibold text-white text-sm md:text-lg w-60 md:w-80">
+            <div className="flex gap-1">
+              <p>{processedBidForms?.currency}</p>
+              <p>{processedBidForms?.totalSum}</p>
+            </div>
 
-          <div className="flex justify-end gap-4">
-            <p>{processedBidForms?.totalSum}</p>
-            <p>סה׳׳כ לתשלום</p>
+            <p>:סך הכל לתשלום</p>
           </div>
         </div>
 

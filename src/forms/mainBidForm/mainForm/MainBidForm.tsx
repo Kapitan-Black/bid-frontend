@@ -219,6 +219,7 @@ const MainBidForm: React.FC = () => {
       holidayStartDate: formData.holidayStartDate,
       isBidApproved: formData.isBidApproved,
       totalSum: totalSum,
+      currency: formData.currency,
 
       hotel: hotelDataArray.filter((item) => item.type === "hotel") || [],
       transfer: formData.items.filter((item) => item.type === "transfer") || [],
@@ -282,6 +283,15 @@ const MainBidForm: React.FC = () => {
               <option value="true">כן</option>
             </select>
           </div>
+          <div className="flex justify-start gap-2">
+            <label htmlFor="formName">מטבע</label>
+            <input
+              dir="rtl"
+              id={"currency"}
+              className="border text-center border-black w-20"
+              {...form.register("currency")}
+            />
+          </div>
         </div>
 
         <SortableList
@@ -300,7 +310,6 @@ const MainBidForm: React.FC = () => {
           selectedImageUrl={selectedImageUrl}
           setSelectedImageUrl={setSelectedImageUrl}
         />
-
 
         <div className="space-x-8 mt-10">
           <button
