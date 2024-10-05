@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo-thailand-sababa1.png";
-import { PhoneIncoming } from "lucide-react";
+// import logo from "../../assets/logo-thailand-sababa1.png";
+// import { PhoneIncoming } from "lucide-react";
 
 const TermsOfUse = () => {
   return (
     <>
       <div
         dir="rtl"
-        className="px-2 lg:px-36 mt-24 mb-36 space-y-4 md:space-y-2"
+        className="px-2 lg:px-36 mt-24 mb-20 space-y-4 md:space-y-2"
       >
         <p>
           לקוח יקר, שלום רב! לפניך תנאי הזמנה ומידע כללי אשר אנו ממליצים לקרוא
@@ -44,8 +44,8 @@ const TermsOfUse = () => {
           בשקלים ונקבע על ידי שער ההמרה אל מול הבאט לאותו יום.
         </p>
       </div>
-      <div>
-        <div className="flex flex-col md:flex-row justify-between items-center lg:mx-36 gap-4">
+      <div className="mb-8">
+        {/* <div className="flex flex-col md:flex-row justify-between items-center lg:mx-36 gap-4">
           <div className="flex">
             <p>00000000 :טלפון</p>
             <span>
@@ -53,8 +53,9 @@ const TermsOfUse = () => {
             </span>
           </div>
           <img className="w-24" src={logo} alt="img" />
-          <p className="">@thailand-sababa</p>
-        </div>
+          <p className="">Ⓒthailand-sababa.co.il</p>
+        </div> */}
+        <p className="text-center">Ⓒthailand-sababa.co.il</p>
       </div>
     </>
   );
