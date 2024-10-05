@@ -43,14 +43,14 @@ const ReadyTransferCard: React.FC<ReadyTransferCardProps> = ({ data }) => {
             <div className="bg-sky-100 p-4 space-y-4">
               <div className="flex flex-col sm:flex-row justify-center sm:gap-80">
                 <div>
-                  <p className="underline">מסלול הנסיעה:</p>
+                  <p className="underline font-semibold">מסלול הנסיעה:</p>
                   <p>מ{data.from}</p>
                   <p>ל{data.to}</p>
                 </div>
 
                 <div className="space-y-2">
                   <div>
-                    <p className="underline">תאריך ההסעה:</p>
+                    <p className="underline font-semibold">תאריך הנסיעה:</p>
                     <p>{dateFormat(data.transferDate)}</p>
                   </div>
                   <div className="flex gap-1">

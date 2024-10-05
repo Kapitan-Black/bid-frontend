@@ -44,10 +44,10 @@ const TermsOfUse = () => {
         </p>
       </div>
       <div>
-        <div className="flex flex-col md:flex-row justify-between items-center mx-36 gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-center lg:mx-36 gap-4">
           <p>00000000 :טלפון</p> 
-          <p className="">@thailand-sababa</p>
           <img className="w-24" src={logo} alt="img" />
+          <p className="">@thailand-sababa</p>
         </div>
       </div>
     </>
