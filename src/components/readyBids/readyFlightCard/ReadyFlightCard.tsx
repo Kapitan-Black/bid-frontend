@@ -34,7 +34,7 @@ const ReadyFlightCard: React.FC<ReadyFlightCardProps> = ({ data }) => {
             }`}
             onClick={handleToggle}
           >
-            <div className="flex justify-start md:w-[400px]">
+            <div className="flex justify-start md:w-[400px] sm:mr-4">
               {/* <span className="hidden md:block w-[30px]">  */}
               {/* <span className=" w-[30px]">
                 <img src={flight_icon} />

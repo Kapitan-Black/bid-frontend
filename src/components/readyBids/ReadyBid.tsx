@@ -142,7 +142,7 @@ const ReadyBid = () => {
           })}
         </div>
         <div className="flex justify-center md:justify-start lg:px-36 mt-16 md:ml-16">
-          <div className="flex flex-col-reverse sm:flex-row justify-center bg-orange-400 rounded-full p-4 lg:p-6 gap-2 font-semibold text-white text-sm md:text-lg w-64 md:w-80">
+          <div className="flex flex-col-reverse sm:flex-row justify-center bg-orange-400 rounded-full p-4 lg:p-6 sm:gap-2 font-semibold text-white md:text-lg w-64 md:w-80">
             <div className="flex justify-center gap-1">
               <p>{processedBidForms?.currency}</p>
               <p>{processedBidForms?.totalSum}</p>

@@ -29,7 +29,7 @@ const ReadyTransferCard: React.FC<ReadyTransferCardProps> = ({ data }) => {
             }`}
             onClick={handleToggle}
           >
-            <div className="flex items-center justify-start md:w-[400px]">
+            <div className="flex items-center justify-start md:w-[400px] sm:mr-4">
               {/* <span className="hidden md:block w-[30px]"> */}
               {/* <span className=" w-[30px]">
                 <img src={transfer_icon} />
@@ -37,7 +37,7 @@ const ReadyTransferCard: React.FC<ReadyTransferCardProps> = ({ data }) => {
               <h3 className="md:mr-2">{data.transferDescription}</h3>
             </div>
           </AccordionTrigger>
-          <AccordionContent>
+          {/* <AccordionContent >
             <div className="bg-sky-100 p-4 space-y-4">
               <div className="flex flex-col sm:flex-row justify-center sm:gap-80">
                 <div>
@@ -64,6 +64,46 @@ const ReadyTransferCard: React.FC<ReadyTransferCardProps> = ({ data }) => {
                   <p>{data.passengerComposition}</p>
                 </div>
                 <div className="flex gap-1 font-bold">
+                  <p>מחיר:</p>
+                  <p>฿{data.sum}</p>
+                </div>
+              </div>
+            </div>
+          </AccordionContent> */}
+          <AccordionContent>
+            <div className="bg-sky-100 p-4 flex flex-col sm:flex-row  items-center justify-center sm:justify-between md:px-16">
+              {/* First Section: Travel Path and Date */}
+
+              <div className="mb-4 sm:mb-0">
+                <p className="underline font-semibold">מסלול הנסיעה:</p>
+                <div className="text-center">
+                  <p>מ{data.from}</p>
+                  <p>ל{data.to}</p>
+                </div>
+              </div>
+
+              <div className="text-center space-y-2">
+                <div className="flex gap-1">
+                  <p className="underline font-semibold">תאריך הנסיעה:</p>
+                  <p>{dateFormat(data.transferDate)}</p>
+                </div>
+                <div className="flex justify-center gap-1 ">
+                  <p className="underline font-semibold">שעת איסוף:</p>
+                  <p>{data.departureTime}</p>
+                </div>
+                <div className="flex justify-center">
+                  <p className="underline font-semibold">הרכב הנוסעים:</p>
+                  <p>{data.passengerComposition}</p>
+                </div>
+              </div>
+
+              {/* Second Section: Passenger Composition and Price */}
+              <div className="space-y-2 mt-4 sm:mt-0">
+                <div className="flex gap-1">
+                  <p className="underline font-semibold">הערות סוכן:</p>
+                  <p>{data.agentComments}</p>
+                </div>
+                <div className="flex justify-center gap-1 font-bold text-lg">
                   <p>מחיר:</p>
                   <p>฿{data.sum}</p>
                 </div>
