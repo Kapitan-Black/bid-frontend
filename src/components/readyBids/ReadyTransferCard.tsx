@@ -71,7 +71,7 @@ const ReadyTransferCard: React.FC<ReadyTransferCardProps> = ({ data }) => {
             </div>
           </AccordionContent> */}
           <AccordionContent>
-            <div className="bg-sky-100 p-4 flex flex-col sm:flex-row  items-center justify-center sm:justify-between md:px-16">
+            <div className="bg-sky-100 p-4 flex flex-col sm:flex-row items-center sm:justify-between px-2 lg:px-16">
               {/* First Section: Travel Path and Date */}
 
               <div className="mb-4 sm:mb-0">
@@ -99,9 +99,9 @@ const ReadyTransferCard: React.FC<ReadyTransferCardProps> = ({ data }) => {
 
               {/* Second Section: Passenger Composition and Price */}
               <div className="space-y-2 mt-4 sm:mt-0">
-                <div className="flex gap-1">
-                  <p className="underline font-semibold">הערות סוכן:</p>
-                  <p>{data.agentComments}</p>
+                <div className="flex flex-col gap-1">
+                  <p className="underline font-semibold text-center">הערות סוכן:</p>
+                  <p className="text-center">{data.agentComments}</p>
                 </div>
                 <div className="flex justify-center gap-1 font-bold text-lg">
                   <p>מחיר:</p>
