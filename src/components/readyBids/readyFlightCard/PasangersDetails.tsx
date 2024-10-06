@@ -43,20 +43,20 @@ const PasangersDetails = ({ data }: Props) => {
           <div className="flex flex-col">
             {data.priceForAdult > 0 && (
               <p>
-                {data.priceForAdult}
                 {data.currency}
+                {data.priceForAdult}
               </p>
             )}
             {data.priceForChild > 0 && (
               <p>
-                {data.priceForChild}
                 {data.currency}
+                {data.priceForChild}
               </p>
             )}
             {data.priceForBaby > 0 && (
               <p>
-                {data.priceForBaby}
                 {data.currency}
+                {data.priceForBaby}
               </p>
             )}
            
@@ -71,7 +71,7 @@ const PasangersDetails = ({ data }: Props) => {
         </div>
       </div>
 
-      <div className="w-1/2 sm:w-1/3 mt-2">
+      <div className=" mt-2">
         <p className="font-bold mb-1">הערות סוכן</p>
         <p>{data.agentComments}</p>
       </div>

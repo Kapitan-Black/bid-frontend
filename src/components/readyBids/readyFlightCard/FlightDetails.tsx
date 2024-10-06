@@ -12,13 +12,19 @@ const FlightDetails = ({ data }: Props) => {
   return (
     <>
       <div className="flex flex-col items-center gap-1 mb-4 sm:items-start sm:flex-row sm:justify-between sm:mx-8">
-        <div className="flex flex-col mb-4">
-          <p className="underline">חברת תעופה:</p>
-          <p className="text-center">{data.airline}</p>
+        <div className="">
+          <div className="flex justify-center sm:justify-start gap-1 mb-4">
+            <p className="underline font-semibold">חברת תעופה:</p>
+            <p className="text-center">{data.airline}</p>
+          </div>
+          <div className="flex justify-center sm:justify-start gap-1 mb-4">
+            <p className="underline font-semibold">מספר טיסה:</p>
+            <p className="text-center">{data.flightNumber}</p>
+          </div>
         </div>
 
-        <div className="flex flex-row justify-between gap-8 sm:w-4/5">
-          <div className="flex flex-col items-center sm:items-center sm:mr-36">
+        <div className="flex flex-row justify-between gap-8 lg:w-4/5">
+          <div className="flex flex-col items-center sm:items-center lg:mr-36">
             <PlaneTakeoff className="-scale-x-100" />
             <p>{data.departureAirport}</p>
             <p className="text-center">{data.flightTime}</p>
@@ -43,7 +49,7 @@ const FlightDetails = ({ data }: Props) => {
             )}
           </div>
 
-          <div className="flex flex-col items-center sm:items-center sm:ml-36">
+          <div className="flex flex-col items-center sm:items-center lg:ml-36">
             <div className="flex">
               <PlaneLanding className="-scale-x-100" />
             </div>
