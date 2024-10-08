@@ -81,6 +81,7 @@ type MainBidServerResponse = {
   isBidApproved: boolean;
   fakeCountNumber: number;
   totalSum: number;
+  showSum: boolean;
   currency: string;
 
   flight: FlightResponse[];

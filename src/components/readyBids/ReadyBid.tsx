@@ -16,6 +16,7 @@ import { Button } from "../ui/button";
 import { useAuth0 } from "@auth0/auth0-react";
 import Loader from "../loader/Loader";
 import TermsOfUse from "./TermsOfUse";
+import TotalSum from "./TotalSum";
 
 const ReadyBid = () => {
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -85,6 +86,7 @@ const ReadyBid = () => {
       isBidApproved: form.isBidApproved,
       fakeCountNumber: form.fakeCountNumber,
       totalSum: form.totalSum,
+      showSum: form.showSum,
       currency: form.currency,
       sortedElements,
       idArray: form.idArray,
@@ -93,7 +95,7 @@ const ReadyBid = () => {
   };
 
   const processedBidForms = flattenAndSortBidForm(form);
-  // console.log("processedBidForms", processedBidForms);
+  console.log("processedBidForms", processedBidForms);
 
   const handleUpdateHotel = (mainForm: MainBidServerResponse[]) => {
     navigate(`/update-main-form`, { state: { mainForm } });
@@ -141,16 +143,7 @@ const ReadyBid = () => {
             }
           })}
         </div>
-        <div className="flex justify-center md:justify-start lg:px-36 mt-16 md:ml-16">
-          <div className="flex flex-col-reverse sm:flex-row justify-center bg-orange-400 rounded-full p-4 lg:p-6 sm:gap-2 font-semibold text-white md:text-lg w-64 md:w-80">
-            <div className="flex justify-center gap-1">
-              <p>{processedBidForms?.currency}</p>
-              <p>{processedBidForms?.totalSum}</p>
-            </div>
-
-            <p className="text-center">:סך הכל לתשלום</p>
-          </div>
-        </div>
+        <TotalSum bidForm={form}/>
 
         <TermsOfUse />
 

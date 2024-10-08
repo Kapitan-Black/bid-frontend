@@ -87,6 +87,7 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
       isBidApproved: firstResponse.isBidApproved,
       fakeCountNumber: firstResponse.fakeCountNumber,
       totalSum: firstResponse.totalSum,
+      showSum: firstResponse.showSum,
       currency: firstResponse.currency,
       items: sortedItems,
     };
@@ -94,7 +95,7 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
 
   const sortedFormToUpdate = transformFormToUpdate(formToUpdate);
 
-  console.log("sortedFormToUpdate", sortedFormToUpdate.items);
+  // console.log("sortedFormToUpdate", sortedFormToUpdate.items);
 
   const form = useForm<FormFields>({
     resolver: zodResolver(formSchema),
@@ -288,6 +289,7 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
       holidayStartDate: formData.holidayStartDate,
       isBidApproved: formData.isBidApproved,
       totalSum: totalSum,
+      showSum: formData.showSum,
       currency: formData.currency,
 
       hotel: hotelDataArray.filter((item) => item.type === "hotel") || [],
@@ -313,7 +315,7 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
     }
   }, [isSuccess, error]);
 
-  console.log("items", form.getValues().items);
+  // console.log("items", form.getValues().items);
 
   return (
     <FormProvider {...form}>
@@ -350,6 +352,16 @@ const MainBidForm_Update: React.FC<MainBidForm_UpdateProps> = ({
             <label>האם ההצעה מאושרת?</label>
             <select
               {...form.register("isBidApproved")}
+              className="border border-black p-1"
+            >
+              <option value="false">לא</option>
+              <option value="true">כן</option>
+            </select>
+          </div>
+          <div className="flex justify-start items-center gap-2 ">
+            <label>להציג מחיר סופי?</label>
+            <select
+              {...form.register("showSum")}
               className="border border-black p-1"
             >
               <option value="false">לא</option>

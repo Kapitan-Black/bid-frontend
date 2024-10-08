@@ -219,6 +219,7 @@ const MainBidForm: React.FC = () => {
       holidayStartDate: formData.holidayStartDate,
       isBidApproved: formData.isBidApproved,
       totalSum: totalSum,
+      showSum: formData.showSum,
       currency: formData.currency,
 
       hotel: hotelDataArray.filter((item) => item.type === "hotel") || [],
@@ -240,7 +241,7 @@ const MainBidForm: React.FC = () => {
     }
   }, [isSuccess, error]);
 
-  console.log("items",form.getValues().items);
+  // console.log("items",form.getValues());
 
   return (
     <FormProvider {...form}>
@@ -277,6 +278,16 @@ const MainBidForm: React.FC = () => {
             <label>האם ההצעה מאושרת?</label>
             <select
               {...form.register("isBidApproved")}
+              className="border border-black p-1"
+            >
+              <option value="false">לא</option>
+              <option value="true">כן</option>
+            </select>
+          </div>
+          <div className="flex justify-start items-center gap-2 ">
+            <label>להציג מחיר סופי?</label>
+            <select
+              {...form.register("showSum")}
               className="border border-black p-1"
             >
               <option value="false">לא</option>
