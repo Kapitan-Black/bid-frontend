@@ -14,11 +14,11 @@ const FlightDetails = ({ data }: Props) => {
       <div className="flex flex-col items-center gap-1 mb-4 sm:items-start sm:flex-row sm:justify-between sm:mx-8">
         <div className="">
           <div className="flex justify-center sm:justify-start gap-1 mb-4">
-            <p className="underline font-semibold">חברת תעופה:</p>
+            <p className="font-semibold">חברת תעופה:</p>
             <p className="text-center">{data.airline}</p>
           </div>
           <div className="flex justify-center sm:justify-start gap-1 mb-4">
-            <p className="underline font-semibold">מספר טיסה:</p>
+            <p className="font-semibold">מספר טיסה:</p>
             <p className="text-center">{data.flightNumber}</p>
           </div>
         </div>

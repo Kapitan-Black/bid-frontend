@@ -52,15 +52,15 @@ const ReadyTransferCard: React.FC<ReadyTransferCardProps> = ({ data }) => {
 
               <div className="text-center space-y-2">
                 <div className="flex justify-center gap-1">
-                  <p className="underline font-semibold">תאריך הנסיעה:</p>
+                  <p className="font-semibold">תאריך הנסיעה:</p>
                   <p>{dateFormat(data.transferDate)}</p>
                 </div>
                 <div className="flex justify-center gap-1 ">
-                  <p className="underline font-semibold">שעת איסוף:</p>
+                  <p className="font-semibold">שעת איסוף:</p>
                   <p>{data.departureTime}</p>
                 </div>
                 <div className="flex flex-col justify-center">
-                  <p className="underline font-semibold">הרכב הנוסעים:</p>
+                  <p className="font-semibold">הרכב הנוסעים:</p>
                   <p>{data.passengerComposition}</p>
                 </div>
               </div>
@@ -69,7 +69,7 @@ const ReadyTransferCard: React.FC<ReadyTransferCardProps> = ({ data }) => {
               <div className="space-y-2 mt-4 sm:mt-0">
                 <div className="flex flex-col gap-1">
                   {data.agentComments && (
-                    <p className="underline font-semibold text-center">
+                    <p className="font-semibold text-center">
                       הערות סוכן:
                     </p>
                   )}
