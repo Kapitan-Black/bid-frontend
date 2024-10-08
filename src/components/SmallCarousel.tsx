@@ -91,7 +91,7 @@ const SmallCarousel: React.FC<CarouselProps> = ({
           {images.map((image, index) => (
             <div
               key={index}
-              className="carousel-slide flex items-center px-1 justify-center h-[180px] bg-gray-200 rounded-lg shadow-lg"
+              className="carousel-slide flex items-center px-1 justify-center h-[220px] bg-gray-200 rounded-lg shadow-lg"
             >
               <img
                 src={image}

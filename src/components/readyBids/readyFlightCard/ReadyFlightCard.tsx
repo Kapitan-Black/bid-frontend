@@ -25,7 +25,7 @@ const ReadyFlightCard: React.FC<ReadyFlightCardProps> = ({ data }) => {
   };
 
   return (
-    <div dir="rtl" className="">
+    <div dir="rtl">
       <Accordion type="single" collapsible>
         <AccordionItem key={data.id} value={data.id} className="group">
           <AccordionTrigger

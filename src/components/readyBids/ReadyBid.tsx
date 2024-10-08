@@ -151,7 +151,7 @@ const ReadyBid = () => {
           <Button
             type="button"
             onClick={() => handleUpdateHotel(form)}
-            className="bg-purple-400 rounded p-2 hover:bg-purple-500 text-black hover:text-white mt-8"
+            className="bg-purple-400 rounded p-2 hover:bg-purple-500 text-black hover:text-white mt-8 mb-8"
           >
             עריכה
           </Button>

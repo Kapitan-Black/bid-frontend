@@ -42,29 +42,28 @@ const PasangersDetails = ({ data }: Props) => {
 
           <div className="flex flex-col">
             {data.priceForAdult > 0 && (
-              <p>
-                {data.currency}
-                {data.priceForAdult}
-              </p>
+              <div className="flex gap-1">
+                <p>{data.priceForAdult}</p>
+                <p>{data.currency}</p>
+              </div>
             )}
             {data.priceForChild > 0 && (
-              <p>
-                {data.currency}
-                {data.priceForChild}
-              </p>
+              <div className="flex gap-1">
+                <p>{data.priceForChild}</p>
+                <p>{data.currency}</p>
+              </div>
             )}
             {data.priceForBaby > 0 && (
-              <p>
-                {data.currency}
-                {data.priceForBaby}
-              </p>
+              <div className="flex gap-1">
+                <p>{data.priceForBaby}</p>
+                <p>{data.currency}</p>
+              </div>
             )}
-           
           </div>
         </div>
         <div className="flex gap-4 font-bold">
           <p>סה׳׳כ לתשלום</p>
-          <div className="flex">
+          <div className="flex gap-1">
             <p>{data.sum}</p>
             <p>{data.currency}</p>
           </div>
