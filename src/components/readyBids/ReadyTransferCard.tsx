@@ -43,7 +43,7 @@ const ReadyTransferCard: React.FC<ReadyTransferCardProps> = ({ data }) => {
               {/* First Section: Travel Path and Date */}
 
               <div className="mb-4 sm:mb-0 text-center">
-                <p className="underline font-semibold">מסלול הנסיעה:</p>
+                <p className="font-semibold text-center">מסלול הנסיעה:</p>
                 <div className="">
                   <p>מ{data.from}</p>
                   <p>ל{data.to}</p>
