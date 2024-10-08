@@ -135,22 +135,20 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
                         <div className="2xl:border border-yellow-300"></div>
 
                         <div className="flex flex-row sm:flex-col gap-2">
-                          <p className="text-center">סוג חדר</p>
-                          <p className="font-semibold text-center">
-                            {room.roomType}
-                          </p>
+                          <p className="text-center font-semibold ">סוג חדר</p>
+                          <p className="text-center">{room.roomType}</p>
                         </div>
                         <div className="border border-yellow-300"></div>
                         <div className="flex flex-row sm:flex-col gap-2">
-                          <p className="text-center">כמות חדרים</p>
-                          <p className="font-semibold text-center">
-                            {room.numberOfRooms}
+                          <p className="text-center font-semibold">
+                            כמות חדרים
                           </p>
+                          <p className="text-center">{room.numberOfRooms}</p>
                         </div>
                         <div className="border border-yellow-300"></div>
 
                         <div className="flex sm:flex-col gap-2">
-                          <p className="text-center">תאריכים</p>
+                          <p className="text-center font-semibold ">תאריכים</p>
                           <div className="flex justify-center gap-1">
                             <div className="flex justify-center">
                               <p>{dateFormat(data.checkInDate)}</p>
@@ -164,8 +162,8 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
                         <div className="border border-yellow-300"></div>
 
                         <div className="flex flex-row sm:flex-col gap-2 text-center">
-                          <p className="">מחיר לילה</p>
-                          <p className="font-semibold ">฿{room.nightPrice}</p>
+                          <p className="font-semibold text-center">מחיר לילה</p>
+                          <p className="text-center">฿{room.nightPrice}</p>
                         </div>
                         <div className="border border-yellow-300"></div>
                       </div>
