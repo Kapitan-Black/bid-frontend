@@ -130,9 +130,8 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
                       </p>
                     </div>
 
-                    <div className="bg-yellow-100 flex flex-col 2xl:flex-row justify-between rounded-lg mt-8">
-                      <div className="flex flex-col 2xl:flex-row gap-2 2xl:gap-20 m-2">
-
+                    <div className="bg-yellow-100 flex flex-col xl:flex-row justify-between rounded-lg mt-8">
+                      <div className="flex flex-col xl:flex-row gap-2 xl:gap-4 2xl:gap-16 m-2">
                         <div className="2xl:border border-yellow-300"></div>
 
                         <div className="flex flex-row sm:flex-col gap-2">
@@ -150,14 +149,17 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
                         </div>
                         <div className="border border-yellow-300"></div>
 
-                        <div className="flex flex-row sm:flex-col gap-2">
+                        <div className="flex sm:flex-col gap-2">
                           <p className="text-center">תאריכים</p>
-                          <span className="flex justify-center gap-1">
-                            <p>{dateFormat(data.checkInDate)}</p>
-                            <p>-</p>
-                            <p>{dateFormat(data.checkOutDate)}</p>
-                            <p>({nights} לילות)</p>
-                          </span>
+                          <div className="flex justify-center gap-1">
+                            <div className="flex justify-center">
+                              <p>{dateFormat(data.checkInDate)}</p>
+                              <p>-</p>
+                              <p>{dateFormat(data.checkOutDate)}</p>
+                            </div>
+
+                            <p className="text-center">({nights} לילות)</p>
+                          </div>
                         </div>
                         <div className="border border-yellow-300"></div>
 
