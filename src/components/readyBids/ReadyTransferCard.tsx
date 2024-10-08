@@ -68,9 +68,12 @@ const ReadyTransferCard: React.FC<ReadyTransferCardProps> = ({ data }) => {
               {/* Second Section: Passenger Composition and Price */}
               <div className="space-y-2 mt-4 sm:mt-0">
                 <div className="flex flex-col gap-1">
-                  <p className="underline font-semibold text-center">
-                    הערות סוכן:
-                  </p>
+                  {data.agentComments && (
+                    <p className="underline font-semibold text-center">
+                      הערות סוכן:
+                    </p>
+                  )}
+
                   <p className="text-center">{data.agentComments}</p>
                 </div>
                 <div className="flex justify-center gap-1 font-semibold text-lg">

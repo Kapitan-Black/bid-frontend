@@ -30,7 +30,7 @@ const FlightDetails = ({ data }: Props) => {
             <p className="text-center">{data.flightTime}</p>
           </div>
 
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center mt-4">
             {data.stopsNumber > 0 ? (
               <>
                 <div className="flex gap-1">

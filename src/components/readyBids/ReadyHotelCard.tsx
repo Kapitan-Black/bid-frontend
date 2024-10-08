@@ -100,10 +100,10 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
                         <p className="ml-2"> {room.roomType}</p>
                       </div>
 
-                      <div className="flex hover:underline">
+                      <div className="flex hover:underline items-center">
                         <p className="mr-8">לחצו כאן לפרטי החדר</p>
                         {isOpen2 ? (
-                          <ArrowBigUpDash className="mt-1 hidden sm:block" />
+                          <ArrowBigUpDash className="mt-1  hidden sm:block" />
                         ) : (
                           <ArrowBigDownDash className="mt-1 hidden sm:block" />
                         )}
