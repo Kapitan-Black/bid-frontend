@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Slider from "react-slick";
 import "./carousel.css"
-import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import ImageModal from "./ImageModal";
 
 interface CarouselProps {
@@ -38,7 +38,7 @@ const SmallCarousel: React.FC<CarouselProps> = ({
          onClick={onClick}
        >
          <span>
-           <ArrowBigRight />
+           <ArrowRight />
          </span>
        </div>
      );
@@ -53,7 +53,7 @@ const SmallCarousel: React.FC<CarouselProps> = ({
          onClick={onClick}
        >
          <span>
-           <ArrowBigLeft />
+           <ArrowLeft />
          </span>
        </div>
      );

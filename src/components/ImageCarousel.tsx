@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./carousel.css";
-import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import ImageModal from "./ImageModal";
 
 interface ImageCarouselProps {
@@ -36,7 +36,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
         onClick={onClick}
       >
         <span>
-          <ArrowBigRight />
+          <ArrowRight />
         </span>
       </div>
     );
@@ -51,7 +51,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
         onClick={onClick}
       >
         <span>
-          <ArrowBigLeft />
+          <ArrowLeft />
         </span>
       </div>
     );

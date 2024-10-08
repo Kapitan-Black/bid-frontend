@@ -24,7 +24,7 @@ const ReadyTransferCard: React.FC<ReadyTransferCardProps> = ({ data }) => {
       <Accordion type="single" collapsible>
         <AccordionItem key={data.id} value={data.id}>
           <AccordionTrigger
-            className={`bg-gradient-to-r from-blueSea to-blueSky  text-black font-normal hover:no-underline flex flex-col text-sm sm:text-lg sm:flex-row p-4 border-2 hover:border-blue-300 ${
+            className={`bg-blueSky text-white font-semibold hover:no-underline flex flex-col text-sm sm:text-lg sm:flex-row p-4 border-2 hover:border-blue-300 ${
               isOpen ? "rounded-t-full" : "rounded-full"
             }`}
             onClick={handleToggle}
@@ -37,39 +37,7 @@ const ReadyTransferCard: React.FC<ReadyTransferCardProps> = ({ data }) => {
               <h3 className="md:mr-2">{data.transferDescription}</h3>
             </div>
           </AccordionTrigger>
-          {/* <AccordionContent >
-            <div className="bg-sky-100 p-4 space-y-4">
-              <div className="flex flex-col sm:flex-row justify-center sm:gap-80">
-                <div>
-                  <p className="underline font-semibold">מסלול הנסיעה:</p>
-                  <p>מ{data.from}</p>
-                  <p>ל{data.to}</p>
-                </div>
 
-                <div className="space-y-2">
-                  <div>
-                    <p className="underline font-semibold">תאריך הנסיעה:</p>
-                    <p>{dateFormat(data.transferDate)}</p>
-                  </div>
-                  <div className="flex gap-1">
-                    <p>שעת איסוף:</p>
-                    <p>{data.departureTime}</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <div className="flex gap-1">
-                  <p>הרכב הנוסעים:</p>
-                  <p>{data.passengerComposition}</p>
-                </div>
-                <div className="flex gap-1 font-bold">
-                  <p>מחיר:</p>
-                  <p>฿{data.sum}</p>
-                </div>
-              </div>
-            </div>
-          </AccordionContent> */}
           <AccordionContent>
             <div className="bg-sky-100 p-4 flex flex-col sm:flex-row items-center sm:justify-between px-2 lg:px-16">
               {/* First Section: Travel Path and Date */}
@@ -100,10 +68,12 @@ const ReadyTransferCard: React.FC<ReadyTransferCardProps> = ({ data }) => {
               {/* Second Section: Passenger Composition and Price */}
               <div className="space-y-2 mt-4 sm:mt-0">
                 <div className="flex flex-col gap-1">
-                  <p className="underline font-semibold text-center">הערות סוכן:</p>
+                  <p className="underline font-semibold text-center">
+                    הערות סוכן:
+                  </p>
                   <p className="text-center">{data.agentComments}</p>
                 </div>
-                <div className="flex justify-center gap-1 font-bold text-lg">
+                <div className="flex justify-center gap-1 font-semibold text-lg">
                   <p>מחיר:</p>
                   <p>฿{data.sum}</p>
                 </div>

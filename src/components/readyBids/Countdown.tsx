@@ -95,12 +95,12 @@ const Countdown: React.FC<CountdownProps> = ({
   return (
     <div dir="rtl" className="flex justify-center -my-36 mb-8 px-4">
       <div className=" bg-blue-50 gap-2 p-4 rounded-md w-[500px] shadow-md">
-        <h2 className="text-center mb-4 text-lg">{formName}</h2>
+        <h2 className="text-center mb-2 text-lg font-semibold">{formName},</h2>
 
         {!isTimeUp ? (
           <div>
-            <h2 className="text-center sm:text-lg mb-2">
-              איזה כיף! החופשה החלומית שלכם בתאילנד מתחילה בעוד...
+            <h2 className="text-center sm:text-lg mb-2 font-semibold">
+              איזו התרגשות! אתם תיכף בחופי תאילנד 🏝️ נשאר רק עוד...
             </h2>
             <div className="flex justify-center text-sky-600 ">
               <div className="flex justify-center bg-blue-100 gap-1 sm:gap-2 text-sky-600 text-md sm:text-xl">
