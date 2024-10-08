@@ -65,12 +65,12 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
             <span className="flex justify-center mb-4">
               <StarRating star={data.stars} />
             </span>
-            <div className="bg-yellow-100 p-2 rounded-md">
+            <div className="bg-yellow-100 p-6 rounded-md">
               <div className="flex justify-center">
                 <p className="mt-4 text-center">{data.hotelDescription}</p>
               </div>
 
-              <div className="flex flex-col sm:flex-row justify-between sm:mx-8">
+              {/* <div className="flex flex-col sm:flex-row justify-between sm:mx-8">
                 <div className="flex flex-col md:flex-row sm:justify-between gap-2 mt-4">
                   <span className="flex justify-center gap-1">
                     <p>{dateFormat(data.checkInDate)}</p>
@@ -84,7 +84,7 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
                   <p>סה׳כ לתשלום:</p>
                   <p className="">฿{data.sum}</p>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <Accordion type="single" collapsible className="space-y-2 mt-4">
@@ -130,16 +130,19 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
                       </p>
                     </div>
 
-                    <div className="bg-yellow-100 flex flex-col lg:flex-row justify-between rounded-lg mt-8">
-                      <div className="flex flex-col lg:flex-row gap-2 lg:gap-20 m-2 mr-4">
-                        <div className="flex flex-row sm:flex-col gap-4">
+                    <div className="bg-yellow-100 flex flex-col 2xl:flex-row justify-between rounded-lg mt-8">
+                      <div className="flex flex-col 2xl:flex-row gap-2 2xl:gap-20 m-2">
+
+                        <div className="2xl:border border-yellow-300"></div>
+
+                        <div className="flex flex-row sm:flex-col gap-2">
                           <p className="text-center">סוג חדר</p>
                           <p className="font-semibold text-center">
                             {room.roomType}
                           </p>
                         </div>
                         <div className="border border-yellow-300"></div>
-                        <div className="flex flex-row sm:flex-col gap-4">
+                        <div className="flex flex-row sm:flex-col gap-2">
                           <p className="text-center">כמות חדרים</p>
                           <p className="font-semibold text-center">
                             {room.numberOfRooms}
@@ -147,7 +150,18 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
                         </div>
                         <div className="border border-yellow-300"></div>
 
-                        <div className="flex flex-row sm:flex-col gap-4 text-center">
+                        <div className="flex flex-row sm:flex-col gap-2">
+                          <p className="text-center">תאריכים</p>
+                          <span className="flex justify-center gap-1">
+                            <p>{dateFormat(data.checkInDate)}</p>
+                            <p>-</p>
+                            <p>{dateFormat(data.checkOutDate)}</p>
+                            <p>({nights} לילות)</p>
+                          </span>
+                        </div>
+                        <div className="border border-yellow-300"></div>
+
+                        <div className="flex flex-row sm:flex-col gap-2 text-center">
                           <p className="">מחיר לילה</p>
                           <p className="font-semibold ">฿{room.nightPrice}</p>
                         </div>
