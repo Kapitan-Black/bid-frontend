@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./carousel.css";
 import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
+import ImageModal from "./ImageModal";
 
 interface ImageCarouselProps {
   images: string[];
@@ -16,6 +17,16 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
   handleRemoveImage,
   showDeleteButtons,
 }) => {
+
+  const [isModalOpen, setModalOpen] = useState(false);
+  
+     const handleImageClick = () => {
+         if (window.innerWidth <= 640) {
+           setModalOpen(true);
+         }
+     };
+
+
   const CustomPrevArrow = (props: any) => {
     const { className, style, onClick } = props;
     return (
@@ -61,6 +72,11 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
 
   return (
     <div className="carousel-container w-full px-4">
+      <ImageModal
+        isOpen={isModalOpen}
+        imageSrc={images}
+        onClose={() => setModalOpen(false)}
+      />
       {images.length > 0 ? (
         <Slider {...settings}>
           {images.map((image, index) => (
@@ -68,7 +84,8 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
               <img
                 src={image}
                 alt={`Slide ${index}`}
-                className="rounded-md object-cover h-[600px] w-full block"
+                className="rounded-md object-cover h-[250px] sm:h-[600px] w-full block"
+                onClick={() => handleImageClick()}
               />
               {showDeleteButtons && handleRemoveImage && (
                 <button
