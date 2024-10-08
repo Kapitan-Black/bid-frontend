@@ -85,7 +85,6 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
                   <p className="font-semibold">฿{data.sum}</p>
                 </div>
               </div>
-
             </div>
 
             <Accordion type="single" collapsible className="space-y-2 mt-4">
@@ -131,29 +130,31 @@ const ReadyHotelCard: React.FC<ReadyHotelCardProps> = ({ data }) => {
                       </p>
                     </div>
 
-                    <div className="bg-yellow-100 flex flex-col sm:flex-row justify-between rounded-lg mt-8">
-                      <div className="flex flex-col sm:flex-row gap-2 sm:gap-20 m-2 mr-4">
-                        <div className="flex flex-row sm:flex-col gap-8 sm:gap-4">
-                          <p>סוג חדר</p>
+                    <div className="bg-yellow-100 flex flex-col lg:flex-row justify-between rounded-lg mt-8">
+                      <div className="flex flex-col lg:flex-row gap-2 lg:gap-20 m-2 mr-4">
+                        <div className="flex flex-row sm:flex-col gap-4">
+                          <p className="text-center">סוג חדר</p>
                           <p className="font-semibold text-center">
                             {room.roomType}
                           </p>
                         </div>
-                        <div className="flex flex-row sm:flex-col gap-8 sm:gap-4">
-                          <p>כמות חדרים</p>
+                        <div className="border border-yellow-300"></div>
+                        <div className="flex flex-row sm:flex-col gap-4">
+                          <p className="text-center">כמות חדרים</p>
                           <p className="font-semibold text-center">
                             {room.numberOfRooms}
                           </p>
                         </div>
-                        <div className="flex flex-row sm:flex-col gap-8 sm:gap-4">
-                          <p>מחיר לילה</p>
-                          <p className="font-semibold text-center ">
-                            ฿{room.nightPrice}
-                          </p>
+                        <div className="border border-yellow-300"></div>
+
+                        <div className="flex flex-row sm:flex-col gap-4 text-center">
+                          <p className="">מחיר לילה</p>
+                          <p className="font-semibold ">฿{room.nightPrice}</p>
                         </div>
+                        <div className="border border-yellow-300"></div>
                       </div>
 
-                      <div className="bg-yellow-200 p-4 md:px-16 lg:px-36 text-center rounded">
+                      <div className="bg-yellow-200 p-4 md:px-16 lg:px-24 xl:36 text-center rounded">
                         <p>סה׳׳כ</p>
                         <p className="text-lg font-bold">
                           ฿{room.numberOfRooms * room.nightPrice * nights}
