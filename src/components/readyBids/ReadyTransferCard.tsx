@@ -69,9 +69,7 @@ const ReadyTransferCard: React.FC<ReadyTransferCardProps> = ({ data }) => {
               <div className="space-y-2 mt-4 sm:mt-0">
                 <div className="flex flex-col gap-1">
                   {data.agentComments && (
-                    <p className="font-semibold text-center">
-                      הערות סוכן:
-                    </p>
+                    <p className="font-semibold text-center">הערות סוכן:</p>
                   )}
 
                   <p className="text-center">{data.agentComments}</p>
